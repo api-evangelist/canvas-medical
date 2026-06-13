@@ -1,0 +1,212 @@
+title: Canvas Medical FHIR API Vocabulary
+description: Key terms, concepts, and domain vocabulary for the Canvas Medical developer-first EHR platform and its FHIR R4 API.
+source: https://docs.canvasmedical.com/api/
+created: '2026-06-13'
+modified: '2026-06-13'
+
+terms:
+
+  - term: FHIR
+    definition: >
+      Fast Healthcare Interoperability Resources (FHIR) is a standard for exchanging
+      healthcare information electronically, developed by HL7 International. Canvas Medical
+      implements FHIR R4 (version 4.0.1), the current stable release of the specification.
+    references:
+      - https://hl7.org/fhir/R4/
+
+  - term: FHIR R4
+    definition: >
+      The fourth major release of the FHIR standard (version 4.0.1), which Canvas Medical
+      implements. This release introduced normative content and is widely adopted in US
+      healthcare interoperability regulations including 21st Century Cures Act compliance.
+
+  - term: Resource
+    definition: >
+      The fundamental unit of FHIR data exchange. Canvas Medical supports 41 FHIR resources
+      representing clinical entities such as Patient, Appointment, Observation, Condition,
+      and MedicationRequest. Each resource has a resourceType, optional id, meta, and
+      resource-specific properties.
+
+  - term: EMR
+    definition: >
+      Electronic Medical Record. Canvas Medical's core product is an EMR platform built
+      for virtual and value-based care organizations. Developers can extend and customize
+      the EMR using the Canvas SDK and FHIR API.
+
+  - term: EHR
+    definition: >
+      Electronic Health Record. An EHR is a digital version of a patient's paper chart.
+      Canvas Medical is described as an EHR platform that manages clinical, administrative,
+      financial, and care coordination data through its FHIR API.
+
+  - term: Plugin
+    definition: >
+      A Python-based extension that runs natively within the Canvas EMR infrastructure.
+      Plugins use the Canvas SDK and can respond to over 650 clinical and operational
+      events, access the database via Django ORM, and produce effects that modify data
+      or automate workflows.
+
+  - term: Canvas SDK
+    definition: >
+      The Python SDK that enables developers to write plugins for Canvas Medical. It provides
+      event handlers, database access via Django ORM, effects for producing data modifications,
+      and pre-built integrations with third-party services like AWS S3, LLMs, SendGrid,
+      Twilio, and Extend AI.
+
+  - term: Effect
+    definition: >
+      In the Canvas SDK, an effect is a data operation that a plugin produces to modify
+      EMR data, trigger workflows, or communicate with external systems. Effects are the
+      primary mechanism for writing data back to Canvas from within a plugin.
+
+  - term: Event
+    definition: >
+      A clinical or operational occurrence within Canvas Medical that triggers plugin
+      execution. Canvas Medical supports over 650 events, including appointment creation,
+      chart updates, lab result receipt, message sending, and billing events.
+
+  - term: SMART on FHIR
+    definition: >
+      A set of open specifications built on FHIR for launching and authorizing clinical
+      applications. Canvas Medical supports SMART on FHIR authorization scopes (e.g.,
+      patient/*.read, user/*.write) for user-delegated access via the Authorization Code
+      OAuth 2.0 flow.
+
+  - term: OAuth 2.0
+    definition: >
+      The authorization framework used by Canvas Medical. Supports two primary flows:
+      Client Credentials (machine-to-machine, e.g., background integrations) and
+      Authorization Code with PKCE (user-delegated, e.g., SMART on FHIR apps).
+
+  - term: Client Credentials
+    definition: >
+      An OAuth 2.0 grant type used for machine-to-machine authentication with Canvas Medical.
+      Applications obtain an access token using a client_id and client_secret without
+      user involvement, suitable for server-side integrations and automated workflows.
+
+  - term: Fumage
+    definition: >
+      The subdomain prefix for Canvas Medical's FHIR R4 API. All FHIR requests are
+      sent to fumage-{instance}.canvasmedical.com, while administrative and auth requests
+      go to the base {instance}.canvasmedical.com domain.
+
+  - term: Bundle
+    definition: >
+      A FHIR resource that groups multiple resources together, used as the response
+      format for FHIR search operations. Canvas Medical returns searchset Bundles with
+      pagination support via _count and _page_token parameters.
+
+  - term: CapabilityStatement
+    definition: >
+      A FHIR resource accessible at /metadata that describes what the Canvas Medical
+      FHIR server supports, including supported resources, operations, search parameters,
+      and authentication methods.
+
+  - term: US Core
+    definition: >
+      A set of FHIR profiles defined by HL7 that specify minimum requirements for
+      US healthcare interoperability. Canvas Medical implements US Core profiles for
+      resources including Patient (us-core-race, us-core-ethnicity, us-core-birthsex
+      extensions).
+
+  - term: Value-Based Care
+    definition: >
+      A healthcare payment model that rewards providers for quality outcomes rather
+      than volume of services. Canvas Medical is built specifically for value-based
+      care organizations and provides tooling for population health, care gap management,
+      and outcome tracking.
+
+  - term: Virtual Care
+    definition: >
+      Telehealth and remote patient care delivery. Canvas Medical is designed for
+      virtual-first and hybrid care organizations, with API capabilities supporting
+      remote encounters, asynchronous communication, and digital patient engagement.
+
+  - term: OperationOutcome
+    definition: >
+      A FHIR resource returned when an operation results in an error or warning.
+      Canvas Medical returns OperationOutcome resources for 4xx and 5xx HTTP responses,
+      with issue details including severity, code, and diagnostic messages.
+
+  - term: Search Parameter
+    definition: >
+      A named parameter used in FHIR search queries (GET /ResourceType?param=value).
+      Canvas Medical supports standard FHIR search parameters including patient, subject,
+      status, date, code, identifier, and pagination parameters _count and _page_token.
+
+  - term: Reference
+    definition: >
+      A FHIR data type used to link one resource to another, expressed as a relative
+      or absolute URL (e.g., Patient/12345 or https://fumage-sandbox.canvasmedical.com/Patient/12345).
+
+  - term: Canonical Reference
+    definition: >
+      A URL that uniquely identifies a FHIR conformance resource (like a Questionnaire)
+      across systems. Canvas Medical uses canonical references in QuestionnaireResponse.questionnaire
+      to link responses to their form definitions.
+
+  - term: Condition
+    definition: >
+      A FHIR resource representing a clinical condition, problem, diagnosis, or other
+      health concern. Canvas Medical supports creating and updating conditions with
+      ICD-10 codes, clinical status, and verification status.
+
+  - term: MedicationRequest
+    definition: >
+      A FHIR resource representing a prescription or medication order. Canvas Medical
+      uses MedicationRequest for e-prescribing workflows, with support for RxNorm
+      medication codes and Canvas-specific extensions for pharmacy routing.
+
+  - term: Task
+    definition: >
+      A FHIR resource representing a unit of work that needs to be performed. Canvas Medical
+      uses Tasks for clinical and administrative work items, supporting delegation,
+      assignment, and status tracking within care team workflows.
+
+  - term: Questionnaire
+    definition: >
+      A FHIR resource defining a structured data collection form. Canvas Medical supports
+      Questionnaire and QuestionnaireResponse resources for patient intake forms,
+      clinical assessments, and custom data collection.
+
+  - term: Coverage
+    definition: >
+      A FHIR resource representing a patient's insurance coverage. Canvas Medical uses
+      Coverage resources linked to patients for billing, eligibility verification, and
+      claims processing workflows.
+
+  - term: Claim
+    definition: >
+      A FHIR resource for submitting healthcare claims to payers. Canvas Medical supports
+      the Claim resource for managing the revenue cycle, including professional and
+      institutional claims.
+
+  - term: Encounter
+    definition: >
+      A FHIR resource representing a clinical interaction between a patient and a care
+      provider. Canvas Medical Encounters correspond to chart notes and visits, and link
+      other clinical resources like Observations, Conditions, and Procedures.
+
+  - term: ServiceRequest
+    definition: >
+      A FHIR resource for ordering laboratory tests, imaging studies, referrals, and
+      other clinical services. Canvas Medical supports ServiceRequest for order management
+      within clinical workflows.
+
+  - term: DocumentReference
+    definition: >
+      A FHIR resource referencing external documents attached to a patient record,
+      such as clinical notes, imaging reports, or uploaded files. Canvas Medical supports
+      base64-encoded content and URL-referenced documents.
+
+  - term: Django ORM
+    definition: >
+      The Python object-relational mapper used by the Canvas SDK to give plugins direct
+      database access to Canvas EMR data. Plugin authors use Django model queries to
+      read and traverse clinical data within plugin execution context.
+
+  - term: Sandbox Environment
+    definition: >
+      A non-production Canvas Medical instance for development and testing. Canvas Medical
+      offers a developer sandbox at canvasmedical.com/emrs/developer-sandbox, pre-populated
+      with synthetic patient data and all API features enabled.

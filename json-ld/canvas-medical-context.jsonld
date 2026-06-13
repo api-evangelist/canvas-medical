@@ -1,0 +1,328 @@
+{
+  "@context": {
+    "@version": 1.1,
+    "schema": "https://schema.org/",
+    "fhir": "http://hl7.org/fhir/",
+    "canvas": "http://schemas.canvasmedical.com/fhir/",
+    "uscore": "http://hl7.org/fhir/us/core/StructureDefinition/",
+    "loinc": "http://loinc.org/",
+    "snomed": "http://snomed.info/sct/",
+    "rxnorm": "http://www.nlm.nih.gov/research/umls/rxnorm/",
+    "icd10": "http://hl7.org/fhir/sid/icd-10-cm/",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+
+    "CanvasMedical": {
+      "@id": "schema:Organization",
+      "@type": "schema:Organization"
+    },
+
+    "FHIRApi": {
+      "@id": "schema:WebAPI",
+      "@type": "schema:WebAPI"
+    },
+
+    "name": "schema:name",
+    "description": "schema:description",
+    "url": { "@id": "schema:url", "@type": "@id" },
+    "version": "schema:version",
+    "documentation": { "@id": "schema:documentation", "@type": "@id" },
+
+    "resourceType": "fhir:resourceType",
+    "id": "@id",
+    "status": "fhir:status",
+    "subject": { "@id": "fhir:subject", "@type": "@id" },
+    "patient": { "@id": "fhir:patient", "@type": "@id" },
+    "encounter": { "@id": "fhir:encounter", "@type": "@id" },
+
+    "Patient": {
+      "@id": "fhir:Patient",
+      "@type": "fhir:Patient"
+    },
+    "birthDate": {
+      "@id": "fhir:Patient.birthDate",
+      "@type": "xsd:date"
+    },
+    "gender": "fhir:Patient.gender",
+    "active": {
+      "@id": "fhir:Patient.active",
+      "@type": "xsd:boolean"
+    },
+    "name": "fhir:HumanName",
+    "family": "fhir:HumanName.family",
+    "given": "fhir:HumanName.given",
+
+    "Appointment": {
+      "@id": "fhir:Appointment",
+      "@type": "fhir:Appointment"
+    },
+    "start": {
+      "@id": "fhir:Appointment.start",
+      "@type": "xsd:dateTime"
+    },
+    "end": {
+      "@id": "fhir:Appointment.end",
+      "@type": "xsd:dateTime"
+    },
+    "participant": "fhir:Appointment.participant",
+
+    "Observation": {
+      "@id": "fhir:Observation",
+      "@type": "fhir:Observation"
+    },
+    "code": "fhir:Observation.code",
+    "valueQuantity": "fhir:Observation.valueQuantity",
+    "effectiveDateTime": {
+      "@id": "fhir:Observation.effectiveDateTime",
+      "@type": "xsd:dateTime"
+    },
+    "value": {
+      "@id": "fhir:Quantity.value",
+      "@type": "xsd:decimal"
+    },
+    "unit": "fhir:Quantity.unit",
+
+    "Condition": {
+      "@id": "fhir:Condition",
+      "@type": "fhir:Condition"
+    },
+    "clinicalStatus": "fhir:Condition.clinicalStatus",
+    "verificationStatus": "fhir:Condition.verificationStatus",
+    "onsetDateTime": {
+      "@id": "fhir:Condition.onsetDateTime",
+      "@type": "xsd:dateTime"
+    },
+
+    "MedicationRequest": {
+      "@id": "fhir:MedicationRequest",
+      "@type": "fhir:MedicationRequest"
+    },
+    "medicationCodeableConcept": "fhir:MedicationRequest.medicationCodeableConcept",
+    "intent": "fhir:MedicationRequest.intent",
+    "authoredOn": {
+      "@id": "fhir:MedicationRequest.authoredOn",
+      "@type": "xsd:dateTime"
+    },
+
+    "AllergyIntolerance": {
+      "@id": "fhir:AllergyIntolerance",
+      "@type": "fhir:AllergyIntolerance"
+    },
+    "reaction": "fhir:AllergyIntolerance.reaction",
+    "manifestation": "fhir:AllergyIntolerance.reaction.manifestation",
+
+    "Encounter": {
+      "@id": "fhir:Encounter",
+      "@type": "fhir:Encounter"
+    },
+    "class": "fhir:Encounter.class",
+    "period": "fhir:Period",
+    "periodStart": {
+      "@id": "fhir:Period.start",
+      "@type": "xsd:dateTime"
+    },
+    "periodEnd": {
+      "@id": "fhir:Period.end",
+      "@type": "xsd:dateTime"
+    },
+
+    "Task": {
+      "@id": "fhir:Task",
+      "@type": "fhir:Task"
+    },
+    "owner": { "@id": "fhir:Task.owner", "@type": "@id" },
+    "focus": { "@id": "fhir:Task.focus", "@type": "@id" },
+
+    "DocumentReference": {
+      "@id": "fhir:DocumentReference",
+      "@type": "fhir:DocumentReference"
+    },
+    "content": "fhir:DocumentReference.content",
+    "attachment": "fhir:Attachment",
+
+    "Immunization": {
+      "@id": "fhir:Immunization",
+      "@type": "fhir:Immunization"
+    },
+    "vaccineCode": "fhir:Immunization.vaccineCode",
+    "occurrenceDateTime": {
+      "@id": "fhir:Immunization.occurrenceDateTime",
+      "@type": "xsd:dateTime"
+    },
+
+    "Practitioner": {
+      "@id": "fhir:Practitioner",
+      "@type": "fhir:Practitioner"
+    },
+
+    "Organization": {
+      "@id": "fhir:Organization",
+      "@type": "fhir:Organization"
+    },
+
+    "Coverage": {
+      "@id": "fhir:Coverage",
+      "@type": "fhir:Coverage"
+    },
+    "beneficiary": { "@id": "fhir:Coverage.beneficiary", "@type": "@id" },
+    "payor": { "@id": "fhir:Coverage.payor", "@type": "@id" },
+
+    "Goal": {
+      "@id": "fhir:Goal",
+      "@type": "fhir:Goal"
+    },
+    "lifecycleStatus": "fhir:Goal.lifecycleStatus",
+
+    "CarePlan": {
+      "@id": "fhir:CarePlan",
+      "@type": "fhir:CarePlan"
+    },
+
+    "CareTeam": {
+      "@id": "fhir:CareTeam",
+      "@type": "fhir:CareTeam"
+    },
+
+    "Questionnaire": {
+      "@id": "fhir:Questionnaire",
+      "@type": "fhir:Questionnaire"
+    },
+
+    "QuestionnaireResponse": {
+      "@id": "fhir:QuestionnaireResponse",
+      "@type": "fhir:QuestionnaireResponse"
+    },
+    "questionnaire": {
+      "@id": "fhir:QuestionnaireResponse.questionnaire",
+      "@type": "@id"
+    },
+
+    "Claim": {
+      "@id": "fhir:Claim",
+      "@type": "fhir:Claim"
+    },
+
+    "Consent": {
+      "@id": "fhir:Consent",
+      "@type": "fhir:Consent"
+    },
+    "scope": "fhir:Consent.scope",
+    "category": "fhir:Consent.category",
+
+    "DiagnosticReport": {
+      "@id": "fhir:DiagnosticReport",
+      "@type": "fhir:DiagnosticReport"
+    },
+
+    "ServiceRequest": {
+      "@id": "fhir:ServiceRequest",
+      "@type": "fhir:ServiceRequest"
+    },
+
+    "Procedure": {
+      "@id": "fhir:Procedure",
+      "@type": "fhir:Procedure"
+    },
+
+    "Communication": {
+      "@id": "fhir:Communication",
+      "@type": "fhir:Communication"
+    },
+
+    "Location": {
+      "@id": "fhir:Location",
+      "@type": "fhir:Location"
+    },
+
+    "Schedule": {
+      "@id": "fhir:Schedule",
+      "@type": "fhir:Schedule"
+    },
+    "actor": { "@id": "fhir:Schedule.actor", "@type": "@id" },
+
+    "Slot": {
+      "@id": "fhir:Slot",
+      "@type": "fhir:Slot"
+    },
+    "schedule": { "@id": "fhir:Slot.schedule", "@type": "@id" },
+
+    "coding": "fhir:coding",
+    "system": { "@id": "fhir:coding.system", "@type": "@id" },
+    "display": "fhir:coding.display",
+    "text": "fhir:CodeableConcept.text",
+
+    "identifier": "fhir:identifier",
+    "telecom": "fhir:telecom",
+    "address": "fhir:address",
+    "extension": "fhir:extension",
+
+    "Bundle": {
+      "@id": "fhir:Bundle",
+      "@type": "fhir:Bundle"
+    },
+    "entry": "fhir:Bundle.entry",
+    "total": {
+      "@id": "fhir:Bundle.total",
+      "@type": "xsd:integer"
+    },
+    "link": "fhir:Bundle.link",
+
+    "OperationOutcome": {
+      "@id": "fhir:OperationOutcome",
+      "@type": "fhir:OperationOutcome"
+    },
+    "issue": "fhir:OperationOutcome.issue",
+    "severity": "fhir:OperationOutcome.issue.severity",
+    "diagnostics": "fhir:OperationOutcome.issue.diagnostics",
+
+    "canvasInstance": {
+      "@id": "canvas:instance",
+      "@type": "xsd:string"
+    },
+    "preferredPharmacy": {
+      "@id": "canvas:extensions/preferred-pharmacy",
+      "@type": "@id"
+    },
+    "ncpdpId": {
+      "@id": "canvas:extensions/preferred-pharmacy/ncpdp-id",
+      "@type": "xsd:string"
+    }
+  },
+
+  "@graph": [
+    {
+      "@id": "https://www.canvasmedical.com/",
+      "@type": "schema:Organization",
+      "schema:name": "Canvas Medical",
+      "schema:description": "Developer-first EHR platform built for virtual and value-based care",
+      "schema:url": "https://www.canvasmedical.com/",
+      "schema:sameAs": [
+        "https://github.com/canvas-medical",
+        "https://www.linkedin.com/company/canvas-medical",
+        "https://x.com/canvasmedical"
+      ]
+    },
+    {
+      "@id": "https://docs.canvasmedical.com/api/",
+      "@type": "schema:WebAPI",
+      "schema:name": "Canvas Medical FHIR R4 API",
+      "schema:description": "FHIR R4-compliant REST API with 41 resources for clinical workflows, patient management, and care team coordination",
+      "schema:documentation": "https://docs.canvasmedical.com/api/",
+      "schema:provider": {
+        "@id": "https://www.canvasmedical.com/"
+      },
+      "schema:version": "4.0",
+      "fhir:conformsTo": "http://hl7.org/fhir/R4/"
+    },
+    {
+      "@id": "https://docs.canvasmedical.com/sdk/",
+      "@type": "schema:SoftwareApplication",
+      "schema:name": "Canvas Medical SDK",
+      "schema:description": "Python SDK for building EMR plugins with event-driven architecture supporting 650+ clinical and operational events",
+      "schema:programmingLanguage": "Python",
+      "schema:documentation": "https://docs.canvasmedical.com/sdk/",
+      "schema:provider": {
+        "@id": "https://www.canvasmedical.com/"
+      }
+    }
+  ]
+}
