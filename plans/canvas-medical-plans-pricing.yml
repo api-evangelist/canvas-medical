@@ -1,0 +1,50 @@
+name: Canvas Medical Plans and Pricing
+description: Canvas Medical offers two subscription tiers for healthcare organizations building on the EHR platform, priced per monthly active patient with unlimited API calls included in both plans.
+url: https://www.canvasmedical.com/pricing
+plans:
+  - name: Builder
+    description: Designed for startups and early-stage care delivery organizations launching their virtual care model on Canvas Medical.
+    price: 4000
+    unit: month
+    currency: USD
+    includedPatients: 1000
+    patientUnit: monthly active patients
+    users: Unlimited
+    billingTerms: Monthly in arrears; initial two-year contract with annual renewal
+    features:
+      - Unlimited API calls
+      - Pre-built integrations
+      - Full FHIR R4 API access (41 resources)
+      - Canvas SDK access (Python plugins)
+      - 8-week onboarding with dedicated resource
+      - Developer sandbox access
+      - Community support via GitHub Discussions
+      - Access to 650+ clinical and operational events
+      - OAuth 2.0 (Client Credentials and Authorization Code flows)
+      - SMART on FHIR scopes
+    scaling: Scalable pricing based on active patients as you grow
+  - name: Enterprise
+    description: For organizations accelerating care delivery excellence at scale, with volume-based pricing reducing per-patient cost.
+    price: null
+    unit: month
+    currency: USD
+    contactSales: true
+    includedPatients: 3000
+    patientUnit: monthly active patients
+    users: Unlimited
+    billingTerms: Monthly in arrears; initial two-year contract with annual renewal
+    features:
+      - All Builder features
+      - Unlimited API calls
+      - Plugin and custom development support
+      - Dedicated customer success manager
+      - Product roadmap collaboration
+      - Volume-based pricing tiers
+      - Priority support
+      - Pass-through add-on services (invoice transparent)
+    scaling: Volume-based pricing reducing per-patient cost as you scale
+notes:
+  - Implementation is included in subscription costs
+  - Canvas provides self-serve tools and documentation rather than paid customization
+  - Some selective customers may incur pass-through add-on service costs with invoice transparency
+  - Both plans include unlimited API calls with no additional per-call charges

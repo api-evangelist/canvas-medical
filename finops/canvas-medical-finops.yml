@@ -1,0 +1,55 @@
+name: Canvas Medical FinOps
+description: Financial operations guidance for Canvas Medical API consumers. Canvas Medical uses a patient-based subscription model with unlimited API calls, making cost management straightforward relative to per-call pricing models.
+url: https://www.canvasmedical.com/pricing
+model: per-active-patient subscription
+billingCycle: monthly in arrears
+contractLength: initial two-year term with annual renewal options
+currency: USD
+costDrivers:
+  - name: Monthly Active Patients
+    description: Primary cost driver; subscription fee scales with the number of patients active in the platform each month
+    unit: patient/month
+    tier1:
+      plan: Builder
+      includedBase: 1000
+      basePrice: 4000
+      perPatientOverage: Contact sales for overage rates
+    tier2:
+      plan: Enterprise
+      includedBase: 3000
+      basePrice: Contact sales
+      scaling: Volume-based pricing reducing per-patient cost at scale
+  - name: API Calls
+    description: Not a cost driver; both plans include unlimited API calls
+    metered: false
+    notes: No per-call charges; API usage does not affect billing
+  - name: Users
+    description: Not a cost driver; both plans include unlimited users
+    metered: false
+  - name: Add-on Services
+    description: Some selective customers may incur pass-through add-on service costs
+    metered: true
+    notes: Invoiced transparently as pass-through costs
+costOptimization:
+  - strategy: Right-size plan by patient volume
+    description: Choose Builder at $4,000/month for up to 1,000 active patients; move to Enterprise when volume exceeds 1,000 or when needing dedicated support
+  - strategy: Leverage unlimited API calls
+    description: Since API calls are unlimited in both plans, optimize for integration richness rather than call minimization
+  - strategy: Self-serve customization
+    description: Canvas provides SDK and documentation for self-serve development; avoid paid customization engagements to control costs
+  - strategy: Monitor active patient counts
+    description: Active patient counts drive subscription costs; ensure inactive patients are properly marked to avoid unnecessary overage charges
+  - strategy: Two-year contract planning
+    description: Initial contracts are two-year terms; plan growth projections carefully before committing to a tier
+budgeting:
+  minimumMonthlyCommitment:
+    builder: 4000
+    enterprise: Contact sales
+  annualMinimum:
+    builder: 48000
+    enterprise: Contact sales
+  implementationCosts: Included in subscription; no additional implementation fees
+  notes:
+    - No per-API-call charges simplify budget forecasting
+    - Costs scale linearly with patient volume beyond included minimums
+    - Volume discounts available at Enterprise tier reduce per-patient cost at scale

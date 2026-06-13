@@ -1,0 +1,42 @@
+name: Canvas Medical API Rate Limits
+description: Canvas Medical does not publish explicit rate limit quotas or throttling thresholds in their public documentation. Both Builder and Enterprise plans advertise unlimited API calls. Access to the FHIR API is currently restricted to Canvas Medical customers and their trusted partners.
+url: https://docs.canvasmedical.com/api/
+documented: false
+notes:
+  - Canvas Medical does not publicly document specific rate limits or throttling policies
+  - Both subscription plans (Builder and Enterprise) include unlimited API calls
+  - The FHIR API is limited to practices using Canvas as their EHR and their trusted partners
+  - Third-party open access is planned for future availability
+  - Token validity is 10 hours (36,000 seconds) for access tokens
+  - Refresh tokens are non-expiring but single-use
+authentication:
+  tokenExpiry: 36000
+  tokenExpiryUnit: seconds
+  refreshTokens: non-expiring, single-use
+  type: OAuth 2.0
+  flows:
+    - name: Client Credentials
+      description: Machine-to-machine authentication for daemons and CLIs
+      tokenEndpoint: https://{canvas-instance}/auth/token/
+    - name: Authorization Code
+      description: User-delegated access for web and native applications
+      tokenEndpoint: https://{canvas-instance}/auth/token/
+scopes:
+  contexts:
+    - user/
+    - patient/
+    - system/
+  permissions:
+    - read
+    - write
+    - c (create)
+    - r (read)
+    - u (update)
+    - s (search)
+  examples:
+    - user/*.read
+    - user/Patient.write
+    - system/Task.*
+    - patient/Observation.read
+contacts:
+  - Support for rate limit inquiries via help.canvasmedical.com
