@@ -1,0 +1,1010 @@
+"""
+Canvas Medical GraphQL Schema
+Conceptual schema derived from the Canvas Medical FHIR R4 REST API and Python SDK.
+Source: https://docs.canvasmedical.com/api/
+"""
+
+scalar DateTime
+scalar Date
+scalar JSON
+
+# ─────────────────────────────────────────────
+# Patient Domain
+# ─────────────────────────────────────────────
+
+type Patient {
+  id: ID!
+  details: PatientDetails
+  mrn: MRN
+  identifiers: [PatientIdentifier!]
+  appointments: [Appointment!]
+  encounters: [Encounter!]
+  medications: [MedicationStatement!]
+  allergies: [AllergyIntolerance!]
+  immunizations: [Immunization!]
+  conditions: [Condition!]
+  vitalSigns: [VitalSign!]
+  labOrders: [LabOrder!]
+  tasks: [Task!]
+  referrals: [Referral!]
+  active: Boolean
+  createdAt: DateTime
+  updatedAt: DateTime
+}
+
+type PatientDetails {
+  id: ID!
+  firstName: String
+  lastName: String
+  middleName: String
+  dateOfBirth: Date
+  gender: String
+  sex: String
+  race: String
+  ethnicity: String
+  preferredLanguage: String
+  email: String
+  phone: String
+  address: Address
+  emergencyContact: EmergencyContact
+  insuranceCoverage: [InsuranceCoverage!]
+}
+
+type MRN {
+  id: ID!
+  value: String!
+  system: String
+  assigningAuthority: String
+}
+
+type PatientIdentifier {
+  id: ID!
+  system: String!
+  value: String!
+  type: String
+  period: Period
+}
+
+type Address {
+  line1: String
+  line2: String
+  city: String
+  state: String
+  postalCode: String
+  country: String
+}
+
+type EmergencyContact {
+  name: String
+  relationship: String
+  phone: String
+}
+
+type InsuranceCoverage {
+  id: ID!
+  payer: String
+  memberId: String
+  groupNumber: String
+  planName: String
+  priority: String
+}
+
+type Period {
+  start: DateTime
+  end: DateTime
+}
+
+# ─────────────────────────────────────────────
+# Appointment Domain
+# ─────────────────────────────────────────────
+
+type Appointment {
+  id: ID!
+  details: AppointmentDetails
+  type: AppointmentType
+  status: AppointmentStatus
+  patient: Patient
+  practitioner: StaffUser
+  schedule: Schedule
+  slot: Slot
+  startTime: DateTime
+  endTime: DateTime
+  duration: Int
+  location: String
+  notes: String
+  encounter: Encounter
+  createdAt: DateTime
+  updatedAt: DateTime
+}
+
+type AppointmentDetails {
+  id: ID!
+  chiefComplaint: String
+  reasonForVisit: String
+  appointmentTypeLabel: String
+  isVirtual: Boolean
+  meetingLink: String
+  confirmationNumber: String
+}
+
+type AppointmentType {
+  id: ID!
+  name: String!
+  duration: Int
+  color: String
+  isVirtual: Boolean
+  active: Boolean
+}
+
+enum AppointmentStatus {
+  PROPOSED
+  PENDING
+  BOOKED
+  ARRIVED
+  FULFILLED
+  CANCELLED
+  NOSHOW
+  ENTERED_IN_ERROR
+  CHECKED_IN
+  WAITLIST
+}
+
+# ─────────────────────────────────────────────
+# Encounter Domain
+# ─────────────────────────────────────────────
+
+type Encounter {
+  id: ID!
+  details: EncounterDetails
+  reasons: [EncounterReason!]
+  patient: Patient
+  practitioner: StaffUser
+  appointment: Appointment
+  notes: [Note!]
+  vitalSigns: [VitalSign!]
+  labOrders: [LabOrder!]
+  medications: [MedicationRequest!]
+  startTime: DateTime
+  endTime: DateTime
+  status: String
+  class: String
+  serviceType: String
+  createdAt: DateTime
+  updatedAt: DateTime
+}
+
+type EncounterDetails {
+  id: ID!
+  visitType: String
+  billableStatus: String
+  diagnosisCodes: [ICD10!]
+  procedureCodes: [String!]
+  billingNotes: String
+  supervisingProvider: StaffUser
+}
+
+type EncounterReason {
+  id: ID!
+  code: String
+  display: String
+  system: String
+  text: String
+}
+
+# ─────────────────────────────────────────────
+# Notes Domain
+# ─────────────────────────────────────────────
+
+type Note {
+  id: ID!
+  details: NoteDetails
+  type: NoteType
+  encounter: Encounter
+  author: StaffUser
+  content: String
+  status: String
+  createdAt: DateTime
+  updatedAt: DateTime
+}
+
+type NoteDetails {
+  id: ID!
+  title: String
+  summary: String
+  isLocked: Boolean
+  lockedAt: DateTime
+  lockedBy: StaffUser
+  signedAt: DateTime
+  signedBy: StaffUser
+}
+
+enum NoteType {
+  CLINICAL_NOTE
+  PROGRESS_NOTE
+  SOAP_NOTE
+  INTAKE_NOTE
+  AFTER_VISIT_SUMMARY
+  TELEPHONE_NOTE
+  LETTER
+  REFERRAL_NOTE
+}
+
+type ClinicalNote {
+  id: ID!
+  note: Note
+  encounter: Encounter
+  patient: Patient
+  sections: [String!]
+  content: JSON
+}
+
+type ProgressNote {
+  id: ID!
+  note: Note
+  encounter: Encounter
+  soap: SOAP
+  assessment: String
+  plan: String
+}
+
+type SOAPNote {
+  id: ID!
+  note: Note
+  encounter: Encounter
+  soap: SOAP!
+}
+
+type SOAP {
+  subjective: String
+  objective: String
+  assessment: String
+  plan: String
+}
+
+# ─────────────────────────────────────────────
+# Medication Domain
+# ─────────────────────────────────────────────
+
+type Medication {
+  id: ID!
+  details: MedicationDetails
+  code: String
+  system: String
+  display: String
+  brandName: String
+  genericName: String
+  form: String
+  strength: String
+  manufacturer: String
+}
+
+type MedicationDetails {
+  id: ID!
+  rxNormCode: String
+  ndcCode: String
+  isControlled: Boolean
+  schedule: String
+  routeOfAdministration: String
+  doseForm: String
+}
+
+type MedicationRequest {
+  id: ID!
+  medication: Medication
+  patient: Patient
+  requester: StaffUser
+  encounter: Encounter
+  prescription: Prescription
+  status: String
+  intent: String
+  dosageInstruction: String
+  dispenseQuantity: Float
+  numberOfRefills: Int
+  startDate: Date
+  endDate: Date
+  notes: String
+  createdAt: DateTime
+  updatedAt: DateTime
+}
+
+type MedicationStatement {
+  id: ID!
+  medication: Medication
+  patient: Patient
+  status: String
+  dosage: String
+  startDate: Date
+  endDate: Date
+  informationSource: String
+  notes: String
+}
+
+type Prescription {
+  id: ID!
+  details: PrescriptionDetails
+  medicationRequest: MedicationRequest
+  erx: ERx
+  patient: Patient
+  prescriber: StaffUser
+  status: String
+  writtenDate: Date
+}
+
+type PrescriptionDetails {
+  id: ID!
+  daysSupply: Int
+  quantity: Float
+  unit: String
+  refills: Int
+  pharmacyName: String
+  pharmacyNPI: String
+  pharmacyPhone: String
+  substitutionAllowed: Boolean
+  priorAuthorizationNumber: String
+}
+
+type ERx {
+  id: ID!
+  prescription: Prescription
+  transmissionStatus: String
+  transmittedAt: DateTime
+  pharmacyConfirmationNumber: String
+  newcropTransactionId: String
+  errorMessage: String
+}
+
+# ─────────────────────────────────────────────
+# Allergy Domain
+# ─────────────────────────────────────────────
+
+type Allergy {
+  id: ID!
+  details: AllergyDetails
+  patient: Patient
+  substance: String
+  category: String
+  criticality: String
+  status: String
+  onsetDate: Date
+  recordedDate: Date
+  recorder: StaffUser
+  reactions: [AllergyReaction!]
+}
+
+type AllergyIntolerance {
+  id: ID!
+  allergy: Allergy
+  patient: Patient
+  type: String
+  code: String
+  codeSystem: String
+  display: String
+  clinicalStatus: String
+  verificationStatus: String
+}
+
+type AllergyDetails {
+  id: ID!
+  note: String
+  lastOccurrence: Date
+  asserter: String
+}
+
+type AllergyReaction {
+  substance: String
+  manifestation: String
+  severity: String
+  description: String
+}
+
+# ─────────────────────────────────────────────
+# Immunization Domain
+# ─────────────────────────────────────────────
+
+type Immunization {
+  id: ID!
+  details: ImmunizationDetails
+  vaccineCode: VaccineCode
+  patient: Patient
+  administeredBy: StaffUser
+  occurrenceDate: DateTime
+  status: String
+  primarySource: Boolean
+  site: String
+  route: String
+  doseQuantity: Float
+  doseUnit: String
+  lotNumber: String
+  expirationDate: Date
+  manufacturer: String
+}
+
+type ImmunizationDetails {
+  id: ID!
+  seriesNumber: Int
+  seriesDoses: Int
+  fundingSource: String
+  programEligibility: String
+  educationDocumentType: String
+  educationPublicationDate: Date
+  notes: String
+}
+
+type VaccineCode {
+  id: ID!
+  cvxCode: String!
+  display: String
+  mvxCode: String
+  cptCode: String
+  system: String
+}
+
+# ─────────────────────────────────────────────
+# Condition / Problem Domain
+# ─────────────────────────────────────────────
+
+type Condition {
+  id: ID!
+  details: ConditionDetails
+  icd10: ICD10
+  patient: Patient
+  recorder: StaffUser
+  asserter: StaffUser
+  clinicalStatus: String
+  verificationStatus: String
+  category: String
+  severity: String
+  onsetDate: Date
+  abatementDate: Date
+  recordedDate: DateTime
+  notes: String
+}
+
+type ConditionDetails {
+  id: ID!
+  bodySite: String
+  stage: String
+  stageAssessment: String
+  evidence: String
+  encounter: Encounter
+}
+
+type ICD10 {
+  id: ID!
+  code: String!
+  display: String
+  system: String
+  version: String
+}
+
+type Problem {
+  id: ID!
+  condition: Condition
+  patient: Patient
+  status: String
+  priority: Int
+  addedDate: Date
+  resolvedDate: Date
+  notes: String
+}
+
+# ─────────────────────────────────────────────
+# Vital Signs Domain
+# ─────────────────────────────────────────────
+
+type VitalSign {
+  id: ID!
+  patient: Patient
+  encounter: Encounter
+  recorder: StaffUser
+  recordedAt: DateTime
+  type: String
+  value: Float
+  unit: String
+  interpretation: String
+  bloodPressure: BloodPressure
+  temperature: Temperature
+  weight: Weight
+  height: Height
+  bmi: BMI
+}
+
+type BloodPressure {
+  id: ID!
+  systolic: Float!
+  diastolic: Float!
+  unit: String
+  position: String
+  site: String
+  method: String
+  recordedAt: DateTime
+}
+
+type Temperature {
+  id: ID!
+  value: Float!
+  unit: String
+  site: String
+  method: String
+  recordedAt: DateTime
+}
+
+type Weight {
+  id: ID!
+  value: Float!
+  unit: String
+  method: String
+  recordedAt: DateTime
+}
+
+type Height {
+  id: ID!
+  value: Float!
+  unit: String
+  recordedAt: DateTime
+}
+
+type BMI {
+  id: ID!
+  value: Float!
+  unit: String
+  recordedAt: DateTime
+  classification: String
+}
+
+# ─────────────────────────────────────────────
+# Lab Domain
+# ─────────────────────────────────────────────
+
+type LabOrder {
+  id: ID!
+  patient: Patient
+  orderedBy: StaffUser
+  encounter: Encounter
+  tests: [LabTest!]
+  status: String
+  priority: String
+  specimenCollectedAt: DateTime
+  orderDate: DateTime
+  notes: String
+}
+
+type LabTest {
+  id: ID!
+  labOrder: LabOrder
+  code: String
+  display: String
+  system: String
+  loincCode: String
+  status: String
+  result: LabResult
+}
+
+type LabResult {
+  id: ID!
+  labTest: LabTest
+  patient: Patient
+  value: String
+  unit: String
+  referenceRange: String
+  interpretation: String
+  status: String
+  effectiveDateTime: DateTime
+  issued: DateTime
+  performer: StaffUser
+  notes: String
+}
+
+# ─────────────────────────────────────────────
+# Task Domain
+# ─────────────────────────────────────────────
+
+type Task {
+  id: ID!
+  details: TaskDetails
+  status: TaskStatus
+  patient: Patient
+  assignee: StaffUser
+  requester: StaffUser
+  encounter: Encounter
+  dueDate: DateTime
+  completedAt: DateTime
+  createdAt: DateTime
+  updatedAt: DateTime
+}
+
+type TaskDetails {
+  id: ID!
+  title: String
+  description: String
+  category: String
+  priority: String
+  notes: String
+  attachments: [String!]
+}
+
+enum TaskStatus {
+  DRAFT
+  REQUESTED
+  RECEIVED
+  ACCEPTED
+  REJECTED
+  READY
+  CANCELLED
+  IN_PROGRESS
+  ON_HOLD
+  FAILED
+  COMPLETED
+  ENTERED_IN_ERROR
+}
+
+# ─────────────────────────────────────────────
+# Referral Domain
+# ─────────────────────────────────────────────
+
+type Referral {
+  id: ID!
+  details: ReferralDetails
+  patient: Patient
+  referredBy: StaffUser
+  referredTo: StaffUser
+  encounter: Encounter
+  status: String
+  urgency: String
+  specialty: String
+  reason: String
+  createdAt: DateTime
+  updatedAt: DateTime
+}
+
+type ReferralDetails {
+  id: ID!
+  receivingOrganization: String
+  receivingProvider: String
+  receivingNPI: String
+  authorizationNumber: String
+  diagnosisCodes: [ICD10!]
+  procedureCodes: [String!]
+  clinicalNotes: String
+  supportingDocuments: [String!]
+}
+
+# ─────────────────────────────────────────────
+# Staff and Team Domain
+# ─────────────────────────────────────────────
+
+type StaffUser {
+  id: ID!
+  firstName: String
+  lastName: String
+  email: String
+  npi: String
+  role: String
+  specialty: String
+  active: Boolean
+  teams: [Team!]
+  schedule: Schedule
+}
+
+type PracticeUser {
+  id: ID!
+  staffUser: StaffUser
+  practiceId: String
+  permissions: [String!]
+  isAdmin: Boolean
+  isProvider: Boolean
+  isClinicalStaff: Boolean
+  isBillingStaff: Boolean
+  canPrescribe: Boolean
+  deaNumber: String
+  stateLicenses: [String!]
+}
+
+type Team {
+  id: ID!
+  details: TeamDetails
+  members: [StaffUser!]
+  patients: [Patient!]
+  active: Boolean
+}
+
+type TeamDetails {
+  id: ID!
+  name: String!
+  description: String
+  category: String
+  reasonCode: String
+  managingOrganization: String
+}
+
+# ─────────────────────────────────────────────
+# Schedule and Slot Domain
+# ─────────────────────────────────────────────
+
+type Schedule {
+  id: ID!
+  practitioner: StaffUser
+  serviceType: [String!]
+  specialty: String
+  location: String
+  active: Boolean
+  planningHorizonStart: DateTime
+  planningHorizonEnd: DateTime
+  slots: [Slot!]
+}
+
+type Slot {
+  id: ID!
+  details: SlotDetails
+  schedule: Schedule
+  serviceType: String
+  status: SlotStatus
+  start: DateTime!
+  end: DateTime!
+  overbooked: Boolean
+  comment: String
+}
+
+type SlotDetails {
+  id: ID!
+  appointmentType: AppointmentType
+  location: String
+  isVirtual: Boolean
+  practitioner: StaffUser
+  duration: Int
+}
+
+type Availability {
+  id: ID!
+  practitioner: StaffUser
+  date: Date
+  availableSlots: [Slot!]
+  bookedSlots: [Slot!]
+  totalSlots: Int
+  availableCount: Int
+}
+
+enum SlotStatus {
+  BUSY
+  FREE
+  BUSY_UNAVAILABLE
+  BUSY_TENTATIVE
+  ENTERED_IN_ERROR
+}
+
+# ─────────────────────────────────────────────
+# FHIR Infrastructure Domain
+# ─────────────────────────────────────────────
+
+type FHIR {
+  id: ID!
+  resourceType: String!
+  meta: FHIRMeta
+  text: FHIRNarrative
+}
+
+type FHIRBundle {
+  id: ID!
+  type: FHIRBundleType!
+  total: Int
+  link: [FHIRBundleLink!]
+  entry: [FHIRBundleEntry!]
+  timestamp: DateTime
+}
+
+type FHIRMeta {
+  versionId: String
+  lastUpdated: DateTime
+  source: String
+  profile: [String!]
+  tag: [FHIRCoding!]
+}
+
+type FHIRNarrative {
+  status: String
+  div: String
+}
+
+type FHIRCoding {
+  system: String
+  code: String
+  display: String
+}
+
+type FHIRBundleLink {
+  relation: String!
+  url: String!
+}
+
+type FHIRBundleEntry {
+  fullUrl: String
+  resource: JSON
+  search: FHIRBundleEntrySearch
+  response: FHIRBundleEntryResponse
+}
+
+type FHIRBundleEntrySearch {
+  mode: String
+  score: Float
+}
+
+type FHIRBundleEntryResponse {
+  status: String
+  location: String
+  etag: String
+  lastModified: DateTime
+}
+
+enum FHIRBundleType {
+  DOCUMENT
+  MESSAGE
+  TRANSACTION
+  TRANSACTION_RESPONSE
+  BATCH
+  BATCH_RESPONSE
+  HISTORY
+  SEARCHSET
+  COLLECTION
+}
+
+# ─────────────────────────────────────────────
+# Auth and API Infrastructure Domain
+# ─────────────────────────────────────────────
+
+type APIKey {
+  id: ID!
+  name: String
+  keyPrefix: String
+  scopes: [String!]
+  createdAt: DateTime
+  expiresAt: DateTime
+  lastUsedAt: DateTime
+  active: Boolean
+  environment: String
+}
+
+type Token {
+  id: ID!
+  accessToken: String!
+  tokenType: String
+  expiresIn: Int
+  expiresAt: DateTime
+  scope: String
+  refreshToken: String
+  issuedAt: DateTime
+}
+
+type Webhook {
+  id: ID!
+  url: String!
+  events: [String!]!
+  active: Boolean
+  secret: String
+  createdAt: DateTime
+  updatedAt: DateTime
+  lastDelivery: WebhookDelivery
+}
+
+type WebhookDelivery {
+  id: ID!
+  webhook: Webhook
+  event: String
+  status: String
+  responseCode: Int
+  deliveredAt: DateTime
+  duration: Int
+  requestBody: JSON
+  responseBody: JSON
+}
+
+# ─────────────────────────────────────────────
+# Root Query, Mutation, Subscription
+# ─────────────────────────────────────────────
+
+type Query {
+  patient(id: ID!): Patient
+  patients(limit: Int, offset: Int, search: String): [Patient!]
+
+  appointment(id: ID!): Appointment
+  appointments(patientId: ID, practitionerId: ID, date: Date, status: AppointmentStatus): [Appointment!]
+
+  encounter(id: ID!): Encounter
+  encounters(patientId: ID, practitionerId: ID, startDate: Date, endDate: Date): [Encounter!]
+
+  note(id: ID!): Note
+  notes(encounterId: ID, patientId: ID, type: NoteType): [Note!]
+
+  medication(id: ID!): Medication
+  medicationRequest(id: ID!): MedicationRequest
+  medicationRequests(patientId: ID, status: String): [MedicationRequest!]
+
+  allergy(id: ID!): Allergy
+  allergies(patientId: ID): [AllergyIntolerance!]
+
+  immunization(id: ID!): Immunization
+  immunizations(patientId: ID): [Immunization!]
+
+  condition(id: ID!): Condition
+  conditions(patientId: ID, status: String): [Condition!]
+
+  vitalSign(id: ID!): VitalSign
+  vitalSigns(patientId: ID, encounterId: ID): [VitalSign!]
+
+  labOrder(id: ID!): LabOrder
+  labOrders(patientId: ID, status: String): [LabOrder!]
+  labResult(id: ID!): LabResult
+
+  task(id: ID!): Task
+  tasks(patientId: ID, assigneeId: ID, status: TaskStatus): [Task!]
+
+  referral(id: ID!): Referral
+  referrals(patientId: ID, status: String): [Referral!]
+
+  staffUser(id: ID!): StaffUser
+  staffUsers(active: Boolean): [StaffUser!]
+
+  team(id: ID!): Team
+  teams: [Team!]
+
+  schedule(id: ID!): Schedule
+  schedules(practitionerId: ID): [Schedule!]
+
+  slot(id: ID!): Slot
+  availability(practitionerId: ID!, date: Date!): Availability
+
+  webhook(id: ID!): Webhook
+  webhooks: [Webhook!]
+
+  fhirBundle(type: FHIRBundleType, resourceType: String): FHIRBundle
+}
+
+type Mutation {
+  createPatient(input: JSON!): Patient
+  updatePatient(id: ID!, input: JSON!): Patient
+
+  createAppointment(input: JSON!): Appointment
+  updateAppointment(id: ID!, input: JSON!): Appointment
+  cancelAppointment(id: ID!, reason: String): Appointment
+
+  createEncounter(input: JSON!): Encounter
+  updateEncounter(id: ID!, input: JSON!): Encounter
+
+  createNote(input: JSON!): Note
+  updateNote(id: ID!, input: JSON!): Note
+  signNote(id: ID!): Note
+
+  createMedicationRequest(input: JSON!): MedicationRequest
+  cancelMedicationRequest(id: ID!, reason: String): MedicationRequest
+
+  createAllergy(input: JSON!): Allergy
+  updateAllergy(id: ID!, input: JSON!): Allergy
+
+  createImmunization(input: JSON!): Immunization
+
+  createCondition(input: JSON!): Condition
+  updateCondition(id: ID!, input: JSON!): Condition
+
+  recordVitalSign(input: JSON!): VitalSign
+
+  createLabOrder(input: JSON!): LabOrder
+  updateLabOrder(id: ID!, input: JSON!): LabOrder
+
+  createTask(input: JSON!): Task
+  updateTask(id: ID!, input: JSON!): Task
+  completeTask(id: ID!): Task
+
+  createReferral(input: JSON!): Referral
+  updateReferral(id: ID!, input: JSON!): Referral
+
+  createWebhook(input: JSON!): Webhook
+  updateWebhook(id: ID!, input: JSON!): Webhook
+  deleteWebhook(id: ID!): Boolean
+}
+
+type Subscription {
+  appointmentStatusChanged(patientId: ID): Appointment
+  taskAssigned(assigneeId: ID!): Task
+  labResultAvailable(patientId: ID!): LabResult
+  noteCreated(encounterId: ID!): Note
+  webhookDelivery(webhookId: ID!): WebhookDelivery
+}

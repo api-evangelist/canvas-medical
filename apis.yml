@@ -1,90 +1,105 @@
 aid: canvas-medical
 name: Canvas Medical
-description: Canvas Medical is a developer-first EHR platform built for virtual and value-based care, offering a comprehensive FHIR R4 REST API with 41 resources for clinical workflows, patient management, and care team coordination. The platform combines a standards-based FHIR API with a native Python SDK that enables plugins to execute synchronously within the EMR, supporting scheduling, charting, billing, and custom workflow automation across more than 650 clinical and operational events.
+description: Canvas Medical is a developer-first EHR platform built for virtual and
+  value-based care, offering a comprehensive FHIR R4 REST API with 41 resources for
+  clinical workflows, patient management, and care team coordination. The platform
+  combines a standards-based FHIR API with a native Python SDK that enables plugins
+  to execute synchronously within the EMR, supporting scheduling, charting, billing,
+  and custom workflow automation across more than 650 clinical and operational events.
 image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
 url: https://raw.githubusercontent.com/api-evangelist/canvas-medical/refs/heads/main/apis.yml
 created: '2026-06-13'
 modified: '2026-06-13'
 specificationVersion: '0.19'
 tags:
-  - EHR
-  - FHIR
-  - Healthcare
-  - Electronic Health Records
-  - Virtual Care
-  - Clinical Workflows
-  - Patient Management
-  - Care Coordination
+- EHR
+- FHIR
+- Healthcare
+- Electronic Health Records
+- Virtual Care
+- Clinical Workflows
+- Patient Management
+- Care Coordination
 apis:
-  - aid: canvas-medical:canvas-medical-fhir-api
-    name: Canvas Medical FHIR API
-    description: A FHIR R4-compliant REST API providing secure access to electronic health record data including 41 FHIR resources (21 with write capabilities) covering clinical, administrative, financial, and care coordination domains. Supports OAuth 2.0 Client Credentials and Authorization Code flows with SMART on FHIR scopes for machine-to-machine and user-delegated access.
-    image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
-    humanURL: https://docs.canvasmedical.com/api/
-    baseURL: https://{canvas-instance}/api/
-    tags:
-      - FHIR
-      - EHR
-      - Clinical
-      - REST API
-      - Healthcare
-    properties:
-      - type: Documentation
-        url: https://docs.canvasmedical.com/api/
-      - type: Authentication
-        url: https://docs.canvasmedical.com/api/customer-authentication/
-      - type: ReleaseNotes
-        url: https://docs.canvasmedical.com/product-updates/release-notes/
-  - aid: canvas-medical:canvas-medical-sdk
-    name: Canvas Medical SDK
-    description: A Python SDK that enables developers to build plugins that execute natively within the Canvas EMR infrastructure. Supports an event-driven architecture with over 650 clinical and operational events, Django ORM database access, effects for modifying data and automating workflows, and pre-built integrations with AWS S3, LLMs, SendGrid, Twilio, and Extend AI.
-    image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
-    humanURL: https://docs.canvasmedical.com/sdk/
-    baseURL: https://pypi.org/project/canvas/
-    tags:
-      - SDK
-      - Python
-      - Plugins
-      - Workflow Automation
-      - EMR
-    properties:
-      - type: Documentation
-        url: https://docs.canvasmedical.com/sdk/
-      - type: GettingStarted
-        url: https://docs.canvasmedical.com/learn/overview/
-      - type: Examples
-        url: https://docs.canvasmedical.com/sdk/examples/
-common:
-  - type: Website
-    url: https://www.canvasmedical.com/
+- aid: canvas-medical:canvas-medical-fhir-api
+  name: Canvas Medical FHIR API
+  description: A FHIR R4-compliant REST API providing secure access to electronic
+    health record data including 41 FHIR resources (21 with write capabilities) covering
+    clinical, administrative, financial, and care coordination domains. Supports OAuth
+    2.0 Client Credentials and Authorization Code flows with SMART on FHIR scopes
+    for machine-to-machine and user-delegated access.
+  image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+  humanURL: https://docs.canvasmedical.com/api/
+  baseURL: https://{canvas-instance}/api/
+  tags:
+  - FHIR
+  - EHR
+  - Clinical
+  - REST API
+  - Healthcare
+  properties:
   - type: Documentation
-    url: https://docs.canvasmedical.com/
-  - type: GitHubOrg
-    url: https://github.com/canvas-medical
-  - type: LinkedIn
-    url: https://www.linkedin.com/company/canvas-medical
-  - type: Blog
-    url: https://www.canvasmedical.com/articles
-  - type: Pricing
-    url: https://www.canvasmedical.com/pricing
-  - type: StatusPage
-    url: https://status.canvasmedical.com/
-  - type: X
-    url: https://x.com/canvasmedical
-  - type: Plans
-    url: plans/canvas-medical-plans-pricing.yml
-  - type: RateLimits
-    url: rate-limits/canvas-medical-rate-limits.yml
-  - type: FinOps
-    url: finops/canvas-medical-finops.yml
-  - type: Sandbox
-    url: https://www.canvasmedical.com/emrs/developer-sandbox
-  - type: GettingStarted
-    url: https://docs.canvasmedical.com/learn/
+    url: https://docs.canvasmedical.com/api/
+  - type: Authentication
+    url: https://docs.canvasmedical.com/api/customer-authentication/
   - type: ReleaseNotes
     url: https://docs.canvasmedical.com/product-updates/release-notes/
-  - type: Support
-    url: https://help.canvasmedical.com/
+  - url: graphql/canvas-medical-graphql.md
+    type: GraphQL
+- aid: canvas-medical:canvas-medical-sdk
+  name: Canvas Medical SDK
+  description: A Python SDK that enables developers to build plugins that execute
+    natively within the Canvas EMR infrastructure. Supports an event-driven architecture
+    with over 650 clinical and operational events, Django ORM database access, effects
+    for modifying data and automating workflows, and pre-built integrations with AWS
+    S3, LLMs, SendGrid, Twilio, and Extend AI.
+  image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+  humanURL: https://docs.canvasmedical.com/sdk/
+  baseURL: https://pypi.org/project/canvas/
+  tags:
+  - SDK
+  - Python
+  - Plugins
+  - Workflow Automation
+  - EMR
+  properties:
+  - type: Documentation
+    url: https://docs.canvasmedical.com/sdk/
+  - type: GettingStarted
+    url: https://docs.canvasmedical.com/learn/overview/
+  - type: Examples
+    url: https://docs.canvasmedical.com/sdk/examples/
+common:
+- type: Website
+  url: https://www.canvasmedical.com/
+- type: Documentation
+  url: https://docs.canvasmedical.com/
+- type: GitHubOrg
+  url: https://github.com/canvas-medical
+- type: LinkedIn
+  url: https://www.linkedin.com/company/canvas-medical
+- type: Blog
+  url: https://www.canvasmedical.com/articles
+- type: Pricing
+  url: https://www.canvasmedical.com/pricing
+- type: StatusPage
+  url: https://status.canvasmedical.com/
+- type: X
+  url: https://x.com/canvasmedical
+- type: Plans
+  url: plans/canvas-medical-plans-pricing.yml
+- type: RateLimits
+  url: rate-limits/canvas-medical-rate-limits.yml
+- type: FinOps
+  url: finops/canvas-medical-finops.yml
+- type: Sandbox
+  url: https://www.canvasmedical.com/emrs/developer-sandbox
+- type: GettingStarted
+  url: https://docs.canvasmedical.com/learn/
+- type: ReleaseNotes
+  url: https://docs.canvasmedical.com/product-updates/release-notes/
+- type: Support
+  url: https://help.canvasmedical.com/
 maintainers:
-  - FN: Kin Lane
-    email: kin@apievangelist.com
+- FN: Kin Lane
+  email: kin@apievangelist.com
