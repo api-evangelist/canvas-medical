@@ -6,7 +6,7 @@ description: Canvas Medical is a developer-first EHR platform built for virtual 
   combines a standards-based FHIR API with a native Python SDK that enables plugins
   to execute synchronously within the EMR, supporting scheduling, charting, billing,
   and custom workflow automation across more than 650 clinical and operational events.
-image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
 url: https://raw.githubusercontent.com/api-evangelist/canvas-medical/refs/heads/main/apis.yml
 created: '2026-06-13'
 modified: '2026-06-13'
@@ -28,7 +28,7 @@ apis:
     clinical, administrative, financial, and care coordination domains. Supports OAuth
     2.0 Client Credentials and Authorization Code flows with SMART on FHIR scopes
     for machine-to-machine and user-delegated access.
-  image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
   humanURL: https://docs.canvasmedical.com/api/
   baseURL: https://{canvas-instance}/api/
   tags:
@@ -53,7 +53,7 @@ apis:
     with over 650 clinical and operational events, Django ORM database access, effects
     for modifying data and automating workflows, and pre-built integrations with AWS
     S3, LLMs, SendGrid, Twilio, and Extend AI.
-  image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
   humanURL: https://docs.canvasmedical.com/sdk/
   baseURL: https://pypi.org/project/canvas/
   tags:
