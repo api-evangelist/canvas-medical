@@ -1,0 +1,79 @@
+arazzo: 1.0.1
+info:
+  title: Canvas Medical Care Plan Management
+  summary: Read the patient, record a care Goal, then retrieve the active CarePlan and the CareTeam coordinating it.
+  description: >-
+    A care-coordination flow against the Canvas FHIR R4 API, following the US Core
+    Care Coordination resources. The patient is read, a Goal is created to capture
+    a target outcome, and the patient's CarePlan and CareTeam are retrieved so the
+    coordinating providers and the plan of record are visible together. Every step
+    inlines its request so the flow is self-contained.
+  version: 1.0.0
+sourceDescriptions:
+- name: canvasFhir
+  url: ../openapi/canvas-medical-fhir-api-openapi.yml
+  type: openapi
+workflows:
+- workflowId: care-plan-management
+  summary: Record a care goal and retrieve the patient's care plan and care team.
+  description: >-
+    Reads the patient, creates a Goal, and retrieves the CarePlan and CareTeam for
+    care coordination.
+  inputs:
+    type: object
+    required:
+    - patientId
+    - goal
+    properties:
+      patientId:
+        type: string
+        description: The FHIR Patient id whose care is being coordinated.
+      goal:
+        type: object
+        description: The FHIR R4 Goal resource capturing the target outcome.
+  steps:
+  - stepId: readPatient
+    description: Read the patient whose care plan is being managed.
+    operationId: readPatient
+    parameters:
+    - name: id
+      in: path
+      value: $inputs.patientId
+    successCriteria:
+    - condition: $statusCode == 200
+  - stepId: recordGoal
+    description: Create a care Goal capturing the desired outcome for the patient.
+    operationId: createGoal
+    requestBody:
+      contentType: application/fhir+json
+      payload: $inputs.goal
+    successCriteria:
+    - condition: $statusCode == 201
+    outputs:
+      goalId: $response.body#/id
+  - stepId: getCarePlan
+    description: Retrieve the patient's active care plan.
+    operationId: searchCarePlan
+    parameters:
+    - name: patient
+      in: query
+      value: $inputs.patientId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      carePlan: $response.body
+  - stepId: getCareTeam
+    description: Retrieve the care team coordinating the patient's care.
+    operationId: searchCareTeam
+    parameters:
+    - name: patient
+      in: query
+      value: $inputs.patientId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      careTeam: $response.body
+  outputs:
+    goalId: $steps.recordGoal.outputs.goalId
+    carePlan: $steps.getCarePlan.outputs.carePlan
+    careTeam: $steps.getCareTeam.outputs.careTeam

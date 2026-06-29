@@ -1,0 +1,76 @@
+arazzo: 1.0.1
+info:
+  title: Canvas Medical Lab Order to Results
+  summary: Place a laboratory order with a ServiceRequest, then retrieve the resulting DiagnosticReport and the discrete Observation results.
+  description: >-
+    A laboratory order-to-result flow against the Canvas FHIR R4 API. A
+    ServiceRequest is created to order the lab, the resulting DiagnosticReport is
+    searched for the patient, and the discrete laboratory Observations are
+    retrieved. This mirrors the US Core DiagnosticReport / laboratory-result
+    pattern. Every step inlines its request so the flow is self-contained.
+  version: 1.0.0
+sourceDescriptions:
+- name: canvasFhir
+  url: ../openapi/canvas-medical-fhir-api-openapi.yml
+  type: openapi
+workflows:
+- workflowId: lab-order-to-results
+  summary: Order a lab and retrieve the resulting diagnostic report and observations.
+  description: >-
+    Creates a ServiceRequest lab order, then searches the resulting
+    DiagnosticReport and the laboratory Observations for the patient.
+  inputs:
+    type: object
+    required:
+    - patientId
+    - serviceRequest
+    properties:
+      patientId:
+        type: string
+        description: The FHIR Patient id the lab is ordered for.
+      serviceRequest:
+        type: object
+        description: The FHIR R4 ServiceRequest resource describing the lab order.
+  steps:
+  - stepId: orderLab
+    description: Create the ServiceRequest that places the laboratory order.
+    operationId: createServiceRequest
+    requestBody:
+      contentType: application/fhir+json
+      payload: $inputs.serviceRequest
+    successCriteria:
+    - condition: $statusCode == 201
+    outputs:
+      serviceRequestId: $response.body#/id
+  - stepId: getDiagnosticReports
+    description: Search for diagnostic reports produced for the patient.
+    operationId: searchDiagnosticReport
+    parameters:
+    - name: patient
+      in: query
+      value: $inputs.patientId
+    - name: category
+      in: query
+      value: LAB
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      reports: $response.body
+  - stepId: getLabObservations
+    description: Retrieve the discrete laboratory Observations for the patient.
+    operationId: searchObservation
+    parameters:
+    - name: patient
+      in: query
+      value: $inputs.patientId
+    - name: category
+      in: query
+      value: laboratory
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      observations: $response.body
+  outputs:
+    serviceRequestId: $steps.orderLab.outputs.serviceRequestId
+    reports: $steps.getDiagnosticReports.outputs.reports
+    observations: $steps.getLabObservations.outputs.observations

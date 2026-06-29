@@ -100,6 +100,29 @@ common:
   url: https://docs.canvasmedical.com/product-updates/release-notes/
 - type: Support
   url: https://help.canvasmedical.com/
+- type: ArazzoWorkflows
+  workflows:
+  - url: arazzo/canvas-medical-appointment-scheduling-workflow.yml
+    name: Canvas Medical Appointment Scheduling
+    summary: "Locate a patient, find a practitioner's schedule, search for a free slot, then book and confirm an appointment."
+  - url: arazzo/canvas-medical-care-plan-management-workflow.yml
+    name: Canvas Medical Care Plan Management
+    summary: "Read the patient, record a care Goal, then retrieve the active CarePlan and the CareTeam coordinating it."
+  - url: arazzo/canvas-medical-lab-order-results-workflow.yml
+    name: Canvas Medical Lab Order to Results
+    summary: "Place a laboratory order with a ServiceRequest, then retrieve the resulting DiagnosticReport and the discrete Observation results."
+  - url: arazzo/canvas-medical-medication-prescribing-workflow.yml
+    name: Canvas Medical Medication Prescribing
+    summary: "Read the patient, check existing allergies and active medications for safety, then write a new prescription and confirm it."
+  - url: arazzo/canvas-medical-patient-registration-workflow.yml
+    name: Canvas Medical Patient Registration (Upsert)
+    summary: "Search for an existing patient by identifier and update it if found, otherwise create a new US Core Patient."
+  - url: arazzo/canvas-medical-questionnaire-assessment-workflow.yml
+    name: Canvas Medical Questionnaire Assessment Capture
+    summary: "Find a questionnaire by title, submit a completed QuestionnaireResponse, then read it back to confirm capture."
+  - url: arazzo/canvas-medical-smart-us-core-patient-retrieval-workflow.yml
+    name: Canvas Medical SMART on FHIR US Core Retrieval
+    summary: "Discover server capabilities, locate a patient, then pull the US Core clinical summary - problems, vitals/labs, medications, and allergies."
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com

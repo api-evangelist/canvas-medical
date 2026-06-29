@@ -1,0 +1,71 @@
+arazzo: 1.0.1
+info:
+  title: Canvas Medical Questionnaire Assessment Capture
+  summary: Find a questionnaire by title, submit a completed QuestionnaireResponse, then read it back to confirm capture.
+  description: >-
+    A structured-assessment capture flow against the Canvas FHIR R4 API, following
+    the HL7 Structured Data Capture (SDC) pattern that underpins Da Vinci
+    Documentation Templates and Rules (DTR). A Questionnaire is located by title,
+    a completed QuestionnaireResponse is submitted against it, and the stored
+    response is read back to confirm. Every step inlines its request so the flow is
+    self-contained.
+  version: 1.0.0
+sourceDescriptions:
+- name: canvasFhir
+  url: ../openapi/canvas-medical-fhir-api-openapi.yml
+  type: openapi
+workflows:
+- workflowId: questionnaire-assessment-capture
+  summary: Capture a completed questionnaire response for a patient.
+  description: >-
+    Finds a Questionnaire by title, submits a QuestionnaireResponse, and reads the
+    stored response back to confirm.
+  inputs:
+    type: object
+    required:
+    - questionnaireTitle
+    - questionnaireResponse
+    properties:
+      questionnaireTitle:
+        type: string
+        description: The title of the Questionnaire to capture a response for.
+      questionnaireResponse:
+        type: object
+        description: The FHIR R4 QuestionnaireResponse resource with the completed answers.
+  steps:
+  - stepId: findQuestionnaire
+    description: Locate the Questionnaire to be answered by its title.
+    operationId: searchQuestionnaire
+    parameters:
+    - name: title
+      in: query
+      value: $inputs.questionnaireTitle
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      questionnaireId: $response.body#/entry/0/resource/id
+  - stepId: submitResponse
+    description: Submit the completed QuestionnaireResponse against the located questionnaire.
+    operationId: createQuestionnaireResponse
+    requestBody:
+      contentType: application/fhir+json
+      payload: $inputs.questionnaireResponse
+    successCriteria:
+    - condition: $statusCode == 201
+    outputs:
+      responseId: $response.body#/id
+  - stepId: confirmResponse
+    description: Read the stored QuestionnaireResponse back to confirm capture.
+    operationId: readQuestionnaireResponse
+    parameters:
+    - name: id
+      in: path
+      value: $steps.submitResponse.outputs.responseId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      response: $response.body
+  outputs:
+    questionnaireId: $steps.findQuestionnaire.outputs.questionnaireId
+    responseId: $steps.submitResponse.outputs.responseId
+    response: $steps.confirmResponse.outputs.response

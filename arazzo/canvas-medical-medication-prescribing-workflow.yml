@@ -1,0 +1,93 @@
+arazzo: 1.0.1
+info:
+  title: Canvas Medical Medication Prescribing
+  summary: Read the patient, check existing allergies and active medications for safety, then write a new prescription and confirm it.
+  description: >-
+    A medication prescribing flow against the Canvas FHIR R4 API, following US Core
+    Medication conventions. Before prescribing, the patient is read and their
+    AllergyIntolerances and active MedicationRequests are pulled so an
+    interaction / allergy check can be performed; a new MedicationRequest is then
+    created and read back to confirm. Every step inlines its request so the flow is
+    self-contained.
+  version: 1.0.0
+sourceDescriptions:
+- name: canvasFhir
+  url: ../openapi/canvas-medical-fhir-api-openapi.yml
+  type: openapi
+workflows:
+- workflowId: medication-prescribing
+  summary: Prescribe a medication after an allergy and active-medication safety check.
+  description: >-
+    Reads the patient, retrieves allergies and active medications for a safety
+    check, creates a MedicationRequest, and reads it back to confirm.
+  inputs:
+    type: object
+    required:
+    - patientId
+    - medicationRequest
+    properties:
+      patientId:
+        type: string
+        description: The FHIR Patient id the prescription is for.
+      medicationRequest:
+        type: object
+        description: The FHIR R4 MedicationRequest resource to create.
+  steps:
+  - stepId: readPatient
+    description: Read the patient the prescription will be written for.
+    operationId: readPatient
+    parameters:
+    - name: id
+      in: path
+      value: $inputs.patientId
+    successCriteria:
+    - condition: $statusCode == 200
+  - stepId: checkAllergies
+    description: Retrieve the patient's allergies for an allergy / contraindication check.
+    operationId: searchAllergyIntolerance
+    parameters:
+    - name: patient
+      in: query
+      value: $inputs.patientId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      allergies: $response.body
+  - stepId: checkActiveMedications
+    description: Retrieve the patient's active medication orders for an interaction check.
+    operationId: searchMedicationRequest
+    parameters:
+    - name: patient
+      in: query
+      value: $inputs.patientId
+    - name: status
+      in: query
+      value: active
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      activeMedications: $response.body
+  - stepId: createPrescription
+    description: Create the new MedicationRequest for the patient.
+    operationId: createMedicationRequest
+    requestBody:
+      contentType: application/fhir+json
+      payload: $inputs.medicationRequest
+    successCriteria:
+    - condition: $statusCode == 201
+    outputs:
+      medicationRequestId: $response.body#/id
+  - stepId: confirmPrescription
+    description: Read the created MedicationRequest back to confirm it was written.
+    operationId: readMedicationRequest
+    parameters:
+    - name: id
+      in: path
+      value: $steps.createPrescription.outputs.medicationRequestId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      medicationRequest: $response.body
+  outputs:
+    medicationRequestId: $steps.createPrescription.outputs.medicationRequestId
+    medicationRequest: $steps.confirmPrescription.outputs.medicationRequest

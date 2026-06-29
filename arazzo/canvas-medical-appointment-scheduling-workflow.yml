@@ -1,0 +1,109 @@
+arazzo: 1.0.1
+info:
+  title: Canvas Medical Appointment Scheduling
+  summary: Locate a patient, find a practitioner's schedule, search for a free slot, then book and confirm an appointment.
+  description: >-
+    A FHIR scheduling flow against the Canvas FHIR R4 API, following the Argonaut
+    Scheduling pattern of Schedule -> Slot -> Appointment. The patient is located,
+    the practitioner's Schedule is found, a free Slot is searched for, an
+    Appointment is created against that slot, and the booked Appointment is read
+    back to confirm. Every step inlines its request so the flow is self-contained.
+  version: 1.0.0
+sourceDescriptions:
+- name: canvasFhir
+  url: ../openapi/canvas-medical-fhir-api-openapi.yml
+  type: openapi
+workflows:
+- workflowId: appointment-scheduling
+  summary: Book an appointment into a free slot on a practitioner's schedule.
+  description: >-
+    Finds the patient and the practitioner's schedule, searches for a free slot,
+    creates the appointment, and reads it back to confirm.
+  inputs:
+    type: object
+    required:
+    - patientFamily
+    - practitionerName
+    - appointment
+    properties:
+      patientFamily:
+        type: string
+        description: Patient family name to locate the patient.
+      practitionerName:
+        type: string
+        description: Practitioner name to locate the scheduling provider.
+      appointment:
+        type: object
+        description: The FHIR R4 Appointment resource to book (participants, type, and timing).
+  steps:
+  - stepId: findPatient
+    description: Locate the patient to be scheduled.
+    operationId: searchPatient
+    parameters:
+    - name: family
+      in: query
+      value: $inputs.patientFamily
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      patientId: $response.body#/entry/0/resource/id
+  - stepId: findPractitioner
+    description: Locate the practitioner the appointment will be booked with.
+    operationId: searchPractitioner
+    parameters:
+    - name: name
+      in: query
+      value: $inputs.practitionerName
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      practitionerId: $response.body#/entry/0/resource/id
+  - stepId: findSchedule
+    description: Find the schedule whose actor is the selected practitioner.
+    operationId: searchSchedule
+    parameters:
+    - name: actor
+      in: query
+      value: $steps.findPractitioner.outputs.practitionerId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      scheduleId: $response.body#/entry/0/resource/id
+  - stepId: findFreeSlot
+    description: Search for a free slot on the practitioner's schedule.
+    operationId: searchSlot
+    parameters:
+    - name: schedule
+      in: query
+      value: $steps.findSchedule.outputs.scheduleId
+    - name: status
+      in: query
+      value: free
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      slotId: $response.body#/entry/0/resource/id
+  - stepId: bookAppointment
+    description: Create the appointment against the patient, practitioner, and free slot.
+    operationId: createAppointment
+    requestBody:
+      contentType: application/fhir+json
+      payload: $inputs.appointment
+    successCriteria:
+    - condition: $statusCode == 201
+    outputs:
+      appointmentId: $response.body#/id
+  - stepId: confirmAppointment
+    description: Read the booked appointment back to confirm it was created.
+    operationId: readAppointment
+    parameters:
+    - name: id
+      in: path
+      value: $steps.bookAppointment.outputs.appointmentId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      appointment: $response.body
+  outputs:
+    appointmentId: $steps.bookAppointment.outputs.appointmentId
+    appointment: $steps.confirmAppointment.outputs.appointment

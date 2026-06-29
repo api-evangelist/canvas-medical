@@ -1,0 +1,119 @@
+arazzo: 1.0.1
+info:
+  title: Canvas Medical SMART on FHIR US Core Retrieval
+  summary: Discover server capabilities, locate a patient, then pull the US Core clinical summary - problems, vitals/labs, medications, and allergies.
+  description: >-
+    The canonical SMART on FHIR read flow against the Canvas FHIR R4 API. The
+    CapabilityStatement is fetched first (the SMART App Launch conformance step),
+    a patient is located by demographics, read by id, and then the US Core data
+    classes are retrieved for that patient: Conditions (problem list),
+    Observations (vitals and labs), MedicationRequests, and AllergyIntolerances.
+    Every step inlines its request so the flow can be read and executed without
+    opening the underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: canvasFhir
+  url: ../openapi/canvas-medical-fhir-api-openapi.yml
+  type: openapi
+workflows:
+- workflowId: smart-us-core-retrieval
+  summary: Retrieve the US Core clinical summary for a patient after SMART capability discovery.
+  description: >-
+    Reads the CapabilityStatement, finds and reads the patient, then pulls US Core
+    Conditions, Observations, MedicationRequests, and AllergyIntolerances.
+  inputs:
+    type: object
+    required:
+    - family
+    - birthdate
+    properties:
+      family:
+        type: string
+        description: Patient family (last) name to search on.
+      birthdate:
+        type: string
+        description: Patient date of birth (YYYY-MM-DD) to disambiguate the match.
+  steps:
+  - stepId: discoverCapabilities
+    description: Fetch the FHIR CapabilityStatement to confirm supported resources and SMART launch endpoints.
+    operationId: getCapabilityStatement
+    successCriteria:
+    - condition: $statusCode == 200
+  - stepId: findPatient
+    description: Locate the patient by family name and date of birth.
+    operationId: searchPatient
+    parameters:
+    - name: family
+      in: query
+      value: $inputs.family
+    - name: birthdate
+      in: query
+      value: $inputs.birthdate
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      patientId: $response.body#/entry/0/resource/id
+  - stepId: readPatient
+    description: Read the matched Patient resource by id.
+    operationId: readPatient
+    parameters:
+    - name: id
+      in: path
+      value: $steps.findPatient.outputs.patientId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      patient: $response.body
+  - stepId: getConditions
+    description: Retrieve the patient's US Core problem-list Conditions.
+    operationId: searchCondition
+    parameters:
+    - name: patient
+      in: query
+      value: $steps.findPatient.outputs.patientId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      conditions: $response.body
+  - stepId: getObservations
+    description: Retrieve the patient's US Core Observations (vital signs and laboratory results).
+    operationId: searchObservation
+    parameters:
+    - name: patient
+      in: query
+      value: $steps.findPatient.outputs.patientId
+    - name: category
+      in: query
+      value: vital-signs
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      observations: $response.body
+  - stepId: getMedications
+    description: Retrieve the patient's US Core MedicationRequests.
+    operationId: searchMedicationRequest
+    parameters:
+    - name: patient
+      in: query
+      value: $steps.findPatient.outputs.patientId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      medications: $response.body
+  - stepId: getAllergies
+    description: Retrieve the patient's US Core AllergyIntolerances.
+    operationId: searchAllergyIntolerance
+    parameters:
+    - name: patient
+      in: query
+      value: $steps.findPatient.outputs.patientId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      allergies: $response.body
+  outputs:
+    patient: $steps.readPatient.outputs.patient
+    conditions: $steps.getConditions.outputs.conditions
+    observations: $steps.getObservations.outputs.observations
+    medications: $steps.getMedications.outputs.medications
+    allergies: $steps.getAllergies.outputs.allergies

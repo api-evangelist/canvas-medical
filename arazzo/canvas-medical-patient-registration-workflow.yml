@@ -1,0 +1,91 @@
+arazzo: 1.0.1
+info:
+  title: Canvas Medical Patient Registration (Upsert)
+  summary: Search for an existing patient by identifier and update it if found, otherwise create a new US Core Patient.
+  description: >-
+    A patient demographic upsert against the Canvas FHIR R4 API, following US Core
+    Patient conventions. The patient is searched by a business identifier (for
+    example an MRN); when a match is found the existing Patient is updated, and
+    when no match is found a new Patient is created. This is the standard
+    deduplicating intake step at the front of most clinical integrations. Every
+    step inlines its request so the flow is self-contained.
+  version: 1.0.0
+sourceDescriptions:
+- name: canvasFhir
+  url: ../openapi/canvas-medical-fhir-api-openapi.yml
+  type: openapi
+workflows:
+- workflowId: patient-registration-upsert
+  summary: Upsert a US Core Patient by business identifier.
+  description: >-
+    Searches for a patient by identifier and branches to update the matched
+    Patient or create a new one.
+  inputs:
+    type: object
+    required:
+    - identifier
+    - patient
+    properties:
+      identifier:
+        type: string
+        description: Business identifier (e.g. system|value MRN) used to detect an existing patient.
+      patient:
+        type: object
+        description: The FHIR R4 Patient resource to create or use as the update body.
+  steps:
+  - stepId: findPatient
+    description: Search for an existing patient by business identifier.
+    operationId: searchPatient
+    parameters:
+    - name: identifier
+      in: query
+      value: $inputs.identifier
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      matchedPatientId: $response.body#/entry/0/resource/id
+    onSuccess:
+    - name: patientExists
+      type: goto
+      stepId: updatePatient
+      criteria:
+      - context: $response.body
+        condition: $.total > 0
+        type: jsonpath
+    - name: patientMissing
+      type: goto
+      stepId: createPatient
+      criteria:
+      - context: $response.body
+        condition: $.total == 0
+        type: jsonpath
+  - stepId: updatePatient
+    description: Update the matched Patient resource with the supplied demographics.
+    operationId: updatePatient
+    parameters:
+    - name: id
+      in: path
+      value: $steps.findPatient.outputs.matchedPatientId
+    requestBody:
+      contentType: application/fhir+json
+      payload: $inputs.patient
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      patientId: $response.body#/id
+    onSuccess:
+    - name: done
+      type: end
+  - stepId: createPatient
+    description: Create a new Patient when no existing record matched the identifier.
+    operationId: createPatient
+    requestBody:
+      contentType: application/fhir+json
+      payload: $inputs.patient
+    successCriteria:
+    - condition: $statusCode == 201
+    outputs:
+      patientId: $response.body#/id
+  outputs:
+    updatedPatientId: $steps.updatePatient.outputs.patientId
+    createdPatientId: $steps.createPatient.outputs.patientId
