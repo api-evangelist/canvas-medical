@@ -1,0 +1,85 @@
+generated: '2026-07-11'
+method: derived
+source: openapi/canvas-medical-fhir-api-openapi.yml
+schemes:
+- name: OAuth2ClientCredentials
+  source: openapi/canvas-medical-fhir-api-openapi.yml
+  flows:
+  - flow: clientCredentials
+    tokenUrl: https://{canvas-instance}.canvasmedical.com/auth/token/
+  description: Machine-to-machine authentication using client credentials grant. Obtain client_id
+    and client_secret from Canvas admin panel.
+- name: OAuth2AuthCode
+  source: openapi/canvas-medical-fhir-api-openapi.yml
+  flows:
+  - flow: authorizationCode
+    authorizationUrl: https://{canvas-instance}.canvasmedical.com/auth/authorize/
+    tokenUrl: https://{canvas-instance}.canvasmedical.com/auth/token/
+  description: User-delegated access using Authorization Code flow with SMART on FHIR scopes.
+scopes:
+- scope: patient/*.read
+  description: Read patient-context FHIR resources
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/canvas-medical-fhir-api-openapi.yml
+- scope: system/*.read
+  description: Read all FHIR resources
+  flows:
+  - clientCredentials
+  sources:
+  - openapi/canvas-medical-fhir-api-openapi.yml
+- scope: system/*.write
+  description: Write all FHIR resources
+  flows:
+  - clientCredentials
+  sources:
+  - openapi/canvas-medical-fhir-api-openapi.yml
+- scope: system/Appointment.read
+  description: Read Appointment resources
+  flows:
+  - clientCredentials
+  sources:
+  - openapi/canvas-medical-fhir-api-openapi.yml
+- scope: system/Appointment.write
+  description: Write Appointment resources
+  flows:
+  - clientCredentials
+  sources:
+  - openapi/canvas-medical-fhir-api-openapi.yml
+- scope: system/Observation.read
+  description: Read Observation resources
+  flows:
+  - clientCredentials
+  sources:
+  - openapi/canvas-medical-fhir-api-openapi.yml
+- scope: system/Observation.write
+  description: Write Observation resources
+  flows:
+  - clientCredentials
+  sources:
+  - openapi/canvas-medical-fhir-api-openapi.yml
+- scope: system/Patient.read
+  description: Read Patient resources
+  flows:
+  - clientCredentials
+  sources:
+  - openapi/canvas-medical-fhir-api-openapi.yml
+- scope: system/Patient.write
+  description: Write Patient resources
+  flows:
+  - clientCredentials
+  sources:
+  - openapi/canvas-medical-fhir-api-openapi.yml
+- scope: user/*.read
+  description: Read user-context FHIR resources
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/canvas-medical-fhir-api-openapi.yml
+- scope: user/*.write
+  description: Write user-context FHIR resources
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/canvas-medical-fhir-api-openapi.yml
