@@ -70,6 +70,10 @@ apis:
   - type: Examples
     url: https://docs.canvasmedical.com/sdk/examples/
 common:
+- type: DomainSecurity
+  url: security/canvas-medical-domain-security.yml
+- type: Authentication
+  url: authentication/canvas-medical-authentication.yml
 - type: OAuthScopes
   url: scopes/canvas-medical-scopes.yml
 - type: Website

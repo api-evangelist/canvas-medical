@@ -1,0 +1,37 @@
+generated: '2026-07-11'
+method: derived
+source: openapi/canvas-medical-fhir-api-openapi.yml
+summary:
+  types:
+  - http
+  - oauth2
+  oauth2_flows:
+  - authorizationCode
+  - clientCredentials
+schemes:
+- name: OAuth2ClientCredentials
+  type: oauth2
+  flows:
+  - flow: clientCredentials
+    tokenUrl: https://{canvas-instance}.canvasmedical.com/auth/token/
+    scopes: 8
+  description: Machine-to-machine authentication using client credentials grant. Obtain client_id
+    and client_secret from Canvas admin panel.
+  sources:
+  - openapi/canvas-medical-fhir-api-openapi.yml
+- name: OAuth2AuthCode
+  type: oauth2
+  flows:
+  - flow: authorizationCode
+    authorizationUrl: https://{canvas-instance}.canvasmedical.com/auth/authorize/
+    tokenUrl: https://{canvas-instance}.canvasmedical.com/auth/token/
+    scopes: 3
+  description: User-delegated access using Authorization Code flow with SMART on FHIR scopes.
+  sources:
+  - openapi/canvas-medical-fhir-api-openapi.yml
+- name: BearerAuth
+  type: http
+  scheme: bearer
+  bearerFormat: JWT
+  sources:
+  - openapi/canvas-medical-fhir-api-openapi.yml
