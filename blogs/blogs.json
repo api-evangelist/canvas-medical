@@ -2,13 +2,11 @@
   "repo": "canvas-medical",
   "feeds": [
     {
-      "source": "https://www.canvasmedical.com/articles",
-      "feed_url": "",
-      "saved": 0,
-      "method": "agent-scrape"
+      "source": "https://www.linkedin.com/company/canvas-medical",
+      "error": "HTTPError"
     }
   ],
-  "fetched": "2026-06-27T12:30:20Z",
+  "fetched": "2026-07-11T11:50:51Z",
   "post_count": 13,
   "agent_pulled": "2026-06-27"
 }
