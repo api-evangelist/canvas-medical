@@ -1,0 +1,415 @@
+openapi: 3.0.3
+info:
+  title: Canvas Medical FHIR AllergyIntolerance Task API
+  description: 'A FHIR R4-compliant REST API providing secure access to electronic health record data. Canvas Medical supports 41 FHIR resources (21 with write capabilities) covering clinical, administrative, financial, and care coordination domains. The API follows the HL7 FHIR R4 specification and supports OAuth 2.0 Client Credentials and Authorization Code flows with SMART on FHIR scopes for machine-to-machine and user-delegated access.
+
+    '
+  version: '4.0'
+  contact:
+    name: Canvas Medical Support
+    url: https://help.canvasmedical.com/
+  termsOfService: https://www.canvasmedical.com/
+  license:
+    name: HL7 FHIR R4
+    url: https://hl7.org/fhir/R4/
+servers:
+- url: https://fumage-{canvas-instance}.canvasmedical.com
+  description: FHIR R4 base URL (fumage subdomain)
+  variables:
+    canvas-instance:
+      default: yoursandbox
+      description: Your Canvas Medical instance name
+security:
+- OAuth2ClientCredentials: []
+- OAuth2AuthCode: []
+- BearerAuth: []
+tags:
+- name: Task
+  description: Clinical and administrative tasks
+paths:
+  /Task:
+    get:
+      operationId: searchTask
+      summary: Search Tasks
+      tags:
+      - Task
+      parameters:
+      - $ref: '#/components/parameters/patient'
+      - $ref: '#/components/parameters/status'
+      - name: owner
+        in: query
+        schema:
+          type: string
+      - $ref: '#/components/parameters/count'
+      - $ref: '#/components/parameters/pageToken'
+      responses:
+        '200':
+          description: Bundle of matching tasks
+          content:
+            application/fhir+json:
+              schema:
+                $ref: '#/components/schemas/Bundle'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+    post:
+      operationId: createTask
+      summary: Create Task
+      tags:
+      - Task
+      requestBody:
+        required: true
+        content:
+          application/fhir+json:
+            schema:
+              $ref: '#/components/schemas/Task'
+      responses:
+        '201':
+          description: Task created
+          content:
+            application/fhir+json:
+              schema:
+                $ref: '#/components/schemas/Task'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/UnprocessableEntity'
+  /Task/{id}:
+    get:
+      operationId: readTask
+      summary: Read Task
+      tags:
+      - Task
+      parameters:
+      - $ref: '#/components/parameters/resourceId'
+      responses:
+        '200':
+          description: Task resource
+          content:
+            application/fhir+json:
+              schema:
+                $ref: '#/components/schemas/Task'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/ResourceNotFound'
+    put:
+      operationId: updateTask
+      summary: Update Task
+      tags:
+      - Task
+      parameters:
+      - $ref: '#/components/parameters/resourceId'
+      requestBody:
+        required: true
+        content:
+          application/fhir+json:
+            schema:
+              $ref: '#/components/schemas/Task'
+      responses:
+        '200':
+          description: Task updated
+          content:
+            application/fhir+json:
+              schema:
+                $ref: '#/components/schemas/Task'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/ResourceNotFound'
+components:
+  schemas:
+    FHIRResource:
+      type: object
+      description: Base FHIR R4 resource properties
+      properties:
+        resourceType:
+          type: string
+          description: FHIR resource type name
+        id:
+          type: string
+          description: Logical id of this artifact
+        meta:
+          $ref: '#/components/schemas/Meta'
+        text:
+          $ref: '#/components/schemas/Narrative'
+    CodeableConcept:
+      type: object
+      properties:
+        coding:
+          type: array
+          items:
+            $ref: '#/components/schemas/Coding'
+        text:
+          type: string
+    Task:
+      allOf:
+      - $ref: '#/components/schemas/FHIRResource'
+      - type: object
+        required:
+        - resourceType
+        - status
+        - intent
+        properties:
+          resourceType:
+            type: string
+            default: Task
+          status:
+            type: string
+            enum:
+            - draft
+            - requested
+            - received
+            - accepted
+            - rejected
+            - ready
+            - cancelled
+            - in-progress
+            - on-hold
+            - failed
+            - completed
+            - entered-in-error
+          intent:
+            type: string
+            enum:
+            - unknown
+            - proposal
+            - plan
+            - order
+            - original-order
+            - reflex-order
+            - filler-order
+            - instance-order
+            - option
+          code:
+            $ref: '#/components/schemas/CodeableConcept'
+          description:
+            type: string
+          focus:
+            $ref: '#/components/schemas/Reference'
+          for:
+            $ref: '#/components/schemas/Reference'
+          authoredOn:
+            type: string
+            format: date-time
+          owner:
+            $ref: '#/components/schemas/Reference'
+    Bundle:
+      type: object
+      properties:
+        resourceType:
+          type: string
+          default: Bundle
+        id:
+          type: string
+        type:
+          type: string
+          enum:
+          - document
+          - message
+          - transaction
+          - transaction-response
+          - batch
+          - batch-response
+          - history
+          - searchset
+          - collection
+          - subscription-notification
+        total:
+          type: integer
+        link:
+          type: array
+          items:
+            type: object
+            properties:
+              relation:
+                type: string
+              url:
+                type: string
+        entry:
+          type: array
+          items:
+            type: object
+            properties:
+              fullUrl:
+                type: string
+              resource:
+                $ref: '#/components/schemas/FHIRResource'
+              search:
+                type: object
+                properties:
+                  mode:
+                    type: string
+                    enum:
+                    - match
+                    - include
+                    - outcome
+    Narrative:
+      type: object
+      properties:
+        status:
+          type: string
+          enum:
+          - generated
+          - extensions
+          - additional
+          - empty
+        div:
+          type: string
+    OperationOutcome:
+      type: object
+      properties:
+        resourceType:
+          type: string
+          default: OperationOutcome
+        issue:
+          type: array
+          items:
+            type: object
+            properties:
+              severity:
+                type: string
+                enum:
+                - fatal
+                - error
+                - warning
+                - information
+              code:
+                type: string
+              details:
+                $ref: '#/components/schemas/CodeableConcept'
+              diagnostics:
+                type: string
+              location:
+                type: array
+                items:
+                  type: string
+    Meta:
+      type: object
+      properties:
+        versionId:
+          type: string
+        lastUpdated:
+          type: string
+          format: date-time
+        source:
+          type: string
+        profile:
+          type: array
+          items:
+            type: string
+        tag:
+          type: array
+          items:
+            $ref: '#/components/schemas/Coding'
+    Coding:
+      type: object
+      properties:
+        system:
+          type: string
+        version:
+          type: string
+        code:
+          type: string
+        display:
+          type: string
+        userSelected:
+          type: boolean
+    Reference:
+      type: object
+      properties:
+        reference:
+          type: string
+        type:
+          type: string
+        display:
+          type: string
+  responses:
+    Unauthorized:
+      description: Authentication required
+      content:
+        application/fhir+json:
+          schema:
+            $ref: '#/components/schemas/OperationOutcome'
+    ResourceNotFound:
+      description: Resource not found
+      content:
+        application/fhir+json:
+          schema:
+            $ref: '#/components/schemas/OperationOutcome'
+    UnprocessableEntity:
+      description: Validation error
+      content:
+        application/fhir+json:
+          schema:
+            $ref: '#/components/schemas/OperationOutcome'
+  parameters:
+    status:
+      name: status
+      in: query
+      schema:
+        type: string
+      description: Filter by resource status
+    count:
+      name: _count
+      in: query
+      schema:
+        type: integer
+        default: 20
+      description: Maximum number of results per page
+    resourceId:
+      name: id
+      in: path
+      required: true
+      schema:
+        type: string
+      description: Logical ID of the FHIR resource
+    pageToken:
+      name: _page_token
+      in: query
+      schema:
+        type: string
+      description: Pagination token for next page
+    patient:
+      name: patient
+      in: query
+      schema:
+        type: string
+      description: Filter by patient ID or reference
+  securitySchemes:
+    OAuth2ClientCredentials:
+      type: oauth2
+      description: 'Machine-to-machine authentication using client credentials grant. Obtain client_id and client_secret from Canvas admin panel.
+
+        '
+      flows:
+        clientCredentials:
+          tokenUrl: https://{canvas-instance}.canvasmedical.com/auth/token/
+          scopes:
+            system/*.read: Read all FHIR resources
+            system/*.write: Write all FHIR resources
+            system/Patient.read: Read Patient resources
+            system/Patient.write: Write Patient resources
+            system/Appointment.read: Read Appointment resources
+            system/Appointment.write: Write Appointment resources
+            system/Observation.read: Read Observation resources
+            system/Observation.write: Write Observation resources
+    OAuth2AuthCode:
+      type: oauth2
+      description: 'User-delegated access using Authorization Code flow with SMART on FHIR scopes.
+
+        '
+      flows:
+        authorizationCode:
+          authorizationUrl: https://{canvas-instance}.canvasmedical.com/auth/authorize/
+          tokenUrl: https://{canvas-instance}.canvasmedical.com/auth/token/
+          scopes:
+            patient/*.read: Read patient-context FHIR resources
+            user/*.read: Read user-context FHIR resources
+            user/*.write: Write user-context FHIR resources
+    BearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+externalDocs:
+  description: Canvas Medical FHIR API Documentation
+  url: https://docs.canvasmedical.com/api/

@@ -1,0 +1,105 @@
+openapi: 3.0.3
+info:
+  title: Canvas Medical FHIR AllergyIntolerance Metadata API
+  description: 'A FHIR R4-compliant REST API providing secure access to electronic health record data. Canvas Medical supports 41 FHIR resources (21 with write capabilities) covering clinical, administrative, financial, and care coordination domains. The API follows the HL7 FHIR R4 specification and supports OAuth 2.0 Client Credentials and Authorization Code flows with SMART on FHIR scopes for machine-to-machine and user-delegated access.
+
+    '
+  version: '4.0'
+  contact:
+    name: Canvas Medical Support
+    url: https://help.canvasmedical.com/
+  termsOfService: https://www.canvasmedical.com/
+  license:
+    name: HL7 FHIR R4
+    url: https://hl7.org/fhir/R4/
+servers:
+- url: https://fumage-{canvas-instance}.canvasmedical.com
+  description: FHIR R4 base URL (fumage subdomain)
+  variables:
+    canvas-instance:
+      default: yoursandbox
+      description: Your Canvas Medical instance name
+security:
+- OAuth2ClientCredentials: []
+- OAuth2AuthCode: []
+- BearerAuth: []
+tags:
+- name: Metadata
+  description: FHIR server capabilities
+paths:
+  /metadata:
+    get:
+      operationId: getCapabilityStatement
+      summary: Get server capability statement
+      description: Returns the FHIR CapabilityStatement for the Canvas Medical FHIR server
+      tags:
+      - Metadata
+      security: []
+      responses:
+        '200':
+          description: Capability statement
+          content:
+            application/fhir+json:
+              schema:
+                $ref: '#/components/schemas/CapabilityStatement'
+components:
+  schemas:
+    CapabilityStatement:
+      type: object
+      properties:
+        resourceType:
+          type: string
+          default: CapabilityStatement
+        status:
+          type: string
+        date:
+          type: string
+          format: date-time
+        fhirVersion:
+          type: string
+        format:
+          type: array
+          items:
+            type: string
+        rest:
+          type: array
+          items:
+            type: object
+  securitySchemes:
+    OAuth2ClientCredentials:
+      type: oauth2
+      description: 'Machine-to-machine authentication using client credentials grant. Obtain client_id and client_secret from Canvas admin panel.
+
+        '
+      flows:
+        clientCredentials:
+          tokenUrl: https://{canvas-instance}.canvasmedical.com/auth/token/
+          scopes:
+            system/*.read: Read all FHIR resources
+            system/*.write: Write all FHIR resources
+            system/Patient.read: Read Patient resources
+            system/Patient.write: Write Patient resources
+            system/Appointment.read: Read Appointment resources
+            system/Appointment.write: Write Appointment resources
+            system/Observation.read: Read Observation resources
+            system/Observation.write: Write Observation resources
+    OAuth2AuthCode:
+      type: oauth2
+      description: 'User-delegated access using Authorization Code flow with SMART on FHIR scopes.
+
+        '
+      flows:
+        authorizationCode:
+          authorizationUrl: https://{canvas-instance}.canvasmedical.com/auth/authorize/
+          tokenUrl: https://{canvas-instance}.canvasmedical.com/auth/token/
+          scopes:
+            patient/*.read: Read patient-context FHIR resources
+            user/*.read: Read user-context FHIR resources
+            user/*.write: Write user-context FHIR resources
+    BearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+externalDocs:
+  description: Canvas Medical FHIR API Documentation
+  url: https://docs.canvasmedical.com/api/
