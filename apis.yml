@@ -6,7 +6,20 @@ description: Canvas Medical is a developer-first EHR platform built for virtual 
   combines a standards-based FHIR API with a native Python SDK that enables plugins
   to execute synchronously within the EMR, supporting scheduling, charting, billing,
   and custom workflow automation across more than 650 clinical and operational events.
-image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+accessModel:
+  pricing: paid
+  onboarding: self-serve
+  trial: false
+  try_now: false
+  public: false
+  label: Paid · Self-serve signup
+  confidence: high
+  source:
+  - plans
+  - authentication
+  generated: '2026-07-22'
+  method: derived
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/canvas-medical.png
 url: https://raw.githubusercontent.com/api-evangelist/canvas-medical/refs/heads/main/apis.yml
 created: '2026-06-13'
 modified: '2026-06-13'
@@ -23,11 +36,11 @@ tags:
 apis:
 - aid: canvas-medical:canvas-medical-fhir-api
   name: Canvas Medical FHIR API
-  description: A FHIR R4-compliant REST API providing secure access to electronic
-    health record data including 41 FHIR resources (21 with write capabilities) covering
-    clinical, administrative, financial, and care coordination domains. Supports OAuth
-    2.0 Client Credentials and Authorization Code flows with SMART on FHIR scopes
-    for machine-to-machine and user-delegated access.
+  description: >-
+    A FHIR R4-compliant REST API providing secure access to electronic health record data including 41
+    FHIR resources (21 with write capabilities) covering clinical, administrative, financial, and care
+    coordination domains. Supports OAuth 2.0 Client Credentials and Authorization Code flows with SMART
+    on FHIR scopes for machine-to-machine and user-delegated access.
   image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
   humanURL: https://docs.canvasmedical.com/api/
   baseURL: https://{canvas-instance}/api/
@@ -48,11 +61,11 @@ apis:
     type: GraphQL
 - aid: canvas-medical:canvas-medical-sdk
   name: Canvas Medical SDK
-  description: A Python SDK that enables developers to build plugins that execute
-    natively within the Canvas EMR infrastructure. Supports an event-driven architecture
-    with over 650 clinical and operational events, Django ORM database access, effects
-    for modifying data and automating workflows, and pre-built integrations with AWS
-    S3, LLMs, SendGrid, Twilio, and Extend AI.
+  description: >-
+    A Python SDK that enables developers to build plugins that execute natively within the Canvas EMR
+    infrastructure. Supports an event-driven architecture with over 650 clinical and operational events,
+    Django ORM database access, effects for modifying data and automating workflows, and pre-built integrations
+    with AWS S3, LLMs, SendGrid, Twilio, and Extend AI.
   image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
   humanURL: https://docs.canvasmedical.com/sdk/
   baseURL: https://pypi.org/project/canvas/
@@ -69,6 +82,286 @@ apis:
     url: https://docs.canvasmedical.com/learn/overview/
   - type: Examples
     url: https://docs.canvasmedical.com/sdk/examples/
+- aid: canvas-medical:canvas-medical-allergyintolerance-api
+  name: Canvas Medical AllergyIntolerance API
+  description: Allergy and intolerance records
+  humanURL: https://docs.canvasmedical.com/api/
+  baseURL: https://{canvas-instance}/api/
+  tags:
+  - AllergyIntolerance
+  properties:
+  - type: OpenAPI
+    url: openapi/canvas-medical-allergyintolerance-api-openapi.yml
+- aid: canvas-medical:canvas-medical-appointment-api
+  name: Canvas Medical Appointment API
+  description: Appointment scheduling and management
+  humanURL: https://docs.canvasmedical.com/api/
+  baseURL: https://{canvas-instance}/api/
+  tags:
+  - Appointment
+  properties:
+  - type: OpenAPI
+    url: openapi/canvas-medical-appointment-api-openapi.yml
+- aid: canvas-medical:canvas-medical-careplan-api
+  name: Canvas Medical CarePlan API
+  description: Care plan management
+  humanURL: https://docs.canvasmedical.com/api/
+  baseURL: https://{canvas-instance}/api/
+  tags:
+  - CarePlan
+  properties:
+  - type: OpenAPI
+    url: openapi/canvas-medical-careplan-api-openapi.yml
+- aid: canvas-medical:canvas-medical-careteam-api
+  name: Canvas Medical CareTeam API
+  description: Care team coordination
+  humanURL: https://docs.canvasmedical.com/api/
+  baseURL: https://{canvas-instance}/api/
+  tags:
+  - CareTeam
+  properties:
+  - type: OpenAPI
+    url: openapi/canvas-medical-careteam-api-openapi.yml
+- aid: canvas-medical:canvas-medical-claim-api
+  name: Canvas Medical Claim API
+  description: Insurance claims and billing
+  humanURL: https://docs.canvasmedical.com/api/
+  baseURL: https://{canvas-instance}/api/
+  tags:
+  - Claim
+  properties:
+  - type: OpenAPI
+    url: openapi/canvas-medical-claim-api-openapi.yml
+- aid: canvas-medical:canvas-medical-communication-api
+  name: Canvas Medical Communication API
+  description: Communications with or about a patient
+  humanURL: https://docs.canvasmedical.com/api/
+  baseURL: https://{canvas-instance}/api/
+  tags:
+  - Communication
+  properties:
+  - type: OpenAPI
+    url: openapi/canvas-medical-communication-api-openapi.yml
+- aid: canvas-medical:canvas-medical-condition-api
+  name: Canvas Medical Condition API
+  description: Patient conditions, problems, and diagnoses
+  humanURL: https://docs.canvasmedical.com/api/
+  baseURL: https://{canvas-instance}/api/
+  tags:
+  - Condition
+  properties:
+  - type: OpenAPI
+    url: openapi/canvas-medical-condition-api-openapi.yml
+- aid: canvas-medical:canvas-medical-consent-api
+  name: Canvas Medical Consent API
+  description: Patient consent records
+  humanURL: https://docs.canvasmedical.com/api/
+  baseURL: https://{canvas-instance}/api/
+  tags:
+  - Consent
+  properties:
+  - type: OpenAPI
+    url: openapi/canvas-medical-consent-api-openapi.yml
+- aid: canvas-medical:canvas-medical-coverage-api
+  name: Canvas Medical Coverage API
+  description: Insurance coverage records
+  humanURL: https://docs.canvasmedical.com/api/
+  baseURL: https://{canvas-instance}/api/
+  tags:
+  - Coverage
+  properties:
+  - type: OpenAPI
+    url: openapi/canvas-medical-coverage-api-openapi.yml
+- aid: canvas-medical:canvas-medical-diagnosticreport-api
+  name: Canvas Medical DiagnosticReport API
+  description: Diagnostic test reports
+  humanURL: https://docs.canvasmedical.com/api/
+  baseURL: https://{canvas-instance}/api/
+  tags:
+  - DiagnosticReport
+  properties:
+  - type: OpenAPI
+    url: openapi/canvas-medical-diagnosticreport-api-openapi.yml
+- aid: canvas-medical:canvas-medical-documentreference-api
+  name: Canvas Medical DocumentReference API
+  description: Clinical documents and attachments
+  humanURL: https://docs.canvasmedical.com/api/
+  baseURL: https://{canvas-instance}/api/
+  tags:
+  - DocumentReference
+  properties:
+  - type: OpenAPI
+    url: openapi/canvas-medical-documentreference-api-openapi.yml
+- aid: canvas-medical:canvas-medical-encounter-api
+  name: Canvas Medical Encounter API
+  description: Clinical encounters and visits
+  humanURL: https://docs.canvasmedical.com/api/
+  baseURL: https://{canvas-instance}/api/
+  tags:
+  - Encounter
+  properties:
+  - type: OpenAPI
+    url: openapi/canvas-medical-encounter-api-openapi.yml
+- aid: canvas-medical:canvas-medical-goal-api
+  name: Canvas Medical Goal API
+  description: Patient care goals
+  humanURL: https://docs.canvasmedical.com/api/
+  baseURL: https://{canvas-instance}/api/
+  tags:
+  - Goal
+  properties:
+  - type: OpenAPI
+    url: openapi/canvas-medical-goal-api-openapi.yml
+- aid: canvas-medical:canvas-medical-immunization-api
+  name: Canvas Medical Immunization API
+  description: Immunization records
+  humanURL: https://docs.canvasmedical.com/api/
+  baseURL: https://{canvas-instance}/api/
+  tags:
+  - Immunization
+  properties:
+  - type: OpenAPI
+    url: openapi/canvas-medical-immunization-api-openapi.yml
+- aid: canvas-medical:canvas-medical-location-api
+  name: Canvas Medical Location API
+  description: Physical practice locations
+  humanURL: https://docs.canvasmedical.com/api/
+  baseURL: https://{canvas-instance}/api/
+  tags:
+  - Location
+  properties:
+  - type: OpenAPI
+    url: openapi/canvas-medical-location-api-openapi.yml
+- aid: canvas-medical:canvas-medical-medicationrequest-api
+  name: Canvas Medical MedicationRequest API
+  description: Medication prescriptions and orders
+  humanURL: https://docs.canvasmedical.com/api/
+  baseURL: https://{canvas-instance}/api/
+  tags:
+  - MedicationRequest
+  properties:
+  - type: OpenAPI
+    url: openapi/canvas-medical-medicationrequest-api-openapi.yml
+- aid: canvas-medical:canvas-medical-metadata-api
+  name: Canvas Medical Metadata API
+  description: FHIR server capabilities
+  humanURL: https://docs.canvasmedical.com/api/
+  baseURL: https://{canvas-instance}/api/
+  tags:
+  - Metadata
+  properties:
+  - type: OpenAPI
+    url: openapi/canvas-medical-metadata-api-openapi.yml
+- aid: canvas-medical:canvas-medical-observation-api
+  name: Canvas Medical Observation API
+  description: Clinical observations, vitals, and lab results
+  humanURL: https://docs.canvasmedical.com/api/
+  baseURL: https://{canvas-instance}/api/
+  tags:
+  - Observation
+  properties:
+  - type: OpenAPI
+    url: openapi/canvas-medical-observation-api-openapi.yml
+- aid: canvas-medical:canvas-medical-organization-api
+  name: Canvas Medical Organization API
+  description: Healthcare organization information
+  humanURL: https://docs.canvasmedical.com/api/
+  baseURL: https://{canvas-instance}/api/
+  tags:
+  - Organization
+  properties:
+  - type: OpenAPI
+    url: openapi/canvas-medical-organization-api-openapi.yml
+- aid: canvas-medical:canvas-medical-patient-api
+  name: Canvas Medical Patient API
+  description: Patient demographic and administrative data
+  humanURL: https://docs.canvasmedical.com/api/
+  baseURL: https://{canvas-instance}/api/
+  tags:
+  - Patient
+  properties:
+  - type: OpenAPI
+    url: openapi/canvas-medical-patient-api-openapi.yml
+- aid: canvas-medical:canvas-medical-practitioner-api
+  name: Canvas Medical Practitioner API
+  description: Healthcare provider information
+  humanURL: https://docs.canvasmedical.com/api/
+  baseURL: https://{canvas-instance}/api/
+  tags:
+  - Practitioner
+  properties:
+  - type: OpenAPI
+    url: openapi/canvas-medical-practitioner-api-openapi.yml
+- aid: canvas-medical:canvas-medical-procedure-api
+  name: Canvas Medical Procedure API
+  description: Clinical procedures performed
+  humanURL: https://docs.canvasmedical.com/api/
+  baseURL: https://{canvas-instance}/api/
+  tags:
+  - Procedure
+  properties:
+  - type: OpenAPI
+    url: openapi/canvas-medical-procedure-api-openapi.yml
+- aid: canvas-medical:canvas-medical-questionnaire-api
+  name: Canvas Medical Questionnaire API
+  description: Structured data collection forms
+  humanURL: https://docs.canvasmedical.com/api/
+  baseURL: https://{canvas-instance}/api/
+  tags:
+  - Questionnaire
+  properties:
+  - type: OpenAPI
+    url: openapi/canvas-medical-questionnaire-api-openapi.yml
+- aid: canvas-medical:canvas-medical-questionnaireresponse-api
+  name: Canvas Medical QuestionnaireResponse API
+  description: Patient responses to questionnaires
+  humanURL: https://docs.canvasmedical.com/api/
+  baseURL: https://{canvas-instance}/api/
+  tags:
+  - QuestionnaireResponse
+  properties:
+  - type: OpenAPI
+    url: openapi/canvas-medical-questionnaireresponse-api-openapi.yml
+- aid: canvas-medical:canvas-medical-schedule-api
+  name: Canvas Medical Schedule API
+  description: Practitioner availability schedules
+  humanURL: https://docs.canvasmedical.com/api/
+  baseURL: https://{canvas-instance}/api/
+  tags:
+  - Schedule
+  properties:
+  - type: OpenAPI
+    url: openapi/canvas-medical-schedule-api-openapi.yml
+- aid: canvas-medical:canvas-medical-servicerequest-api
+  name: Canvas Medical ServiceRequest API
+  description: Orders for laboratory, imaging, and referrals
+  humanURL: https://docs.canvasmedical.com/api/
+  baseURL: https://{canvas-instance}/api/
+  tags:
+  - ServiceRequest
+  properties:
+  - type: OpenAPI
+    url: openapi/canvas-medical-servicerequest-api-openapi.yml
+- aid: canvas-medical:canvas-medical-slot-api
+  name: Canvas Medical Slot API
+  description: Available appointment time slots
+  humanURL: https://docs.canvasmedical.com/api/
+  baseURL: https://{canvas-instance}/api/
+  tags:
+  - Slot
+  properties:
+  - type: OpenAPI
+    url: openapi/canvas-medical-slot-api-openapi.yml
+- aid: canvas-medical:canvas-medical-task-api
+  name: Canvas Medical Task API
+  description: Clinical and administrative tasks
+  humanURL: https://docs.canvasmedical.com/api/
+  baseURL: https://{canvas-instance}/api/
+  tags:
+  - Task
+  properties:
+  - type: OpenAPI
+    url: openapi/canvas-medical-task-api-openapi.yml
 common:
 - type: AgenticAccess
   url: agentic-access/canvas-medical-agentic-access.yml
