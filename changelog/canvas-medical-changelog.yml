@@ -1,0 +1,86 @@
+generated: '2026-08-14'
+method: searched
+source: https://docs.canvasmedical.com/product-updates/release-notes/
+feed: https://docs.canvasmedical.com/feed.xml
+related:
+- url: https://docs.canvasmedical.com/product-updates/important-dates/
+  name: Important Dates (deprecations, breaking changes, end-of-life)
+- url: https://docs.canvasmedical.com/product-updates/fdb-changelogs/
+  name: FDB changelogs — weekly First Databank drug-database updates
+- url: https://docs.canvasmedical.com/product-updates/roadmap/
+  name: Roadmap
+scheme:
+  style: dated-release-log
+  cadence: near-daily
+  dated: true
+  categorized: true
+  categories: [api, sdk, ui, bugfix]
+  breaking_changes_marked: true
+  page_url: https://docs.canvasmedical.com/product-updates/release-notes/
+  note: >-
+    "Stay up to date with the latest features, fixes, and breaking changes in Canvas." Every entry is
+    a calendar date (MM.DD.YYYY) rather than a semantic version — the FHIR API is unversioned and
+    ships continuously. 135 dated releases were on the page at capture, with an RSS feed at
+    /feed.xml. Entries are tagged by surface, so an API consumer can read only the `api` entries.
+current_version:
+  api: FHIR R4 (4.0.1) — unversioned service, continuously deployed
+  sdk: 0.196.1 (PyPI `canvas`, published 2026-08-13)
+  latest_release_date: '2026-08-13'
+entries:
+- date: '2026-08-13'
+  categories: [sdk, ui]
+  breaking: false
+  highlights:
+  - Plugins can traverse from a DocumentReference to the record that generated it (Lab Report, Invoice, Educational Material) and back.
+  - The Assess command now validates that the referenced condition belongs to the chart's patient, returning a clear validation error instead of charting silently or failing generically.
+  - Assess `narrative` and Diagnose `today_assessment` now accept up to 2048 characters.
+  - Open tabs now show a reload banner after a Canvas release is deployed, instead of silently running a stale build.
+- date: '2026-08-12'
+  categories: [sdk]
+  breaking: false
+  highlights:
+  - New SDK data models — PatientAdministrativeDocument (with document coding and a document_url).
+  - UncategorizedClinicalDocument gains a `code` property.
+- date: '2026-08-11'
+  categories: [sdk]
+  breaking: false
+  highlights:
+  - New `allowed_new_note_types` attribute on the Patient Timeline effect lets a plugin restrict, or hide, the New Note button per patient.
+- date: '2026-08-10'
+  categories: [bugfix]
+  breaking: false
+  highlights:
+  - Insurance coverage verification now surfaces the reason an eligibility check could not complete (e.g. a clearinghouse error) instead of failing silently.
+  - A custom command originating from a plugin scheduled task no longer silently fails to attach when the plugin was installed while Canvas was already running.
+- date: '2026-08-06'
+  categories: [bugfix, sdk]
+  breaking: false
+  highlights:
+  - Fixed the patient chart Goals Active/Closed filter misclassifying goals.
+  - "Fixed plugin install/update/reinstall temporarily IP-blocking a user with a site-wide 403; requests to plugin endpoints no longer count toward that block."
+  - ImagingReport gains document_url; CareTeamMembership gains service_provider via a new OrganizationalEntity data module; EducationalMaterial exposes Educational Material command data.
+- date: '2026-08-05'
+  categories: [api, sdk]
+  breaking: false
+  highlights:
+  - "FHIR: inserting a command into a note by ID now checks the note is not deleted or cancelled, returning a clear 422 naming the note instead of a 502."
+  - New Service Provider effects (create/update/deactivate) plus four new search events for fax recipients and external care teams.
+  - ServiceProvider data module gains npi, direct_address, is_active, is_customer_managed, science_contact_id and two search-shaping helpers.
+- date: '2026-08-04'
+  categories: [bugfix, ui, sdk]
+  breaking: false
+  highlights:
+  - "Vitals command adds a Supplemental Oxygen field recorded as a coded LOINC value (question 88658-0, answer list LL4908-1); readable through the FHIR Observation endpoint as valueCodeableConcept but not creatable through it."
+  - Plugins can subscribe to CALENDAR_CREATED/UPDATED/DELETED and CALENDAR_EVENT_CREATED/UPDATED/DELETED events.
+- date: '2026-08-03'
+  categories: [bugfix, ui]
+  breaking: false
+  highlights:
+  - Delegated patient-communication tasks from Review/Image/Refer commands now always get created with a clear assignment fallback order.
+  - Changing an uncategorized clinical document to a Lab or Imaging Report now retires the original instead of leaving a duplicate in the review queue.
+  - External-only care teams now appear in the chart's Care Team summary.
+window:
+  note: >-
+    Recent window only — the eight most recent dated releases as of 2026-08-14. The live page is the
+    source of truth and carried 135 dated entries at capture. Breaking changes appear inline in the
+    log and are also tracked on the Important Dates page; see lifecycle/canvas-medical-lifecycle.yml.

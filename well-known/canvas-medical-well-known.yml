@@ -1,0 +1,121 @@
+generated: '2026-08-14'
+method: probed
+source: live HTTP probes of every canvasmedical.com host named in apis.yml and the OpenAPI servers[] block
+note: >-
+  Canvas Medical runs one isolated instance per customer, so there is no single shared API host.
+  The marketing host (www.canvasmedical.com), the docs host (docs.canvasmedical.com) and the status
+  host all answer 404 (or an SPA/soft-404 HTML shell) on every /.well-known/ path. The real discovery
+  surface lives on the per-customer FHIR host, https://fumage-<subdomain>.canvasmedical.com, and on
+  its paired authorization server, https://<subdomain>.canvasmedical.com/auth/. Those were probed
+  against fumage-apex.canvasmedical.com — a PRODUCTION endpoint taken from Canvas Medical's own
+  published Service Base URLs directory, not a guessed host — and both return real documents.
+hosts:
+- host: https://fumage-apex.canvasmedical.com
+  role: FHIR R4 service base (per-customer, representative production instance)
+  documents:
+  - path: /.well-known/smart-configuration
+    standard: SMART App Launch 2.0 discovery
+    status: 200
+    content_type: application/json
+    file: canvas-medical-smart-configuration.json
+  - path: /.well-known/openid-configuration
+    status: 404
+  - path: /.well-known/oauth-authorization-server
+    status: 404
+  - path: /.well-known/security.txt
+    status: 404
+  - path: /.well-known/api-catalog
+    status: 404
+  - path: /.well-known/ai-plugin.json
+    status: 404
+  - path: /.well-known/agent-card.json
+    status: 404
+  - path: /.well-known/agent.json
+    status: 404
+- host: https://apex.canvasmedical.com
+  role: Canvas EHR instance + OAuth 2.0 authorization server
+  documents:
+  - path: /auth/.well-known/openid-configuration
+    standard: OpenID Connect Discovery 1.0
+    status: 200
+    content_type: application/json
+    file: canvas-medical-openid-configuration.json
+  - path: /auth/.well-known/jwks.json
+    standard: RFC 7517 JSON Web Key Set
+    status: 200
+    content_type: application/json
+    file: null
+    note: >-
+      Served and verified (200, one RS256 signing key). Not stored in this repo — the key set rotates,
+      so a captured copy would be stale data rather than a durable artifact.
+  - path: /.well-known/openid-configuration
+    status: 404
+  - path: /.well-known/oauth-authorization-server
+    status: 404
+- host: https://www.canvasmedical.com
+  role: marketing site
+  documents:
+  - path: /.well-known/security.txt
+    status: 404
+  - path: /.well-known/openid-configuration
+    status: 404
+  - path: /.well-known/oauth-authorization-server
+    status: 404
+  - path: /.well-known/api-catalog
+    status: 404
+  - path: /.well-known/ai-plugin.json
+    status: 404
+  - path: /.well-known/agent-card.json
+    status: 404
+  - path: /.well-known/agent.json
+    status: 404
+- host: https://docs.canvasmedical.com
+  role: developer documentation
+  documents:
+  - path: /.well-known/security.txt
+    status: 404
+  - path: /.well-known/openid-configuration
+    status: 404
+  - path: /.well-known/oauth-authorization-server
+    status: 404
+  - path: /.well-known/api-catalog
+    status: 404
+  - path: /.well-known/ai-plugin.json
+    status: 404
+  - path: /.well-known/agent-card.json
+    status: 404
+  - path: /.well-known/agent.json
+    status: 404
+- host: https://status.canvasmedical.com
+  role: status page (Instatus)
+  documents:
+  - path: /.well-known/security.txt
+    status: 404
+  - path: /.well-known/agent-card.json
+    status: 404
+api_catalog:
+  note: >-
+    Canvas Medical does not serve /.well-known/api-catalog (RFC 9727), but it does publish the
+    equivalent directory at a documented static location, as required by the ONC/ASTP HTI-1
+    §170.315(g)(10) service base URL condition. Both files are FHIR R4 Bundles of Organization +
+    Endpoint resources naming every customer FHIR base URL.
+  documents:
+  - url: https://docs.canvasmedical.com/assets/static/fhir-service-base-urls-production.json
+    status: 200
+    file: canvas-medical-fhir-service-base-urls-production.json
+    endpoints: 76
+    environment: production
+  - url: https://docs.canvasmedical.com/assets/static/fhir-service-base-urls-nonproduction.json
+    status: 200
+    file: canvas-medical-fhir-service-base-urls-nonproduction.json
+    environment: non-production
+  docs: https://docs.canvasmedical.com/api/service-base-urls/
+security_txt:
+  served: false
+  note: No /.well-known/security.txt on any Canvas Medical host; no SecurityTxt pointer is emitted.
+agent_card:
+  served: false
+  note: >-
+    No A2A agent card at /.well-known/agent-card.json or the legacy /.well-known/agent.json on any
+    host. Nothing is written to a2a/ — an agent card is search-only and is never authored on a
+    provider's behalf.

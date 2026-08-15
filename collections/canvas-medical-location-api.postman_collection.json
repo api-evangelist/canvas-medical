@@ -1,0 +1,462 @@
+{
+  "item": [
+    {
+      "id": "0cea4594-0c1b-46d5-8261-2ed21e0a7af3",
+      "name": "Location",
+      "description": {
+        "content": "Physical practice locations",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "7669e08b-c79f-4125-a948-7a2e194a8e29",
+          "name": "Search Locations",
+          "request": {
+            "name": "Search Locations",
+            "description": {},
+            "url": {
+              "path": [
+                "Location"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "name",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "_count",
+                  "value": "20",
+                  "description": "Maximum number of results per page"
+                },
+                {
+                  "disabled": false,
+                  "key": "_page_token",
+                  "value": "<string>",
+                  "description": "Pagination token for next page"
+                }
+              ],
+              "variable": [
+                {
+                  "description": "Your Canvas Medical instance name",
+                  "type": "any",
+                  "value": "{{canvas-instance}}",
+                  "key": "canvas-instance"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/fhir+json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "f491c818-be2e-4e71-b919-51df8c930add",
+              "name": "Bundle of matching locations",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "Location"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "name",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "_count",
+                      "value": "20"
+                    },
+                    {
+                      "key": "_page_token",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "description": "Your Canvas Medical instance name",
+                      "type": "any",
+                      "value": "{{canvas-instance}}",
+                      "key": "canvas-instance"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/fhir+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/fhir+json"
+                }
+              ],
+              "body": "{\n  \"resourceType\": \"Bundle\",\n  \"id\": \"string\",\n  \"type\": \"message\",\n  \"total\": 3124,\n  \"link\": [\n    {\n      \"relation\": \"string\",\n      \"url\": \"string\"\n    },\n    {\n      \"relation\": \"string\",\n      \"url\": \"string\"\n    }\n  ],\n  \"entry\": [\n    {\n      \"fullUrl\": \"string\",\n      \"resource\": {\n        \"resourceType\": \"string\",\n        \"id\": \"string\",\n        \"meta\": {\n          \"versionId\": \"string\",\n          \"lastUpdated\": \"1974-01-01T18:52:08.683Z\",\n          \"source\": \"string\",\n          \"profile\": [\n            \"string\",\n            \"string\"\n          ],\n          \"tag\": [\n            {\n              \"system\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"version\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"code\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"display\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"userSelected\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"system\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"version\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"code\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"display\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"userSelected\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ]\n        },\n        \"text\": {\n          \"status\": \"generated\",\n          \"div\": \"string\"\n        }\n      },\n      \"search\": {\n        \"mode\": \"outcome\"\n      }\n    },\n    {\n      \"fullUrl\": \"string\",\n      \"resource\": {\n        \"resourceType\": \"string\",\n        \"id\": \"string\",\n        \"meta\": {\n          \"versionId\": \"string\",\n          \"lastUpdated\": \"1981-11-15T02:35:40.077Z\",\n          \"source\": \"string\",\n          \"profile\": [\n            \"string\",\n            \"string\"\n          ],\n          \"tag\": [\n            {\n              \"system\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"version\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"code\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"display\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"userSelected\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"system\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"version\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"code\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"display\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"userSelected\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ]\n        },\n        \"text\": {\n          \"status\": \"additional\",\n          \"div\": \"string\"\n        }\n      },\n      \"search\": {\n        \"mode\": \"outcome\"\n      }\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "cbda394f-370d-4d5a-a77a-46e485aa94b0",
+              "name": "Authentication required",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "Location"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "name",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "_count",
+                      "value": "20"
+                    },
+                    {
+                      "key": "_page_token",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "description": "Your Canvas Medical instance name",
+                      "type": "any",
+                      "value": "{{canvas-instance}}",
+                      "key": "canvas-instance"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/fhir+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/fhir+json"
+                }
+              ],
+              "body": "{\n  \"resourceType\": \"OperationOutcome\",\n  \"issue\": [\n    {\n      \"severity\": \"information\",\n      \"code\": \"string\",\n      \"details\": {\n        \"coding\": [\n          {\n            \"system\": \"string\",\n            \"version\": \"string\",\n            \"code\": \"string\",\n            \"display\": \"string\",\n            \"userSelected\": true\n          },\n          {\n            \"system\": \"string\",\n            \"version\": \"string\",\n            \"code\": \"string\",\n            \"display\": \"string\",\n            \"userSelected\": true\n          }\n        ],\n        \"text\": \"string\"\n      },\n      \"diagnostics\": \"string\",\n      \"location\": [\n        \"string\",\n        \"string\"\n      ]\n    },\n    {\n      \"severity\": \"fatal\",\n      \"code\": \"string\",\n      \"details\": {\n        \"coding\": [\n          {\n            \"system\": \"string\",\n            \"version\": \"string\",\n            \"code\": \"string\",\n            \"display\": \"string\",\n            \"userSelected\": true\n          },\n          {\n            \"system\": \"string\",\n            \"version\": \"string\",\n            \"code\": \"string\",\n            \"display\": \"string\",\n            \"userSelected\": true\n          }\n        ],\n        \"text\": \"string\"\n      },\n      \"diagnostics\": \"string\",\n      \"location\": [\n        \"string\",\n        \"string\"\n      ]\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "d59d09a0-ef78-4b9a-82ef-21006eb7d52c",
+          "name": "Read Location",
+          "request": {
+            "name": "Read Location",
+            "description": {},
+            "url": {
+              "path": [
+                "Location",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) Logical ID of the FHIR resource"
+                },
+                {
+                  "description": "Your Canvas Medical instance name",
+                  "type": "any",
+                  "value": "{{canvas-instance}}",
+                  "key": "canvas-instance"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/fhir+json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "60bca640-be0d-41b7-b633-0f3b0c6046a3",
+              "name": "Location resource",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "Location",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) Logical ID of the FHIR resource"
+                    },
+                    {
+                      "description": "Your Canvas Medical instance name",
+                      "type": "any",
+                      "value": "{{canvas-instance}}",
+                      "key": "canvas-instance"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/fhir+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/fhir+json"
+                }
+              ],
+              "body": "{\n  \"resourceType\": \"Location\",\n  \"id\": \"string\",\n  \"meta\": {\n    \"versionId\": \"string\",\n    \"lastUpdated\": \"1997-01-09T00:29:27.254Z\",\n    \"source\": \"string\",\n    \"profile\": [\n      \"string\",\n      \"string\"\n    ],\n    \"tag\": [\n      {\n        \"system\": \"string\",\n        \"version\": \"string\",\n        \"code\": \"string\",\n        \"display\": \"string\",\n        \"userSelected\": false\n      },\n      {\n        \"system\": \"string\",\n        \"version\": \"string\",\n        \"code\": \"string\",\n        \"display\": \"string\",\n        \"userSelected\": true\n      }\n    ]\n  },\n  \"text\": {\n    \"status\": \"generated\",\n    \"div\": \"string\"\n  },\n  \"status\": \"suspended\",\n  \"name\": \"string\",\n  \"telecom\": [\n    {\n      \"system\": \"sms\",\n      \"value\": \"string\",\n      \"use\": \"temp\"\n    },\n    {\n      \"system\": \"url\",\n      \"value\": \"string\",\n      \"use\": \"old\"\n    }\n  ],\n  \"address\": {\n    \"use\": \"home\",\n    \"type\": \"both\",\n    \"text\": \"string\",\n    \"line\": [\n      \"string\",\n      \"string\"\n    ],\n    \"city\": \"string\",\n    \"district\": \"string\",\n    \"state\": \"string\",\n    \"postalCode\": \"string\",\n    \"country\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "731a00b4-ca8e-41f6-9a2e-aa0c54f399fd",
+              "name": "Authentication required",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "Location",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) Logical ID of the FHIR resource"
+                    },
+                    {
+                      "description": "Your Canvas Medical instance name",
+                      "type": "any",
+                      "value": "{{canvas-instance}}",
+                      "key": "canvas-instance"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/fhir+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/fhir+json"
+                }
+              ],
+              "body": "{\n  \"resourceType\": \"OperationOutcome\",\n  \"issue\": [\n    {\n      \"severity\": \"warning\",\n      \"code\": \"string\",\n      \"details\": {\n        \"coding\": [\n          {\n            \"system\": \"string\",\n            \"version\": \"string\",\n            \"code\": \"string\",\n            \"display\": \"string\",\n            \"userSelected\": false\n          },\n          {\n            \"system\": \"string\",\n            \"version\": \"string\",\n            \"code\": \"string\",\n            \"display\": \"string\",\n            \"userSelected\": true\n          }\n        ],\n        \"text\": \"string\"\n      },\n      \"diagnostics\": \"string\",\n      \"location\": [\n        \"string\",\n        \"string\"\n      ]\n    },\n    {\n      \"severity\": \"warning\",\n      \"code\": \"string\",\n      \"details\": {\n        \"coding\": [\n          {\n            \"system\": \"string\",\n            \"version\": \"string\",\n            \"code\": \"string\",\n            \"display\": \"string\",\n            \"userSelected\": false\n          },\n          {\n            \"system\": \"string\",\n            \"version\": \"string\",\n            \"code\": \"string\",\n            \"display\": \"string\",\n            \"userSelected\": false\n          }\n        ],\n        \"text\": \"string\"\n      },\n      \"diagnostics\": \"string\",\n      \"location\": [\n        \"string\",\n        \"string\"\n      ]\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "6de485de-c9aa-4b71-8fa0-58c1bf6b91c8",
+              "name": "Resource not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "Location",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) Logical ID of the FHIR resource"
+                    },
+                    {
+                      "description": "Your Canvas Medical instance name",
+                      "type": "any",
+                      "value": "{{canvas-instance}}",
+                      "key": "canvas-instance"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/fhir+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/fhir+json"
+                }
+              ],
+              "body": "{\n  \"resourceType\": \"OperationOutcome\",\n  \"issue\": [\n    {\n      \"severity\": \"warning\",\n      \"code\": \"string\",\n      \"details\": {\n        \"coding\": [\n          {\n            \"system\": \"string\",\n            \"version\": \"string\",\n            \"code\": \"string\",\n            \"display\": \"string\",\n            \"userSelected\": false\n          },\n          {\n            \"system\": \"string\",\n            \"version\": \"string\",\n            \"code\": \"string\",\n            \"display\": \"string\",\n            \"userSelected\": true\n          }\n        ],\n        \"text\": \"string\"\n      },\n      \"diagnostics\": \"string\",\n      \"location\": [\n        \"string\",\n        \"string\"\n      ]\n    },\n    {\n      \"severity\": \"warning\",\n      \"code\": \"string\",\n      \"details\": {\n        \"coding\": [\n          {\n            \"system\": \"string\",\n            \"version\": \"string\",\n            \"code\": \"string\",\n            \"display\": \"string\",\n            \"userSelected\": false\n          },\n          {\n            \"system\": \"string\",\n            \"version\": \"string\",\n            \"code\": \"string\",\n            \"display\": \"string\",\n            \"userSelected\": false\n          }\n        ],\n        \"text\": \"string\"\n      },\n      \"diagnostics\": \"string\",\n      \"location\": [\n        \"string\",\n        \"string\"\n      ]\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "description": {
+        "content": "Your Canvas Medical instance name",
+        "type": "text/plain"
+      },
+      "type": "any",
+      "value": "yoursandbox",
+      "key": "canvas-instance"
+    },
+    {
+      "type": "string",
+      "value": "https://fumage-{{canvas-instance}}.canvasmedical.com",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "oauth2",
+    "oauth2": [
+      {
+        "key": "scope",
+        "value": "system/*.read system/*.write system/Patient.read system/Patient.write system/Appointment.read system/Appointment.write system/Observation.read system/Observation.write"
+      },
+      {
+        "key": "accessTokenUrl",
+        "value": "https://{canvas-instance}.canvasmedical.com/auth/token/"
+      },
+      {
+        "key": "grant_type",
+        "value": "client_credentials"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "7c60f41c-5627-4bcf-b290-8a08ecb7bdb1",
+    "name": "Canvas Medical FHIR AllergyIntolerance Location API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "A FHIR R4-compliant REST API providing secure access to electronic health record data. Canvas Medical supports 41 FHIR resources (21 with write capabilities) covering clinical, administrative, financial, and care coordination domains. The API follows the HL7 FHIR R4 specification and supports OAuth 2.0 Client Credentials and Authorization Code flows with SMART on FHIR scopes for machine-to-machine and user-delegated access.\n\n\nContact Support:\n Name: Canvas Medical Support",
+      "type": "text/plain"
+    }
+  }
+}

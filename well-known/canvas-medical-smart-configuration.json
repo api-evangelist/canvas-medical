@@ -1,0 +1,32 @@
+{
+  "issuer": "https://apex.canvasmedical.com",
+  "jwks_uri": "https://apex.canvasmedical.com/auth/.well-known/jwks.json",
+  "authorization_endpoint": "https://apex.canvasmedical.com/auth/authorize/",
+  "grant_types_supported": [
+    "authorization_code",
+    "client_credentials"
+  ],
+  "token_endpoint": "https://apex.canvasmedical.com/auth/token/",
+  "code_challenge_methods_supported": [
+    "S256"
+  ],
+  "capabilities": [
+    "authorize-post",
+    "client-confidential-asymmetric",
+    "client-confidential-symmetric",
+    "client-public",
+    "context-banner",
+    "context-ehr-encounter",
+    "context-ehr-patient",
+    "context-standalone-patient",
+    "context-style",
+    "launch-ehr",
+    "launch-standalone",
+    "permission-offline",
+    "permission-patient",
+    "permission-user",
+    "permission-v1",
+    "permission-v2",
+    "sso-openid-connect"
+  ]
+}

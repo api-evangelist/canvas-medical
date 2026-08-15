@@ -1,0 +1,129 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Canvas Medical FHIR AllergyIntolerance Encounter API",
+    "version": "4.0"
+  },
+  "request": {
+    "auth": {
+      "type": "oauth2",
+      "flow": "client_credentials",
+      "accessTokenUrl": "https://{canvas-instance}.canvasmedical.com/auth/token/",
+      "credentials": {
+        "clientId": "{{clientId}}",
+        "clientSecret": "{{clientSecret}}"
+      }
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Encounter",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Search Encounters",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://fumage-{canvas-instance}.canvasmedical.com/Encounter",
+            "params": [
+              {
+                "name": "patient",
+                "value": "",
+                "type": "query",
+                "description": "Filter by patient ID or reference"
+              },
+              {
+                "name": "status",
+                "value": "",
+                "type": "query",
+                "description": "Filter by resource status"
+              },
+              {
+                "name": "date",
+                "value": "",
+                "type": "query",
+                "description": "Filter by date (FHIR date search parameter)"
+              },
+              {
+                "name": "_count",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of results per page"
+              },
+              {
+                "name": "_page_token",
+                "value": "",
+                "type": "query",
+                "description": "Pagination token for next page"
+              }
+            ]
+          },
+          "docs": "Search Encounters"
+        },
+        {
+          "info": {
+            "name": "Create Encounter",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://fumage-{canvas-instance}.canvasmedical.com/Encounter",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create Encounter"
+        },
+        {
+          "info": {
+            "name": "Read Encounter",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://fumage-{canvas-instance}.canvasmedical.com/Encounter/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Logical ID of the FHIR resource"
+              }
+            ]
+          },
+          "docs": "Read Encounter"
+        },
+        {
+          "info": {
+            "name": "Update Encounter",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://fumage-{canvas-instance}.canvasmedical.com/Encounter/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Logical ID of the FHIR resource"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update Encounter"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

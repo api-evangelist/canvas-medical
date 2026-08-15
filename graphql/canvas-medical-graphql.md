@@ -90,3 +90,27 @@ Tokens are short-lived JWTs. API keys are used for SDK plugin authentication.
 ## FHIR Compliance
 
 All clinical types align with FHIR R4 resource definitions. The `FHIRBundle` type supports batch and transaction operations across multiple resources in a single request.
+
+## Provenance and probe evidence (2026-08-14)
+
+**This schema is a conceptual model authored by API Evangelist, not a schema Canvas Medical
+publishes.** Canvas documents no GraphQL API: `docs.canvasmedical.com/llms.txt` indexes every
+documentation page and names no GraphQL surface, and neither the FHIR API reference nor the SDK
+reference mentions one.
+
+Introspection was attempted against every reachable Canvas host on 2026-08-14:
+
+| URL | Method | Status |
+|---|---|---|
+| `https://apex.canvasmedical.com/graphql` | POST `{__schema{queryType{name}}}` | 403 (HTML) |
+| `https://apex.canvasmedical.com/graphql/` | POST | 404 |
+| `https://fumage-apex.canvasmedical.com/graphql` | POST | 404 (`{"detail":"Not Found"}`) |
+| `https://api.canvasmedical.com/graphql` | POST | DNS does not resolve |
+
+The 403 on the un-slashed path suggests an internal GraphQL endpoint exists behind the instance's
+edge (consistent with the `DjangoChannelsGraphqlWs` and `graphene-django-optimizer` forks in the
+canvas-medical GitHub org), but it is undocumented, unadvertised, and not reachable without
+authorization — so no real SDL could be captured and none has been fabricated. Treat the types in
+`canvas-medical-schema.graphql` as a derived data-model sketch. The machine-readable contracts
+Canvas actually publishes are the FHIR R4 OpenAPIs in `openapi/`, the live CapabilityStatement in
+`conformance/`, and the protobuf event/effect catalogs in `grpc/`.

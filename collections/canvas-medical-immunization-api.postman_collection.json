@@ -1,0 +1,975 @@
+{
+  "item": [
+    {
+      "id": "ecbce2d6-da2c-4d48-ac1f-f5fbfd850738",
+      "name": "Immunization",
+      "description": {
+        "content": "Immunization records",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "fd3aef2e-649a-4c00-a963-8e7e1636a195",
+          "name": "Search Immunizations",
+          "request": {
+            "name": "Search Immunizations",
+            "description": {},
+            "url": {
+              "path": [
+                "Immunization"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "patient",
+                  "value": "<string>",
+                  "description": "Filter by patient ID or reference"
+                },
+                {
+                  "disabled": false,
+                  "key": "status",
+                  "value": "<string>",
+                  "description": "Filter by resource status"
+                },
+                {
+                  "disabled": false,
+                  "key": "date",
+                  "value": "<string>",
+                  "description": "Filter by date (FHIR date search parameter)"
+                },
+                {
+                  "disabled": false,
+                  "key": "_count",
+                  "value": "20",
+                  "description": "Maximum number of results per page"
+                },
+                {
+                  "disabled": false,
+                  "key": "_page_token",
+                  "value": "<string>",
+                  "description": "Pagination token for next page"
+                }
+              ],
+              "variable": [
+                {
+                  "description": "Your Canvas Medical instance name",
+                  "type": "any",
+                  "value": "{{canvas-instance}}",
+                  "key": "canvas-instance"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/fhir+json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "a2ee0e01-092b-4d30-9393-e29a17754f3c",
+              "name": "Bundle of matching immunizations",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "Immunization"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "patient",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "status",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "date",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "_count",
+                      "value": "20"
+                    },
+                    {
+                      "key": "_page_token",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "description": "Your Canvas Medical instance name",
+                      "type": "any",
+                      "value": "{{canvas-instance}}",
+                      "key": "canvas-instance"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/fhir+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/fhir+json"
+                }
+              ],
+              "body": "{\n  \"resourceType\": \"Bundle\",\n  \"id\": \"string\",\n  \"type\": \"document\",\n  \"total\": 7837,\n  \"link\": [\n    {\n      \"relation\": \"string\",\n      \"url\": \"string\"\n    },\n    {\n      \"relation\": \"string\",\n      \"url\": \"string\"\n    }\n  ],\n  \"entry\": [\n    {\n      \"fullUrl\": \"string\",\n      \"resource\": {\n        \"resourceType\": \"string\",\n        \"id\": \"string\",\n        \"meta\": {\n          \"versionId\": \"string\",\n          \"lastUpdated\": \"1974-01-08T07:30:12.583Z\",\n          \"source\": \"string\",\n          \"profile\": [\n            \"string\",\n            \"string\"\n          ],\n          \"tag\": [\n            {\n              \"system\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"version\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"code\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"display\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"userSelected\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"system\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"version\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"code\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"display\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"userSelected\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ]\n        },\n        \"text\": {\n          \"status\": \"generated\",\n          \"div\": \"string\"\n        }\n      },\n      \"search\": {\n        \"mode\": \"match\"\n      }\n    },\n    {\n      \"fullUrl\": \"string\",\n      \"resource\": {\n        \"resourceType\": \"string\",\n        \"id\": \"string\",\n        \"meta\": {\n          \"versionId\": \"string\",\n          \"lastUpdated\": \"1979-04-06T18:32:19.158Z\",\n          \"source\": \"string\",\n          \"profile\": [\n            \"string\",\n            \"string\"\n          ],\n          \"tag\": [\n            {\n              \"system\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"version\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"code\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"display\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"userSelected\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"system\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"version\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"code\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"display\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"userSelected\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ]\n        },\n        \"text\": {\n          \"status\": \"additional\",\n          \"div\": \"string\"\n        }\n      },\n      \"search\": {\n        \"mode\": \"match\"\n      }\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f6f283c8-fbc6-4168-b24f-d15c09edffb9",
+              "name": "Authentication required",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "Immunization"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "patient",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "status",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "date",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "_count",
+                      "value": "20"
+                    },
+                    {
+                      "key": "_page_token",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "description": "Your Canvas Medical instance name",
+                      "type": "any",
+                      "value": "{{canvas-instance}}",
+                      "key": "canvas-instance"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/fhir+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/fhir+json"
+                }
+              ],
+              "body": "{\n  \"resourceType\": \"OperationOutcome\",\n  \"issue\": [\n    {\n      \"severity\": \"information\",\n      \"code\": \"string\",\n      \"details\": {\n        \"coding\": [\n          {\n            \"system\": \"string\",\n            \"version\": \"string\",\n            \"code\": \"string\",\n            \"display\": \"string\",\n            \"userSelected\": false\n          },\n          {\n            \"system\": \"string\",\n            \"version\": \"string\",\n            \"code\": \"string\",\n            \"display\": \"string\",\n            \"userSelected\": true\n          }\n        ],\n        \"text\": \"string\"\n      },\n      \"diagnostics\": \"string\",\n      \"location\": [\n        \"string\",\n        \"string\"\n      ]\n    },\n    {\n      \"severity\": \"fatal\",\n      \"code\": \"string\",\n      \"details\": {\n        \"coding\": [\n          {\n            \"system\": \"string\",\n            \"version\": \"string\",\n            \"code\": \"string\",\n            \"display\": \"string\",\n            \"userSelected\": false\n          },\n          {\n            \"system\": \"string\",\n            \"version\": \"string\",\n            \"code\": \"string\",\n            \"display\": \"string\",\n            \"userSelected\": false\n          }\n        ],\n        \"text\": \"string\"\n      },\n      \"diagnostics\": \"string\",\n      \"location\": [\n        \"string\",\n        \"string\"\n      ]\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "6df72b6f-d9a3-4940-97ec-c0fc333b571f",
+          "name": "Create Immunization",
+          "request": {
+            "name": "Create Immunization",
+            "description": {},
+            "url": {
+              "path": [
+                "Immunization"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "description": "Your Canvas Medical instance name",
+                  "type": "any",
+                  "value": "{{canvas-instance}}",
+                  "key": "canvas-instance"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/fhir+json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/fhir+json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"resourceType\": \"<string>\",\n  \"status\": \"<string>\",\n  \"vaccineCode\": {\n    \"coding\": [\n      {\n        \"system\": \"<string>\",\n        \"version\": \"<string>\",\n        \"code\": \"<string>\",\n        \"display\": \"<string>\",\n        \"userSelected\": \"<boolean>\"\n      },\n      {\n        \"system\": \"<string>\",\n        \"version\": \"<string>\",\n        \"code\": \"<string>\",\n        \"display\": \"<string>\",\n        \"userSelected\": \"<boolean>\"\n      }\n    ],\n    \"text\": \"<string>\"\n  },\n  \"patient\": {\n    \"reference\": \"<string>\",\n    \"type\": \"<string>\",\n    \"display\": \"<string>\"\n  },\n  \"occurrenceDateTime\": \"<dateTime>\",\n  \"id\": \"<string>\",\n  \"meta\": {\n    \"versionId\": \"<string>\",\n    \"lastUpdated\": \"<dateTime>\",\n    \"source\": \"<string>\",\n    \"profile\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"tag\": [\n      {\n        \"system\": \"<string>\",\n        \"version\": \"<string>\",\n        \"code\": \"<string>\",\n        \"display\": \"<string>\",\n        \"userSelected\": \"<boolean>\"\n      },\n      {\n        \"system\": \"<string>\",\n        \"version\": \"<string>\",\n        \"code\": \"<string>\",\n        \"display\": \"<string>\",\n        \"userSelected\": \"<boolean>\"\n      }\n    ]\n  },\n  \"text\": {\n    \"status\": \"<string>\",\n    \"div\": \"<string>\"\n  },\n  \"encounter\": {\n    \"reference\": \"<string>\",\n    \"type\": \"<string>\",\n    \"display\": \"<string>\"\n  },\n  \"primarySource\": \"<boolean>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "7afa1525-7613-44ca-a5c6-24f2e493960d",
+              "name": "Immunization created",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "Immunization"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "Your Canvas Medical instance name",
+                      "type": "any",
+                      "value": "{{canvas-instance}}",
+                      "key": "canvas-instance"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/fhir+json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"resourceType\": \"<string>\",\n  \"status\": \"<string>\",\n  \"vaccineCode\": {\n    \"coding\": [\n      {\n        \"system\": \"<string>\",\n        \"version\": \"<string>\",\n        \"code\": \"<string>\",\n        \"display\": \"<string>\",\n        \"userSelected\": \"<boolean>\"\n      },\n      {\n        \"system\": \"<string>\",\n        \"version\": \"<string>\",\n        \"code\": \"<string>\",\n        \"display\": \"<string>\",\n        \"userSelected\": \"<boolean>\"\n      }\n    ],\n    \"text\": \"<string>\"\n  },\n  \"patient\": {\n    \"reference\": \"<string>\",\n    \"type\": \"<string>\",\n    \"display\": \"<string>\"\n  },\n  \"occurrenceDateTime\": \"<dateTime>\",\n  \"id\": \"<string>\",\n  \"meta\": {\n    \"versionId\": \"<string>\",\n    \"lastUpdated\": \"<dateTime>\",\n    \"source\": \"<string>\",\n    \"profile\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"tag\": [\n      {\n        \"system\": \"<string>\",\n        \"version\": \"<string>\",\n        \"code\": \"<string>\",\n        \"display\": \"<string>\",\n        \"userSelected\": \"<boolean>\"\n      },\n      {\n        \"system\": \"<string>\",\n        \"version\": \"<string>\",\n        \"code\": \"<string>\",\n        \"display\": \"<string>\",\n        \"userSelected\": \"<boolean>\"\n      }\n    ]\n  },\n  \"text\": {\n    \"status\": \"<string>\",\n    \"div\": \"<string>\"\n  },\n  \"encounter\": {\n    \"reference\": \"<string>\",\n    \"type\": \"<string>\",\n    \"display\": \"<string>\"\n  },\n  \"primarySource\": \"<boolean>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/fhir+json"
+                }
+              ],
+              "body": "{\n  \"resourceType\": \"<string>\",\n  \"status\": \"<string>\",\n  \"vaccineCode\": {\n    \"coding\": [\n      {\n        \"system\": \"<string>\",\n        \"version\": \"<string>\",\n        \"code\": \"<string>\",\n        \"display\": \"<string>\",\n        \"userSelected\": \"<boolean>\"\n      },\n      {\n        \"system\": \"<string>\",\n        \"version\": \"<string>\",\n        \"code\": \"<string>\",\n        \"display\": \"<string>\",\n        \"userSelected\": \"<boolean>\"\n      }\n    ],\n    \"text\": \"<string>\"\n  },\n  \"patient\": {\n    \"reference\": \"<string>\",\n    \"type\": \"<string>\",\n    \"display\": \"<string>\"\n  },\n  \"occurrenceDateTime\": \"<dateTime>\",\n  \"id\": \"<string>\",\n  \"meta\": {\n    \"versionId\": \"<string>\",\n    \"lastUpdated\": \"<dateTime>\",\n    \"source\": \"<string>\",\n    \"profile\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"tag\": [\n      {\n        \"system\": \"<string>\",\n        \"version\": \"<string>\",\n        \"code\": \"<string>\",\n        \"display\": \"<string>\",\n        \"userSelected\": \"<boolean>\"\n      },\n      {\n        \"system\": \"<string>\",\n        \"version\": \"<string>\",\n        \"code\": \"<string>\",\n        \"display\": \"<string>\",\n        \"userSelected\": \"<boolean>\"\n      }\n    ]\n  },\n  \"text\": {\n    \"status\": \"<string>\",\n    \"div\": \"<string>\"\n  },\n  \"encounter\": {\n    \"reference\": \"<string>\",\n    \"type\": \"<string>\",\n    \"display\": \"<string>\"\n  },\n  \"primarySource\": \"<boolean>\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "3ed280ed-7c80-4971-8824-f44440ce7fd4",
+              "name": "Authentication required",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "Immunization"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "Your Canvas Medical instance name",
+                      "type": "any",
+                      "value": "{{canvas-instance}}",
+                      "key": "canvas-instance"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/fhir+json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"resourceType\": \"<string>\",\n  \"status\": \"<string>\",\n  \"vaccineCode\": {\n    \"coding\": [\n      {\n        \"system\": \"<string>\",\n        \"version\": \"<string>\",\n        \"code\": \"<string>\",\n        \"display\": \"<string>\",\n        \"userSelected\": \"<boolean>\"\n      },\n      {\n        \"system\": \"<string>\",\n        \"version\": \"<string>\",\n        \"code\": \"<string>\",\n        \"display\": \"<string>\",\n        \"userSelected\": \"<boolean>\"\n      }\n    ],\n    \"text\": \"<string>\"\n  },\n  \"patient\": {\n    \"reference\": \"<string>\",\n    \"type\": \"<string>\",\n    \"display\": \"<string>\"\n  },\n  \"occurrenceDateTime\": \"<dateTime>\",\n  \"id\": \"<string>\",\n  \"meta\": {\n    \"versionId\": \"<string>\",\n    \"lastUpdated\": \"<dateTime>\",\n    \"source\": \"<string>\",\n    \"profile\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"tag\": [\n      {\n        \"system\": \"<string>\",\n        \"version\": \"<string>\",\n        \"code\": \"<string>\",\n        \"display\": \"<string>\",\n        \"userSelected\": \"<boolean>\"\n      },\n      {\n        \"system\": \"<string>\",\n        \"version\": \"<string>\",\n        \"code\": \"<string>\",\n        \"display\": \"<string>\",\n        \"userSelected\": \"<boolean>\"\n      }\n    ]\n  },\n  \"text\": {\n    \"status\": \"<string>\",\n    \"div\": \"<string>\"\n  },\n  \"encounter\": {\n    \"reference\": \"<string>\",\n    \"type\": \"<string>\",\n    \"display\": \"<string>\"\n  },\n  \"primarySource\": \"<boolean>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/fhir+json"
+                }
+              ],
+              "body": "{\n  \"resourceType\": \"OperationOutcome\",\n  \"issue\": [\n    {\n      \"severity\": \"fatal\",\n      \"code\": \"string\",\n      \"details\": {\n        \"coding\": [\n          {\n            \"system\": \"<string>\",\n            \"version\": \"<string>\",\n            \"code\": \"<string>\",\n            \"display\": \"<string>\",\n            \"userSelected\": \"<boolean>\"\n          },\n          {\n            \"system\": \"<string>\",\n            \"version\": \"<string>\",\n            \"code\": \"<string>\",\n            \"display\": \"<string>\",\n            \"userSelected\": \"<boolean>\"\n          }\n        ],\n        \"text\": \"<string>\"\n      },\n      \"diagnostics\": \"string\",\n      \"location\": [\n        \"string\",\n        \"string\"\n      ]\n    },\n    {\n      \"severity\": \"information\",\n      \"code\": \"string\",\n      \"details\": {\n        \"coding\": [\n          {\n            \"system\": \"<string>\",\n            \"version\": \"<string>\",\n            \"code\": \"<string>\",\n            \"display\": \"<string>\",\n            \"userSelected\": \"<boolean>\"\n          },\n          {\n            \"system\": \"<string>\",\n            \"version\": \"<string>\",\n            \"code\": \"<string>\",\n            \"display\": \"<string>\",\n            \"userSelected\": \"<boolean>\"\n          }\n        ],\n        \"text\": \"<string>\"\n      },\n      \"diagnostics\": \"string\",\n      \"location\": [\n        \"string\",\n        \"string\"\n      ]\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b42fcd64-2763-4786-8c33-cff5b213d534",
+              "name": "Validation error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "Immunization"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "Your Canvas Medical instance name",
+                      "type": "any",
+                      "value": "{{canvas-instance}}",
+                      "key": "canvas-instance"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/fhir+json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"resourceType\": \"<string>\",\n  \"status\": \"<string>\",\n  \"vaccineCode\": {\n    \"coding\": [\n      {\n        \"system\": \"<string>\",\n        \"version\": \"<string>\",\n        \"code\": \"<string>\",\n        \"display\": \"<string>\",\n        \"userSelected\": \"<boolean>\"\n      },\n      {\n        \"system\": \"<string>\",\n        \"version\": \"<string>\",\n        \"code\": \"<string>\",\n        \"display\": \"<string>\",\n        \"userSelected\": \"<boolean>\"\n      }\n    ],\n    \"text\": \"<string>\"\n  },\n  \"patient\": {\n    \"reference\": \"<string>\",\n    \"type\": \"<string>\",\n    \"display\": \"<string>\"\n  },\n  \"occurrenceDateTime\": \"<dateTime>\",\n  \"id\": \"<string>\",\n  \"meta\": {\n    \"versionId\": \"<string>\",\n    \"lastUpdated\": \"<dateTime>\",\n    \"source\": \"<string>\",\n    \"profile\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"tag\": [\n      {\n        \"system\": \"<string>\",\n        \"version\": \"<string>\",\n        \"code\": \"<string>\",\n        \"display\": \"<string>\",\n        \"userSelected\": \"<boolean>\"\n      },\n      {\n        \"system\": \"<string>\",\n        \"version\": \"<string>\",\n        \"code\": \"<string>\",\n        \"display\": \"<string>\",\n        \"userSelected\": \"<boolean>\"\n      }\n    ]\n  },\n  \"text\": {\n    \"status\": \"<string>\",\n    \"div\": \"<string>\"\n  },\n  \"encounter\": {\n    \"reference\": \"<string>\",\n    \"type\": \"<string>\",\n    \"display\": \"<string>\"\n  },\n  \"primarySource\": \"<boolean>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/fhir+json"
+                }
+              ],
+              "body": "{\n  \"resourceType\": \"OperationOutcome\",\n  \"issue\": [\n    {\n      \"severity\": \"fatal\",\n      \"code\": \"string\",\n      \"details\": {\n        \"coding\": [\n          {\n            \"system\": \"<string>\",\n            \"version\": \"<string>\",\n            \"code\": \"<string>\",\n            \"display\": \"<string>\",\n            \"userSelected\": \"<boolean>\"\n          },\n          {\n            \"system\": \"<string>\",\n            \"version\": \"<string>\",\n            \"code\": \"<string>\",\n            \"display\": \"<string>\",\n            \"userSelected\": \"<boolean>\"\n          }\n        ],\n        \"text\": \"<string>\"\n      },\n      \"diagnostics\": \"string\",\n      \"location\": [\n        \"string\",\n        \"string\"\n      ]\n    },\n    {\n      \"severity\": \"information\",\n      \"code\": \"string\",\n      \"details\": {\n        \"coding\": [\n          {\n            \"system\": \"<string>\",\n            \"version\": \"<string>\",\n            \"code\": \"<string>\",\n            \"display\": \"<string>\",\n            \"userSelected\": \"<boolean>\"\n          },\n          {\n            \"system\": \"<string>\",\n            \"version\": \"<string>\",\n            \"code\": \"<string>\",\n            \"display\": \"<string>\",\n            \"userSelected\": \"<boolean>\"\n          }\n        ],\n        \"text\": \"<string>\"\n      },\n      \"diagnostics\": \"string\",\n      \"location\": [\n        \"string\",\n        \"string\"\n      ]\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "b0c3ba99-8e9e-4d7f-b6b6-4d6ea47badf9",
+          "name": "Read Immunization",
+          "request": {
+            "name": "Read Immunization",
+            "description": {},
+            "url": {
+              "path": [
+                "Immunization",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) Logical ID of the FHIR resource"
+                },
+                {
+                  "description": "Your Canvas Medical instance name",
+                  "type": "any",
+                  "value": "{{canvas-instance}}",
+                  "key": "canvas-instance"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/fhir+json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "6306798c-9372-4fbc-bc02-b1a6664e0619",
+              "name": "Immunization resource",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "Immunization",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) Logical ID of the FHIR resource"
+                    },
+                    {
+                      "description": "Your Canvas Medical instance name",
+                      "type": "any",
+                      "value": "{{canvas-instance}}",
+                      "key": "canvas-instance"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/fhir+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/fhir+json"
+                }
+              ],
+              "body": "{\n  \"resourceType\": \"<string>\",\n  \"status\": \"<string>\",\n  \"vaccineCode\": {\n    \"coding\": [\n      {\n        \"system\": \"<string>\",\n        \"version\": \"<string>\",\n        \"code\": \"<string>\",\n        \"display\": \"<string>\",\n        \"userSelected\": \"<boolean>\"\n      },\n      {\n        \"system\": \"<string>\",\n        \"version\": \"<string>\",\n        \"code\": \"<string>\",\n        \"display\": \"<string>\",\n        \"userSelected\": \"<boolean>\"\n      }\n    ],\n    \"text\": \"<string>\"\n  },\n  \"patient\": {\n    \"reference\": \"<string>\",\n    \"type\": \"<string>\",\n    \"display\": \"<string>\"\n  },\n  \"occurrenceDateTime\": \"<dateTime>\",\n  \"id\": \"<string>\",\n  \"meta\": {\n    \"versionId\": \"<string>\",\n    \"lastUpdated\": \"<dateTime>\",\n    \"source\": \"<string>\",\n    \"profile\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"tag\": [\n      {\n        \"system\": \"<string>\",\n        \"version\": \"<string>\",\n        \"code\": \"<string>\",\n        \"display\": \"<string>\",\n        \"userSelected\": \"<boolean>\"\n      },\n      {\n        \"system\": \"<string>\",\n        \"version\": \"<string>\",\n        \"code\": \"<string>\",\n        \"display\": \"<string>\",\n        \"userSelected\": \"<boolean>\"\n      }\n    ]\n  },\n  \"text\": {\n    \"status\": \"<string>\",\n    \"div\": \"<string>\"\n  },\n  \"encounter\": {\n    \"reference\": \"<string>\",\n    \"type\": \"<string>\",\n    \"display\": \"<string>\"\n  },\n  \"primarySource\": \"<boolean>\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "7cad7601-16b2-4ef8-ac51-5699d25c3cb1",
+              "name": "Authentication required",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "Immunization",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) Logical ID of the FHIR resource"
+                    },
+                    {
+                      "description": "Your Canvas Medical instance name",
+                      "type": "any",
+                      "value": "{{canvas-instance}}",
+                      "key": "canvas-instance"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/fhir+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/fhir+json"
+                }
+              ],
+              "body": "{\n  \"resourceType\": \"OperationOutcome\",\n  \"issue\": [\n    {\n      \"severity\": \"fatal\",\n      \"code\": \"string\",\n      \"details\": {\n        \"coding\": [\n          {\n            \"system\": \"<string>\",\n            \"version\": \"<string>\",\n            \"code\": \"<string>\",\n            \"display\": \"<string>\",\n            \"userSelected\": \"<boolean>\"\n          },\n          {\n            \"system\": \"<string>\",\n            \"version\": \"<string>\",\n            \"code\": \"<string>\",\n            \"display\": \"<string>\",\n            \"userSelected\": \"<boolean>\"\n          }\n        ],\n        \"text\": \"<string>\"\n      },\n      \"diagnostics\": \"string\",\n      \"location\": [\n        \"string\",\n        \"string\"\n      ]\n    },\n    {\n      \"severity\": \"information\",\n      \"code\": \"string\",\n      \"details\": {\n        \"coding\": [\n          {\n            \"system\": \"<string>\",\n            \"version\": \"<string>\",\n            \"code\": \"<string>\",\n            \"display\": \"<string>\",\n            \"userSelected\": \"<boolean>\"\n          },\n          {\n            \"system\": \"<string>\",\n            \"version\": \"<string>\",\n            \"code\": \"<string>\",\n            \"display\": \"<string>\",\n            \"userSelected\": \"<boolean>\"\n          }\n        ],\n        \"text\": \"<string>\"\n      },\n      \"diagnostics\": \"string\",\n      \"location\": [\n        \"string\",\n        \"string\"\n      ]\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "1f21065f-615d-4838-ab80-1d95ab2b4a67",
+              "name": "Resource not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "Immunization",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) Logical ID of the FHIR resource"
+                    },
+                    {
+                      "description": "Your Canvas Medical instance name",
+                      "type": "any",
+                      "value": "{{canvas-instance}}",
+                      "key": "canvas-instance"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/fhir+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/fhir+json"
+                }
+              ],
+              "body": "{\n  \"resourceType\": \"OperationOutcome\",\n  \"issue\": [\n    {\n      \"severity\": \"fatal\",\n      \"code\": \"string\",\n      \"details\": {\n        \"coding\": [\n          {\n            \"system\": \"<string>\",\n            \"version\": \"<string>\",\n            \"code\": \"<string>\",\n            \"display\": \"<string>\",\n            \"userSelected\": \"<boolean>\"\n          },\n          {\n            \"system\": \"<string>\",\n            \"version\": \"<string>\",\n            \"code\": \"<string>\",\n            \"display\": \"<string>\",\n            \"userSelected\": \"<boolean>\"\n          }\n        ],\n        \"text\": \"<string>\"\n      },\n      \"diagnostics\": \"string\",\n      \"location\": [\n        \"string\",\n        \"string\"\n      ]\n    },\n    {\n      \"severity\": \"information\",\n      \"code\": \"string\",\n      \"details\": {\n        \"coding\": [\n          {\n            \"system\": \"<string>\",\n            \"version\": \"<string>\",\n            \"code\": \"<string>\",\n            \"display\": \"<string>\",\n            \"userSelected\": \"<boolean>\"\n          },\n          {\n            \"system\": \"<string>\",\n            \"version\": \"<string>\",\n            \"code\": \"<string>\",\n            \"display\": \"<string>\",\n            \"userSelected\": \"<boolean>\"\n          }\n        ],\n        \"text\": \"<string>\"\n      },\n      \"diagnostics\": \"string\",\n      \"location\": [\n        \"string\",\n        \"string\"\n      ]\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "f00db7b8-796b-4d91-9aba-4d8c6981f681",
+          "name": "Update Immunization",
+          "request": {
+            "name": "Update Immunization",
+            "description": {},
+            "url": {
+              "path": [
+                "Immunization",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) Logical ID of the FHIR resource"
+                },
+                {
+                  "description": "Your Canvas Medical instance name",
+                  "type": "any",
+                  "value": "{{canvas-instance}}",
+                  "key": "canvas-instance"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/fhir+json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/fhir+json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"resourceType\": \"<string>\",\n  \"status\": \"<string>\",\n  \"vaccineCode\": {\n    \"coding\": [\n      {\n        \"system\": \"<string>\",\n        \"version\": \"<string>\",\n        \"code\": \"<string>\",\n        \"display\": \"<string>\",\n        \"userSelected\": \"<boolean>\"\n      },\n      {\n        \"system\": \"<string>\",\n        \"version\": \"<string>\",\n        \"code\": \"<string>\",\n        \"display\": \"<string>\",\n        \"userSelected\": \"<boolean>\"\n      }\n    ],\n    \"text\": \"<string>\"\n  },\n  \"patient\": {\n    \"reference\": \"<string>\",\n    \"type\": \"<string>\",\n    \"display\": \"<string>\"\n  },\n  \"occurrenceDateTime\": \"<dateTime>\",\n  \"id\": \"<string>\",\n  \"meta\": {\n    \"versionId\": \"<string>\",\n    \"lastUpdated\": \"<dateTime>\",\n    \"source\": \"<string>\",\n    \"profile\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"tag\": [\n      {\n        \"system\": \"<string>\",\n        \"version\": \"<string>\",\n        \"code\": \"<string>\",\n        \"display\": \"<string>\",\n        \"userSelected\": \"<boolean>\"\n      },\n      {\n        \"system\": \"<string>\",\n        \"version\": \"<string>\",\n        \"code\": \"<string>\",\n        \"display\": \"<string>\",\n        \"userSelected\": \"<boolean>\"\n      }\n    ]\n  },\n  \"text\": {\n    \"status\": \"<string>\",\n    \"div\": \"<string>\"\n  },\n  \"encounter\": {\n    \"reference\": \"<string>\",\n    \"type\": \"<string>\",\n    \"display\": \"<string>\"\n  },\n  \"primarySource\": \"<boolean>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "694ff2cf-5e83-4bb4-bb96-69b6788e1d64",
+              "name": "Immunization updated",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "Immunization",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) Logical ID of the FHIR resource"
+                    },
+                    {
+                      "description": "Your Canvas Medical instance name",
+                      "type": "any",
+                      "value": "{{canvas-instance}}",
+                      "key": "canvas-instance"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/fhir+json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"resourceType\": \"<string>\",\n  \"status\": \"<string>\",\n  \"vaccineCode\": {\n    \"coding\": [\n      {\n        \"system\": \"<string>\",\n        \"version\": \"<string>\",\n        \"code\": \"<string>\",\n        \"display\": \"<string>\",\n        \"userSelected\": \"<boolean>\"\n      },\n      {\n        \"system\": \"<string>\",\n        \"version\": \"<string>\",\n        \"code\": \"<string>\",\n        \"display\": \"<string>\",\n        \"userSelected\": \"<boolean>\"\n      }\n    ],\n    \"text\": \"<string>\"\n  },\n  \"patient\": {\n    \"reference\": \"<string>\",\n    \"type\": \"<string>\",\n    \"display\": \"<string>\"\n  },\n  \"occurrenceDateTime\": \"<dateTime>\",\n  \"id\": \"<string>\",\n  \"meta\": {\n    \"versionId\": \"<string>\",\n    \"lastUpdated\": \"<dateTime>\",\n    \"source\": \"<string>\",\n    \"profile\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"tag\": [\n      {\n        \"system\": \"<string>\",\n        \"version\": \"<string>\",\n        \"code\": \"<string>\",\n        \"display\": \"<string>\",\n        \"userSelected\": \"<boolean>\"\n      },\n      {\n        \"system\": \"<string>\",\n        \"version\": \"<string>\",\n        \"code\": \"<string>\",\n        \"display\": \"<string>\",\n        \"userSelected\": \"<boolean>\"\n      }\n    ]\n  },\n  \"text\": {\n    \"status\": \"<string>\",\n    \"div\": \"<string>\"\n  },\n  \"encounter\": {\n    \"reference\": \"<string>\",\n    \"type\": \"<string>\",\n    \"display\": \"<string>\"\n  },\n  \"primarySource\": \"<boolean>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/fhir+json"
+                }
+              ],
+              "body": "{\n  \"resourceType\": \"<string>\",\n  \"status\": \"<string>\",\n  \"vaccineCode\": {\n    \"coding\": [\n      {\n        \"system\": \"<string>\",\n        \"version\": \"<string>\",\n        \"code\": \"<string>\",\n        \"display\": \"<string>\",\n        \"userSelected\": \"<boolean>\"\n      },\n      {\n        \"system\": \"<string>\",\n        \"version\": \"<string>\",\n        \"code\": \"<string>\",\n        \"display\": \"<string>\",\n        \"userSelected\": \"<boolean>\"\n      }\n    ],\n    \"text\": \"<string>\"\n  },\n  \"patient\": {\n    \"reference\": \"<string>\",\n    \"type\": \"<string>\",\n    \"display\": \"<string>\"\n  },\n  \"occurrenceDateTime\": \"<dateTime>\",\n  \"id\": \"<string>\",\n  \"meta\": {\n    \"versionId\": \"<string>\",\n    \"lastUpdated\": \"<dateTime>\",\n    \"source\": \"<string>\",\n    \"profile\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"tag\": [\n      {\n        \"system\": \"<string>\",\n        \"version\": \"<string>\",\n        \"code\": \"<string>\",\n        \"display\": \"<string>\",\n        \"userSelected\": \"<boolean>\"\n      },\n      {\n        \"system\": \"<string>\",\n        \"version\": \"<string>\",\n        \"code\": \"<string>\",\n        \"display\": \"<string>\",\n        \"userSelected\": \"<boolean>\"\n      }\n    ]\n  },\n  \"text\": {\n    \"status\": \"<string>\",\n    \"div\": \"<string>\"\n  },\n  \"encounter\": {\n    \"reference\": \"<string>\",\n    \"type\": \"<string>\",\n    \"display\": \"<string>\"\n  },\n  \"primarySource\": \"<boolean>\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "6ffdbaf5-a60e-4cda-abad-85018eb0b9eb",
+              "name": "Authentication required",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "Immunization",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) Logical ID of the FHIR resource"
+                    },
+                    {
+                      "description": "Your Canvas Medical instance name",
+                      "type": "any",
+                      "value": "{{canvas-instance}}",
+                      "key": "canvas-instance"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/fhir+json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"resourceType\": \"<string>\",\n  \"status\": \"<string>\",\n  \"vaccineCode\": {\n    \"coding\": [\n      {\n        \"system\": \"<string>\",\n        \"version\": \"<string>\",\n        \"code\": \"<string>\",\n        \"display\": \"<string>\",\n        \"userSelected\": \"<boolean>\"\n      },\n      {\n        \"system\": \"<string>\",\n        \"version\": \"<string>\",\n        \"code\": \"<string>\",\n        \"display\": \"<string>\",\n        \"userSelected\": \"<boolean>\"\n      }\n    ],\n    \"text\": \"<string>\"\n  },\n  \"patient\": {\n    \"reference\": \"<string>\",\n    \"type\": \"<string>\",\n    \"display\": \"<string>\"\n  },\n  \"occurrenceDateTime\": \"<dateTime>\",\n  \"id\": \"<string>\",\n  \"meta\": {\n    \"versionId\": \"<string>\",\n    \"lastUpdated\": \"<dateTime>\",\n    \"source\": \"<string>\",\n    \"profile\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"tag\": [\n      {\n        \"system\": \"<string>\",\n        \"version\": \"<string>\",\n        \"code\": \"<string>\",\n        \"display\": \"<string>\",\n        \"userSelected\": \"<boolean>\"\n      },\n      {\n        \"system\": \"<string>\",\n        \"version\": \"<string>\",\n        \"code\": \"<string>\",\n        \"display\": \"<string>\",\n        \"userSelected\": \"<boolean>\"\n      }\n    ]\n  },\n  \"text\": {\n    \"status\": \"<string>\",\n    \"div\": \"<string>\"\n  },\n  \"encounter\": {\n    \"reference\": \"<string>\",\n    \"type\": \"<string>\",\n    \"display\": \"<string>\"\n  },\n  \"primarySource\": \"<boolean>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/fhir+json"
+                }
+              ],
+              "body": "{\n  \"resourceType\": \"OperationOutcome\",\n  \"issue\": [\n    {\n      \"severity\": \"fatal\",\n      \"code\": \"string\",\n      \"details\": {\n        \"coding\": [\n          {\n            \"system\": \"<string>\",\n            \"version\": \"<string>\",\n            \"code\": \"<string>\",\n            \"display\": \"<string>\",\n            \"userSelected\": \"<boolean>\"\n          },\n          {\n            \"system\": \"<string>\",\n            \"version\": \"<string>\",\n            \"code\": \"<string>\",\n            \"display\": \"<string>\",\n            \"userSelected\": \"<boolean>\"\n          }\n        ],\n        \"text\": \"<string>\"\n      },\n      \"diagnostics\": \"string\",\n      \"location\": [\n        \"string\",\n        \"string\"\n      ]\n    },\n    {\n      \"severity\": \"information\",\n      \"code\": \"string\",\n      \"details\": {\n        \"coding\": [\n          {\n            \"system\": \"<string>\",\n            \"version\": \"<string>\",\n            \"code\": \"<string>\",\n            \"display\": \"<string>\",\n            \"userSelected\": \"<boolean>\"\n          },\n          {\n            \"system\": \"<string>\",\n            \"version\": \"<string>\",\n            \"code\": \"<string>\",\n            \"display\": \"<string>\",\n            \"userSelected\": \"<boolean>\"\n          }\n        ],\n        \"text\": \"<string>\"\n      },\n      \"diagnostics\": \"string\",\n      \"location\": [\n        \"string\",\n        \"string\"\n      ]\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a47a55cb-347c-478b-b95e-822bcb51b862",
+              "name": "Resource not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "Immunization",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) Logical ID of the FHIR resource"
+                    },
+                    {
+                      "description": "Your Canvas Medical instance name",
+                      "type": "any",
+                      "value": "{{canvas-instance}}",
+                      "key": "canvas-instance"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/fhir+json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"resourceType\": \"<string>\",\n  \"status\": \"<string>\",\n  \"vaccineCode\": {\n    \"coding\": [\n      {\n        \"system\": \"<string>\",\n        \"version\": \"<string>\",\n        \"code\": \"<string>\",\n        \"display\": \"<string>\",\n        \"userSelected\": \"<boolean>\"\n      },\n      {\n        \"system\": \"<string>\",\n        \"version\": \"<string>\",\n        \"code\": \"<string>\",\n        \"display\": \"<string>\",\n        \"userSelected\": \"<boolean>\"\n      }\n    ],\n    \"text\": \"<string>\"\n  },\n  \"patient\": {\n    \"reference\": \"<string>\",\n    \"type\": \"<string>\",\n    \"display\": \"<string>\"\n  },\n  \"occurrenceDateTime\": \"<dateTime>\",\n  \"id\": \"<string>\",\n  \"meta\": {\n    \"versionId\": \"<string>\",\n    \"lastUpdated\": \"<dateTime>\",\n    \"source\": \"<string>\",\n    \"profile\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"tag\": [\n      {\n        \"system\": \"<string>\",\n        \"version\": \"<string>\",\n        \"code\": \"<string>\",\n        \"display\": \"<string>\",\n        \"userSelected\": \"<boolean>\"\n      },\n      {\n        \"system\": \"<string>\",\n        \"version\": \"<string>\",\n        \"code\": \"<string>\",\n        \"display\": \"<string>\",\n        \"userSelected\": \"<boolean>\"\n      }\n    ]\n  },\n  \"text\": {\n    \"status\": \"<string>\",\n    \"div\": \"<string>\"\n  },\n  \"encounter\": {\n    \"reference\": \"<string>\",\n    \"type\": \"<string>\",\n    \"display\": \"<string>\"\n  },\n  \"primarySource\": \"<boolean>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/fhir+json"
+                }
+              ],
+              "body": "{\n  \"resourceType\": \"OperationOutcome\",\n  \"issue\": [\n    {\n      \"severity\": \"fatal\",\n      \"code\": \"string\",\n      \"details\": {\n        \"coding\": [\n          {\n            \"system\": \"<string>\",\n            \"version\": \"<string>\",\n            \"code\": \"<string>\",\n            \"display\": \"<string>\",\n            \"userSelected\": \"<boolean>\"\n          },\n          {\n            \"system\": \"<string>\",\n            \"version\": \"<string>\",\n            \"code\": \"<string>\",\n            \"display\": \"<string>\",\n            \"userSelected\": \"<boolean>\"\n          }\n        ],\n        \"text\": \"<string>\"\n      },\n      \"diagnostics\": \"string\",\n      \"location\": [\n        \"string\",\n        \"string\"\n      ]\n    },\n    {\n      \"severity\": \"information\",\n      \"code\": \"string\",\n      \"details\": {\n        \"coding\": [\n          {\n            \"system\": \"<string>\",\n            \"version\": \"<string>\",\n            \"code\": \"<string>\",\n            \"display\": \"<string>\",\n            \"userSelected\": \"<boolean>\"\n          },\n          {\n            \"system\": \"<string>\",\n            \"version\": \"<string>\",\n            \"code\": \"<string>\",\n            \"display\": \"<string>\",\n            \"userSelected\": \"<boolean>\"\n          }\n        ],\n        \"text\": \"<string>\"\n      },\n      \"diagnostics\": \"string\",\n      \"location\": [\n        \"string\",\n        \"string\"\n      ]\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "description": {
+        "content": "Your Canvas Medical instance name",
+        "type": "text/plain"
+      },
+      "type": "any",
+      "value": "yoursandbox",
+      "key": "canvas-instance"
+    },
+    {
+      "type": "string",
+      "value": "https://fumage-{{canvas-instance}}.canvasmedical.com",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "oauth2",
+    "oauth2": [
+      {
+        "key": "scope",
+        "value": "system/*.read system/*.write system/Patient.read system/Patient.write system/Appointment.read system/Appointment.write system/Observation.read system/Observation.write"
+      },
+      {
+        "key": "accessTokenUrl",
+        "value": "https://{canvas-instance}.canvasmedical.com/auth/token/"
+      },
+      {
+        "key": "grant_type",
+        "value": "client_credentials"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "b82b119b-3c0b-47b1-8105-997c134ab2cc",
+    "name": "Canvas Medical FHIR AllergyIntolerance Immunization API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "A FHIR R4-compliant REST API providing secure access to electronic health record data. Canvas Medical supports 41 FHIR resources (21 with write capabilities) covering clinical, administrative, financial, and care coordination domains. The API follows the HL7 FHIR R4 specification and supports OAuth 2.0 Client Credentials and Authorization Code flows with SMART on FHIR scopes for machine-to-machine and user-delegated access.\n\n\nContact Support:\n Name: Canvas Medical Support",
+      "type": "text/plain"
+    }
+  }
+}

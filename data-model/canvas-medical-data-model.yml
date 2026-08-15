@@ -1,0 +1,205 @@
+generated: '2026-08-14'
+method: derived
+source: >-
+  openapi/canvas-medical-*-openapi.yml (27 refined FHIR R4 specs), cross-checked against the live
+  CapabilityStatement at conformance/canvas-medical-capabilitystatement.json and the resource
+  reference at https://docs.canvasmedical.com/api/
+model: fhir-r4
+description: >-
+  The Canvas data model IS the FHIR R4 resource model — Canvas does not define its own object graph
+  on the API surface. Relationships below were walked out of the OpenAPI schemas: every property whose
+  schema is a FHIR `Reference` (or an array of them) is an edge. Patient is the hub; almost every
+  clinical resource points at it through `subject` or `patient`, and Encounter is the secondary hub
+  for anything that happened during a visit.
+identifiers:
+  patient_key:
+    format: UUID without dashes
+    note: Patient and staff keys are UUIDs with the dashes stripped.
+  other_resources:
+    format: standard dashed UUID
+  source: https://docs.canvasmedical.com/llms.txt
+  warning: >-
+    The dashed/undashed split is per-resource-family, not per-request. Passing a dashed patient key,
+    or an undashed key for a non-patient resource, is the most common 404 on this API.
+hubs:
+- entity: Patient
+  inbound_edges: 19
+  note: Referenced by every clinical, financial and administrative resource in the model.
+- entity: Encounter
+  inbound_edges: 6
+  note: The visit context for Condition, Immunization, MedicationRequest, Observation, Procedure, ServiceRequest.
+entities:
+- name: Patient
+  api: openapi/canvas-medical-patient-api-openapi.yml
+  operations: [readPatient, searchPatient, createPatient, updatePatient]
+  relationships: []
+- name: Practitioner
+  api: openapi/canvas-medical-practitioner-api-openapi.yml
+  operations: [readPractitioner, searchPractitioner]
+  relationships: []
+- name: Organization
+  api: openapi/canvas-medical-organization-api-openapi.yml
+  operations: [readOrganization, searchOrganization]
+  relationships: []
+- name: Location
+  api: openapi/canvas-medical-location-api-openapi.yml
+  operations: [readLocation, searchLocation]
+  relationships: []
+- name: AllergyIntolerance
+  api: openapi/canvas-medical-allergyintolerance-api-openapi.yml
+  operations: [readAllergyIntolerance, searchAllergyIntolerance, createAllergyIntolerance, updateAllergyIntolerance]
+  relationships:
+  - {kind: belongs_to, target: Patient, via: patient}
+- name: Appointment
+  api: openapi/canvas-medical-appointment-api-openapi.yml
+  operations: [readAppointment, searchAppointment, createAppointment, updateAppointment]
+  relationships:
+  - {kind: has_many, target: [Patient, Practitioner, Location], via: participant.actor, note: polymorphic Reference — the actor may be any participant type}
+- name: CarePlan
+  api: openapi/canvas-medical-careplan-api-openapi.yml
+  operations: [readCarePlan, searchCarePlan]
+  relationships:
+  - {kind: belongs_to, target: Patient, via: subject}
+- name: CareTeam
+  api: openapi/canvas-medical-careteam-api-openapi.yml
+  operations: [readCareTeam, searchCareTeam]
+  relationships:
+  - {kind: belongs_to, target: Patient, via: subject}
+  - {kind: has_many, target: [Practitioner, Organization], via: participant.member}
+- name: Claim
+  api: openapi/canvas-medical-claim-api-openapi.yml
+  operations: [readClaim, searchClaim, createClaim]
+  relationships:
+  - {kind: belongs_to, target: Patient, via: patient}
+  - {kind: has_one, target: Practitioner, via: provider}
+- name: Communication
+  api: openapi/canvas-medical-communication-api-openapi.yml
+  operations: [readCommunication, searchCommunication, createCommunication]
+  relationships:
+  - {kind: belongs_to, target: Patient, via: subject}
+- name: Condition
+  api: openapi/canvas-medical-condition-api-openapi.yml
+  operations: [readCondition, searchCondition, createCondition, updateCondition]
+  relationships:
+  - {kind: belongs_to, target: Patient, via: subject}
+  - {kind: belongs_to, target: Encounter, via: encounter}
+- name: Consent
+  api: openapi/canvas-medical-consent-api-openapi.yml
+  operations: [readConsent, searchConsent, createConsent]
+  relationships:
+  - {kind: belongs_to, target: Patient, via: patient}
+- name: Coverage
+  api: openapi/canvas-medical-coverage-api-openapi.yml
+  operations: [readCoverage, searchCoverage, createCoverage, updateCoverage]
+  relationships:
+  - {kind: has_one, target: Patient, via: subscriber}
+  - {kind: belongs_to, target: Patient, via: beneficiary}
+  - {kind: has_many, target: Organization, via: payor}
+- name: DiagnosticReport
+  api: openapi/canvas-medical-diagnosticreport-api-openapi.yml
+  operations: [readDiagnosticReport, searchDiagnosticReport]
+  relationships:
+  - {kind: belongs_to, target: Patient, via: subject}
+  - {kind: has_many, target: Observation, via: result}
+- name: DocumentReference
+  api: openapi/canvas-medical-documentreference-api-openapi.yml
+  operations: [readDocumentReference, searchDocumentReference, createDocumentReference]
+  relationships:
+  - {kind: belongs_to, target: Patient, via: subject}
+- name: Encounter
+  api: openapi/canvas-medical-encounter-api-openapi.yml
+  operations: [readEncounter, searchEncounter, createEncounter, updateEncounter]
+  relationships:
+  - {kind: belongs_to, target: Patient, via: subject}
+  - {kind: has_many, target: Practitioner, via: participant.individual}
+- name: Goal
+  api: openapi/canvas-medical-goal-api-openapi.yml
+  operations: [readGoal, searchGoal, createGoal, updateGoal]
+  relationships:
+  - {kind: belongs_to, target: Patient, via: subject}
+- name: Immunization
+  api: openapi/canvas-medical-immunization-api-openapi.yml
+  operations: [readImmunization, searchImmunization, createImmunization, updateImmunization]
+  relationships:
+  - {kind: belongs_to, target: Patient, via: patient}
+  - {kind: belongs_to, target: Encounter, via: encounter}
+- name: MedicationRequest
+  api: openapi/canvas-medical-medicationrequest-api-openapi.yml
+  operations: [readMedicationRequest, searchMedicationRequest, createMedicationRequest, updateMedicationRequest]
+  relationships:
+  - {kind: belongs_to, target: Patient, via: subject}
+  - {kind: belongs_to, target: Encounter, via: encounter}
+  - {kind: has_one, target: Practitioner, via: requester}
+  - {kind: has_one, target: Medication, via: medicationReference, note: Medication is served by Canvas (CapabilityStatement) but has no refined spec in openapi/}
+- name: Observation
+  api: openapi/canvas-medical-observation-api-openapi.yml
+  operations: [readObservation, searchObservation, createObservation]
+  relationships:
+  - {kind: belongs_to, target: Patient, via: subject}
+  - {kind: belongs_to, target: Encounter, via: encounter}
+- name: Procedure
+  api: openapi/canvas-medical-procedure-api-openapi.yml
+  operations: [readProcedure, searchProcedure, createProcedure]
+  relationships:
+  - {kind: belongs_to, target: Patient, via: subject}
+  - {kind: belongs_to, target: Encounter, via: encounter}
+- name: Questionnaire
+  api: openapi/canvas-medical-questionnaire-api-openapi.yml
+  operations: [readQuestionnaire, searchQuestionnaire, createQuestionnaire]
+  relationships: []
+- name: QuestionnaireResponse
+  api: openapi/canvas-medical-questionnaireresponse-api-openapi.yml
+  operations: [readQuestionnaireResponse, searchQuestionnaireResponse, createQuestionnaireResponse]
+  relationships:
+  - {kind: belongs_to, target: Patient, via: subject}
+  - {kind: belongs_to, target: Questionnaire, via: questionnaire, note: canonical URL reference rather than a Reference object}
+- name: Schedule
+  api: openapi/canvas-medical-schedule-api-openapi.yml
+  operations: [readSchedule, searchSchedule]
+  relationships:
+  - {kind: has_many, target: [Practitioner, Location], via: actor}
+- name: ServiceRequest
+  api: openapi/canvas-medical-servicerequest-api-openapi.yml
+  operations: [readServiceRequest, searchServiceRequest, createServiceRequest, updateServiceRequest]
+  relationships:
+  - {kind: belongs_to, target: Patient, via: subject}
+  - {kind: belongs_to, target: Encounter, via: encounter}
+  - {kind: has_one, target: Practitioner, via: requester}
+- name: Slot
+  api: openapi/canvas-medical-slot-api-openapi.yml
+  operations: [readSlot, searchSlot]
+  relationships:
+  - {kind: belongs_to, target: Schedule, via: schedule}
+- name: Task
+  api: openapi/canvas-medical-task-api-openapi.yml
+  operations: [readTask, searchTask, createTask, updateTask]
+  relationships:
+  - {kind: has_one, target: any, via: focus, note: polymorphic — the resource the task is about}
+  - {kind: belongs_to, target: Patient, via: for}
+  - {kind: has_one, target: Practitioner, via: owner}
+shared_datatypes:
+  note: >-
+    FHIRResource (id, meta, text) is the base every resource allOf-extends. CodeableConcept/Coding,
+    Identifier, Reference, Period, HumanName, Address and ContactPoint are the shared value types.
+    Bundle wraps every search result; OperationOutcome wraps every documented error.
+coverage_gap:
+  specs_in_repo: 27
+  resources_in_capability_statement: 40
+  missing_from_repo:
+  - CoverageEligibilityRequest
+  - CoverageEligibilityResponse
+  - DetectedIssue
+  - Device
+  - Group
+  - Media
+  - Medication
+  - MedicationDispense
+  - MedicationStatement
+  - PaymentNotice
+  - Provenance
+  - RelatedPerson
+  - Specimen
+  note: >-
+    The live CapabilityStatement advertises 13 resource types that have no refined OpenAPI in this
+    repo. They are documented at docs.canvasmedical.com/api/ and are a harvest target for the next pass.
+render: null

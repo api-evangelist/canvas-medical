@@ -1,0 +1,138 @@
+generated: '2026-08-14'
+method: searched
+source: >-
+  PyPI and npm registry metadata endpoints, plus the Canvas Medical docs (docs.canvasmedical.com/sdk/canvas_cli/)
+  and the github.com/canvas-medical organization.
+note: >-
+  Canvas Medical's first-party client story is Python-first: one actively released package (`canvas`)
+  carries both the server-side plugin SDK and the `canvas` CLI. The JavaScript packages are the
+  patient-facing embed widgets, and they have not been republished since 2022. `canvas-sdk` on PyPI is
+  a Canvas LMS client by an unrelated author and is deliberately NOT listed here.
+packages:
+- language: python
+  registry: pypi
+  name: canvas
+  url: https://pypi.org/project/canvas/
+  install: pip install canvas
+  alt_install: uv tool install canvas
+  official: true
+  version: 0.196.1
+  published: '2026-08-13'
+  summary: SDK to customize event-driven actions in your Canvas instance; also ships the `canvas` CLI.
+  source_code: https://github.com/canvas-medical/canvas-plugins
+  docs: https://docs.canvasmedical.com/sdk/
+  note: >-
+    The Canvas SDK and the Canvas CLI are the same distribution. Requires Python 3.11/3.12/3.13. The
+    CLI self-checks PyPI for newer versions at most once every 12 hours (disable with
+    CANVAS_NO_UPDATE_CHECK=1). Released the day before this pass — the freshest first-party artifact
+    Canvas ships.
+- language: python
+  registry: pypi
+  name: canvas-cli
+  url: https://pypi.org/project/canvas-cli/
+  install: pip install canvas-cli
+  official: true
+  version: 1.3.4
+  published: '2021-09-20'
+  summary: A command-line tool for the Canvas Medical EMR system.
+  status: superseded
+  note: >-
+    Legacy first-party CLI, last published 2021-09-20 and superseded by the `canvas` distribution.
+    Recorded for provenance; not the CLI the current docs install.
+- language: python
+  registry: pypi
+  name: fhirstarter
+  url: https://pypi.org/project/fhirstarter/
+  install: pip install fhirstarter
+  official: true
+  client: false
+  version: 4.2.0
+  published: '2026-07-31'
+  summary: An ASGI FHIR API framework built on top of FastAPI and FHIR Resources.
+  source_code: https://github.com/canvas-medical/fhirstarter
+  note: >-
+    First-party open source from the canvas-medical GitHub org, but a FHIR *server* framework — it is
+    not a client library for the Canvas FHIR API. Listed for completeness, excluded from the SDK count.
+- language: python
+  registry: pypi
+  name: pydian
+  url: https://pypi.org/project/pydian/
+  install: pip install pydian
+  official: true
+  client: false
+  version: 0.4.3
+  published: '2024-09-21'
+  summary: Library for pythonic data interchange.
+  source_code: https://github.com/canvas-medical/pydian
+  note: First-party data-mapping utility, not a Canvas API client. Last released 2024-09-21.
+- language: javascript
+  registry: npm
+  name: "@canvas-medical/embed-scheduler"
+  url: https://www.npmjs.com/package/@canvas-medical/embed-scheduler
+  install: npm i @canvas-medical/embed-scheduler --save
+  official: true
+  version: 0.0.9
+  published: '2022-02-24'
+  source_code: https://github.com/canvas-medical/embed
+  note: >-
+    Patient self-scheduling embed widget. Last published 2022-02-24 at 0.0.9; the repository is still
+    maintained, so the npm distribution trails the source.
+- language: javascript
+  registry: npm
+  name: "@canvas-medical/embed-appointments"
+  url: https://www.npmjs.com/package/@canvas-medical/embed-appointments
+  install: npm i @canvas-medical/embed-appointments --save
+  official: true
+  version: 0.0.9
+  published: '2022-02-24'
+  source_code: https://github.com/canvas-medical/embed
+  note: Patient appointment-management embed widget. Last published 2022-02-24.
+- language: javascript
+  registry: npm
+  name: "@canvas-medical/embed-common"
+  url: https://www.npmjs.com/package/@canvas-medical/embed-common
+  install: npm i @canvas-medical/embed-common --save
+  official: true
+  version: 0.0.9
+  published: '2022-02-24'
+  source_code: https://github.com/canvas-medical/embed
+  note: Shared business logic for the scheduler and appointments embeds. Dependency, not used directly.
+- language: javascript
+  registry: cdn
+  name: scheduler.js
+  url: https://d1a32bn8n735rs.cloudfront.net/scheduler.js
+  install: <script src="https://d1a32bn8n735rs.cloudfront.net/scheduler.js" type="text/javascript"></script>
+  official: true
+  version: null
+  published: null
+  note: >-
+    CDN build of the scheduler embed, documented as "V1". The URL carries no version segment and no
+    CDN metadata endpoint answers for a bare CloudFront object, so neither we nor a consumer can tell
+    which build is being served — the distribution is unpinned. Checked, nothing to record.
+- language: javascript
+  registry: cdn
+  name: appointments.js
+  url: https://d16rsv1d4y8ohr.cloudfront.net/appointments.js
+  install: <script src="https://d16rsv1d4y8ohr.cloudfront.net/appointments.js" type="text/javascript"></script>
+  official: true
+  version: null
+  published: null
+  note: >-
+    CDN build of the appointments embed, documented as "V1". Unpinned URL, no CDN metadata endpoint —
+    same finding as scheduler.js.
+not_first_party:
+- registry: pypi
+  name: canvas-sdk
+  url: https://pypi.org/project/canvas-sdk/
+  reason: >-
+    A read-only client for Canvas LMS (Instructure), by an unrelated author. The name collides with
+    the Canvas Medical SDK; it is not a Canvas Medical package and is excluded.
+registries_checked:
+- {registry: pypi, result: first-party packages found}
+- {registry: npm, result: first-party packages found}
+- {registry: rubygems, result: 0 results for "canvas medical"}
+- {registry: packagist, result: 0 results for "canvas-medical"}
+- {registry: nuget, result: 0 results for "canvas medical"}
+- {registry: crates.io, result: no Canvas Medical crate (only unrelated name matches)}
+- {registry: pkg.go.dev, result: proxy.golang.org returns an empty version list for github.com/canvas-medical/canvas-plugins}
+- {registry: maven-central, result: not checked — search.maven.org did not answer during this pass}

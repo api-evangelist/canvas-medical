@@ -22,7 +22,7 @@ accessModel:
 image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/canvas-medical.png
 url: https://raw.githubusercontent.com/api-evangelist/canvas-medical/refs/heads/main/apis.yml
 created: '2026-06-13'
-modified: '2026-06-13'
+modified: '2026-08-14'
 specificationVersion: '0.19'
 tags:
 - EHR
@@ -43,7 +43,7 @@ apis:
     on FHIR scopes for machine-to-machine and user-delegated access.
   image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
   humanURL: https://docs.canvasmedical.com/api/
-  baseURL: https://{canvas-instance}/api/
+  baseURL: https://fumage-{canvas-instance}.canvasmedical.com
   tags:
   - FHIR
   - EHR
@@ -86,7 +86,7 @@ apis:
   name: Canvas Medical AllergyIntolerance API
   description: Allergy and intolerance records
   humanURL: https://docs.canvasmedical.com/api/
-  baseURL: https://{canvas-instance}/api/
+  baseURL: https://fumage-{canvas-instance}.canvasmedical.com
   tags:
   - AllergyIntolerance
   properties:
@@ -96,7 +96,7 @@ apis:
   name: Canvas Medical Appointment API
   description: Appointment scheduling and management
   humanURL: https://docs.canvasmedical.com/api/
-  baseURL: https://{canvas-instance}/api/
+  baseURL: https://fumage-{canvas-instance}.canvasmedical.com
   tags:
   - Appointment
   properties:
@@ -106,7 +106,7 @@ apis:
   name: Canvas Medical CarePlan API
   description: Care plan management
   humanURL: https://docs.canvasmedical.com/api/
-  baseURL: https://{canvas-instance}/api/
+  baseURL: https://fumage-{canvas-instance}.canvasmedical.com
   tags:
   - CarePlan
   properties:
@@ -116,7 +116,7 @@ apis:
   name: Canvas Medical CareTeam API
   description: Care team coordination
   humanURL: https://docs.canvasmedical.com/api/
-  baseURL: https://{canvas-instance}/api/
+  baseURL: https://fumage-{canvas-instance}.canvasmedical.com
   tags:
   - CareTeam
   properties:
@@ -126,7 +126,7 @@ apis:
   name: Canvas Medical Claim API
   description: Insurance claims and billing
   humanURL: https://docs.canvasmedical.com/api/
-  baseURL: https://{canvas-instance}/api/
+  baseURL: https://fumage-{canvas-instance}.canvasmedical.com
   tags:
   - Claim
   properties:
@@ -136,7 +136,7 @@ apis:
   name: Canvas Medical Communication API
   description: Communications with or about a patient
   humanURL: https://docs.canvasmedical.com/api/
-  baseURL: https://{canvas-instance}/api/
+  baseURL: https://fumage-{canvas-instance}.canvasmedical.com
   tags:
   - Communication
   properties:
@@ -146,7 +146,7 @@ apis:
   name: Canvas Medical Condition API
   description: Patient conditions, problems, and diagnoses
   humanURL: https://docs.canvasmedical.com/api/
-  baseURL: https://{canvas-instance}/api/
+  baseURL: https://fumage-{canvas-instance}.canvasmedical.com
   tags:
   - Condition
   properties:
@@ -156,7 +156,7 @@ apis:
   name: Canvas Medical Consent API
   description: Patient consent records
   humanURL: https://docs.canvasmedical.com/api/
-  baseURL: https://{canvas-instance}/api/
+  baseURL: https://fumage-{canvas-instance}.canvasmedical.com
   tags:
   - Consent
   properties:
@@ -166,7 +166,7 @@ apis:
   name: Canvas Medical Coverage API
   description: Insurance coverage records
   humanURL: https://docs.canvasmedical.com/api/
-  baseURL: https://{canvas-instance}/api/
+  baseURL: https://fumage-{canvas-instance}.canvasmedical.com
   tags:
   - Coverage
   properties:
@@ -176,7 +176,7 @@ apis:
   name: Canvas Medical DiagnosticReport API
   description: Diagnostic test reports
   humanURL: https://docs.canvasmedical.com/api/
-  baseURL: https://{canvas-instance}/api/
+  baseURL: https://fumage-{canvas-instance}.canvasmedical.com
   tags:
   - DiagnosticReport
   properties:
@@ -186,7 +186,7 @@ apis:
   name: Canvas Medical DocumentReference API
   description: Clinical documents and attachments
   humanURL: https://docs.canvasmedical.com/api/
-  baseURL: https://{canvas-instance}/api/
+  baseURL: https://fumage-{canvas-instance}.canvasmedical.com
   tags:
   - DocumentReference
   properties:
@@ -196,7 +196,7 @@ apis:
   name: Canvas Medical Encounter API
   description: Clinical encounters and visits
   humanURL: https://docs.canvasmedical.com/api/
-  baseURL: https://{canvas-instance}/api/
+  baseURL: https://fumage-{canvas-instance}.canvasmedical.com
   tags:
   - Encounter
   properties:
@@ -206,7 +206,7 @@ apis:
   name: Canvas Medical Goal API
   description: Patient care goals
   humanURL: https://docs.canvasmedical.com/api/
-  baseURL: https://{canvas-instance}/api/
+  baseURL: https://fumage-{canvas-instance}.canvasmedical.com
   tags:
   - Goal
   properties:
@@ -216,7 +216,7 @@ apis:
   name: Canvas Medical Immunization API
   description: Immunization records
   humanURL: https://docs.canvasmedical.com/api/
-  baseURL: https://{canvas-instance}/api/
+  baseURL: https://fumage-{canvas-instance}.canvasmedical.com
   tags:
   - Immunization
   properties:
@@ -226,7 +226,7 @@ apis:
   name: Canvas Medical Location API
   description: Physical practice locations
   humanURL: https://docs.canvasmedical.com/api/
-  baseURL: https://{canvas-instance}/api/
+  baseURL: https://fumage-{canvas-instance}.canvasmedical.com
   tags:
   - Location
   properties:
@@ -236,7 +236,7 @@ apis:
   name: Canvas Medical MedicationRequest API
   description: Medication prescriptions and orders
   humanURL: https://docs.canvasmedical.com/api/
-  baseURL: https://{canvas-instance}/api/
+  baseURL: https://fumage-{canvas-instance}.canvasmedical.com
   tags:
   - MedicationRequest
   properties:
@@ -246,7 +246,7 @@ apis:
   name: Canvas Medical Metadata API
   description: FHIR server capabilities
   humanURL: https://docs.canvasmedical.com/api/
-  baseURL: https://{canvas-instance}/api/
+  baseURL: https://fumage-{canvas-instance}.canvasmedical.com
   tags:
   - Metadata
   properties:
@@ -256,7 +256,7 @@ apis:
   name: Canvas Medical Observation API
   description: Clinical observations, vitals, and lab results
   humanURL: https://docs.canvasmedical.com/api/
-  baseURL: https://{canvas-instance}/api/
+  baseURL: https://fumage-{canvas-instance}.canvasmedical.com
   tags:
   - Observation
   properties:
@@ -266,7 +266,7 @@ apis:
   name: Canvas Medical Organization API
   description: Healthcare organization information
   humanURL: https://docs.canvasmedical.com/api/
-  baseURL: https://{canvas-instance}/api/
+  baseURL: https://fumage-{canvas-instance}.canvasmedical.com
   tags:
   - Organization
   properties:
@@ -276,7 +276,7 @@ apis:
   name: Canvas Medical Patient API
   description: Patient demographic and administrative data
   humanURL: https://docs.canvasmedical.com/api/
-  baseURL: https://{canvas-instance}/api/
+  baseURL: https://fumage-{canvas-instance}.canvasmedical.com
   tags:
   - Patient
   properties:
@@ -286,7 +286,7 @@ apis:
   name: Canvas Medical Practitioner API
   description: Healthcare provider information
   humanURL: https://docs.canvasmedical.com/api/
-  baseURL: https://{canvas-instance}/api/
+  baseURL: https://fumage-{canvas-instance}.canvasmedical.com
   tags:
   - Practitioner
   properties:
@@ -296,7 +296,7 @@ apis:
   name: Canvas Medical Procedure API
   description: Clinical procedures performed
   humanURL: https://docs.canvasmedical.com/api/
-  baseURL: https://{canvas-instance}/api/
+  baseURL: https://fumage-{canvas-instance}.canvasmedical.com
   tags:
   - Procedure
   properties:
@@ -306,7 +306,7 @@ apis:
   name: Canvas Medical Questionnaire API
   description: Structured data collection forms
   humanURL: https://docs.canvasmedical.com/api/
-  baseURL: https://{canvas-instance}/api/
+  baseURL: https://fumage-{canvas-instance}.canvasmedical.com
   tags:
   - Questionnaire
   properties:
@@ -316,7 +316,7 @@ apis:
   name: Canvas Medical QuestionnaireResponse API
   description: Patient responses to questionnaires
   humanURL: https://docs.canvasmedical.com/api/
-  baseURL: https://{canvas-instance}/api/
+  baseURL: https://fumage-{canvas-instance}.canvasmedical.com
   tags:
   - QuestionnaireResponse
   properties:
@@ -326,7 +326,7 @@ apis:
   name: Canvas Medical Schedule API
   description: Practitioner availability schedules
   humanURL: https://docs.canvasmedical.com/api/
-  baseURL: https://{canvas-instance}/api/
+  baseURL: https://fumage-{canvas-instance}.canvasmedical.com
   tags:
   - Schedule
   properties:
@@ -336,7 +336,7 @@ apis:
   name: Canvas Medical ServiceRequest API
   description: Orders for laboratory, imaging, and referrals
   humanURL: https://docs.canvasmedical.com/api/
-  baseURL: https://{canvas-instance}/api/
+  baseURL: https://fumage-{canvas-instance}.canvasmedical.com
   tags:
   - ServiceRequest
   properties:
@@ -346,7 +346,7 @@ apis:
   name: Canvas Medical Slot API
   description: Available appointment time slots
   humanURL: https://docs.canvasmedical.com/api/
-  baseURL: https://{canvas-instance}/api/
+  baseURL: https://fumage-{canvas-instance}.canvasmedical.com
   tags:
   - Slot
   properties:
@@ -356,7 +356,7 @@ apis:
   name: Canvas Medical Task API
   description: Clinical and administrative tasks
   humanURL: https://docs.canvasmedical.com/api/
-  baseURL: https://{canvas-instance}/api/
+  baseURL: https://fumage-{canvas-instance}.canvasmedical.com
   tags:
   - Task
   properties:
@@ -424,6 +424,63 @@ common:
   - url: arazzo/canvas-medical-smart-us-core-patient-retrieval-workflow.yml
     name: Canvas Medical SMART on FHIR US Core Retrieval
     summary: "Discover server capabilities, locate a patient, then pull the US Core clinical summary - problems, vitals/labs, medications, and allergies."
+- type: Packages
+  url: packages/canvas-medical-packages.yml
+- type: SDKs
+  url: packages/canvas-medical-packages.yml
+- type: CLI
+  url: cli/canvas-medical-cli.yml
+- type: Components
+  url: components/canvas-medical-components.yml
+- type: WellKnown
+  url: well-known/canvas-medical-well-known.yml
+- type: APICatalog
+  url: well-known/canvas-medical-fhir-service-base-urls-production.json
+- type: LLMsTxt
+  url: llms/canvas-medical-llms.txt
+- type: Overlay
+  url: overlays/canvas-medical-fhir-api-overlay.yaml
+- type: Protobuf
+  url: grpc/canvas-medical-events.proto
+- type: Protobuf
+  url: grpc/canvas-medical-effects.proto
+- type: Conformance
+  url: conformance/canvas-medical-conformance.yml
+- type: Compliance
+  url: https://docs.canvasmedical.com/guides/platform-security-overview/
+- type: ErrorCatalog
+  url: errors/canvas-medical-problem-types.yml
+- type: Lifecycle
+  url: lifecycle/canvas-medical-lifecycle.yml
+- type: Deprecation
+  url: https://docs.canvasmedical.com/product-updates/important-dates/
+- type: Conventions
+  url: conventions/canvas-medical-conventions.yml
+- type: ChangeLog
+  url: changelog/canvas-medical-changelog.yml
+- type: DataModel
+  url: data-model/canvas-medical-data-model.yml
+- type: Sandbox
+  url: sandbox/canvas-medical-sandbox.yml
+- type: Webhooks
+  url: asyncapi/canvas-medical-events-webhooks.yml
+- type: AgentSkill
+  url: skills/_index.yml
+- type: Roadmap
+  url: https://docs.canvasmedical.com/product-updates/roadmap/
+- type: DeveloperPortal
+  url: https://docs.canvasmedical.com/
+- type: APIReference
+  url: https://docs.canvasmedical.com/api/
+- type: PrivacyPolicy
+  url: https://www.canvasmedical.com/privacy-policy
+- type: TermsOfService
+  url: https://www.canvasmedical.com/terms
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
+x-enrichment:
+  date: '2026-08-14'
+  status: enriched
+  artifacts_added: 36
+  pass: local-v1

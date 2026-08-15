@@ -1,0 +1,975 @@
+{
+  "item": [
+    {
+      "id": "e9616375-8f16-407a-a340-f66dd1510671",
+      "name": "Encounter",
+      "description": {
+        "content": "Clinical encounters and visits",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "9b80a5e6-4e93-4ee3-9c1f-36fd7fe54e5c",
+          "name": "Search Encounters",
+          "request": {
+            "name": "Search Encounters",
+            "description": {},
+            "url": {
+              "path": [
+                "Encounter"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "patient",
+                  "value": "<string>",
+                  "description": "Filter by patient ID or reference"
+                },
+                {
+                  "disabled": false,
+                  "key": "status",
+                  "value": "<string>",
+                  "description": "Filter by resource status"
+                },
+                {
+                  "disabled": false,
+                  "key": "date",
+                  "value": "<string>",
+                  "description": "Filter by date (FHIR date search parameter)"
+                },
+                {
+                  "disabled": false,
+                  "key": "_count",
+                  "value": "20",
+                  "description": "Maximum number of results per page"
+                },
+                {
+                  "disabled": false,
+                  "key": "_page_token",
+                  "value": "<string>",
+                  "description": "Pagination token for next page"
+                }
+              ],
+              "variable": [
+                {
+                  "description": "Your Canvas Medical instance name",
+                  "type": "any",
+                  "value": "{{canvas-instance}}",
+                  "key": "canvas-instance"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/fhir+json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "6987134e-2779-4f8a-a35f-2073feb08b9b",
+              "name": "Bundle of matching encounters",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "Encounter"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "patient",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "status",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "date",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "_count",
+                      "value": "20"
+                    },
+                    {
+                      "key": "_page_token",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "description": "Your Canvas Medical instance name",
+                      "type": "any",
+                      "value": "{{canvas-instance}}",
+                      "key": "canvas-instance"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/fhir+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/fhir+json"
+                }
+              ],
+              "body": "{\n  \"resourceType\": \"Bundle\",\n  \"id\": \"string\",\n  \"type\": \"subscription-notification\",\n  \"total\": 3238,\n  \"link\": [\n    {\n      \"relation\": \"string\",\n      \"url\": \"string\"\n    },\n    {\n      \"relation\": \"string\",\n      \"url\": \"string\"\n    }\n  ],\n  \"entry\": [\n    {\n      \"fullUrl\": \"string\",\n      \"resource\": {\n        \"resourceType\": \"string\",\n        \"id\": \"string\",\n        \"meta\": {\n          \"versionId\": \"string\",\n          \"lastUpdated\": \"1978-07-28T08:13:17.447Z\",\n          \"source\": \"string\",\n          \"profile\": [\n            \"string\",\n            \"string\"\n          ],\n          \"tag\": [\n            {\n              \"system\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"version\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"code\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"display\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"userSelected\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"system\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"version\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"code\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"display\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"userSelected\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ]\n        },\n        \"text\": {\n          \"status\": \"extensions\",\n          \"div\": \"string\"\n        }\n      },\n      \"search\": {\n        \"mode\": \"match\"\n      }\n    },\n    {\n      \"fullUrl\": \"string\",\n      \"resource\": {\n        \"resourceType\": \"string\",\n        \"id\": \"string\",\n        \"meta\": {\n          \"versionId\": \"string\",\n          \"lastUpdated\": \"1988-01-13T17:36:49.958Z\",\n          \"source\": \"string\",\n          \"profile\": [\n            \"string\",\n            \"string\"\n          ],\n          \"tag\": [\n            {\n              \"system\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"version\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"code\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"display\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"userSelected\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"system\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"version\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"code\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"display\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"userSelected\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ]\n        },\n        \"text\": {\n          \"status\": \"extensions\",\n          \"div\": \"string\"\n        }\n      },\n      \"search\": {\n        \"mode\": \"include\"\n      }\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e1979e01-0531-4502-a156-41cf80766649",
+              "name": "Authentication required",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "Encounter"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "patient",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "status",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "date",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "_count",
+                      "value": "20"
+                    },
+                    {
+                      "key": "_page_token",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "description": "Your Canvas Medical instance name",
+                      "type": "any",
+                      "value": "{{canvas-instance}}",
+                      "key": "canvas-instance"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/fhir+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/fhir+json"
+                }
+              ],
+              "body": "{\n  \"resourceType\": \"OperationOutcome\",\n  \"issue\": [\n    {\n      \"severity\": \"information\",\n      \"code\": \"string\",\n      \"details\": {\n        \"coding\": [\n          {\n            \"system\": \"string\",\n            \"version\": \"string\",\n            \"code\": \"string\",\n            \"display\": \"string\",\n            \"userSelected\": true\n          },\n          {\n            \"system\": \"string\",\n            \"version\": \"string\",\n            \"code\": \"string\",\n            \"display\": \"string\",\n            \"userSelected\": true\n          }\n        ],\n        \"text\": \"string\"\n      },\n      \"diagnostics\": \"string\",\n      \"location\": [\n        \"string\",\n        \"string\"\n      ]\n    },\n    {\n      \"severity\": \"information\",\n      \"code\": \"string\",\n      \"details\": {\n        \"coding\": [\n          {\n            \"system\": \"string\",\n            \"version\": \"string\",\n            \"code\": \"string\",\n            \"display\": \"string\",\n            \"userSelected\": false\n          },\n          {\n            \"system\": \"string\",\n            \"version\": \"string\",\n            \"code\": \"string\",\n            \"display\": \"string\",\n            \"userSelected\": false\n          }\n        ],\n        \"text\": \"string\"\n      },\n      \"diagnostics\": \"string\",\n      \"location\": [\n        \"string\",\n        \"string\"\n      ]\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "07d3c688-499c-4856-80ca-ebc3c207a656",
+          "name": "Create Encounter",
+          "request": {
+            "name": "Create Encounter",
+            "description": {},
+            "url": {
+              "path": [
+                "Encounter"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "description": "Your Canvas Medical instance name",
+                  "type": "any",
+                  "value": "{{canvas-instance}}",
+                  "key": "canvas-instance"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/fhir+json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/fhir+json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"resourceType\": \"<string>\",\n  \"status\": \"<string>\",\n  \"class\": {\n    \"system\": \"<string>\",\n    \"version\": \"<string>\",\n    \"code\": \"<string>\",\n    \"display\": \"<string>\",\n    \"userSelected\": \"<boolean>\"\n  },\n  \"id\": \"<string>\",\n  \"meta\": {\n    \"versionId\": \"<string>\",\n    \"lastUpdated\": \"<dateTime>\",\n    \"source\": \"<string>\",\n    \"profile\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"tag\": [\n      {\n        \"system\": \"<string>\",\n        \"version\": \"<string>\",\n        \"code\": \"<string>\",\n        \"display\": \"<string>\",\n        \"userSelected\": \"<boolean>\"\n      },\n      {\n        \"system\": \"<string>\",\n        \"version\": \"<string>\",\n        \"code\": \"<string>\",\n        \"display\": \"<string>\",\n        \"userSelected\": \"<boolean>\"\n      }\n    ]\n  },\n  \"text\": {\n    \"status\": \"<string>\",\n    \"div\": \"<string>\"\n  },\n  \"type\": [\n    {\n      \"coding\": [\n        {\n          \"system\": \"<string>\",\n          \"version\": \"<string>\",\n          \"code\": \"<string>\",\n          \"display\": \"<string>\",\n          \"userSelected\": \"<boolean>\"\n        },\n        {\n          \"system\": \"<string>\",\n          \"version\": \"<string>\",\n          \"code\": \"<string>\",\n          \"display\": \"<string>\",\n          \"userSelected\": \"<boolean>\"\n        }\n      ],\n      \"text\": \"<string>\"\n    },\n    {\n      \"coding\": [\n        {\n          \"system\": \"<string>\",\n          \"version\": \"<string>\",\n          \"code\": \"<string>\",\n          \"display\": \"<string>\",\n          \"userSelected\": \"<boolean>\"\n        },\n        {\n          \"system\": \"<string>\",\n          \"version\": \"<string>\",\n          \"code\": \"<string>\",\n          \"display\": \"<string>\",\n          \"userSelected\": \"<boolean>\"\n        }\n      ],\n      \"text\": \"<string>\"\n    }\n  ],\n  \"subject\": {\n    \"reference\": \"<string>\",\n    \"type\": \"<string>\",\n    \"display\": \"<string>\"\n  },\n  \"participant\": [\n    {\n      \"type\": [\n        {\n          \"coding\": [\n            {\n              \"system\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"version\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"code\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"display\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"userSelected\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"system\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"version\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"code\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"display\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"userSelected\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ],\n          \"text\": \"<string>\"\n        },\n        {\n          \"coding\": [\n            {\n              \"system\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"version\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"code\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"display\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"userSelected\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"system\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"version\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"code\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"display\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"userSelected\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ],\n          \"text\": \"<string>\"\n        }\n      ],\n      \"individual\": {\n        \"reference\": \"<string>\",\n        \"type\": \"<string>\",\n        \"display\": \"<string>\"\n      }\n    },\n    {\n      \"type\": [\n        {\n          \"coding\": [\n            {\n              \"system\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"version\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"code\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"display\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"userSelected\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"system\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"version\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"code\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"display\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"userSelected\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ],\n          \"text\": \"<string>\"\n        },\n        {\n          \"coding\": [\n            {\n              \"system\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"version\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"code\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"display\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"userSelected\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"system\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"version\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"code\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"display\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"userSelected\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ],\n          \"text\": \"<string>\"\n        }\n      ],\n      \"individual\": {\n        \"reference\": \"<string>\",\n        \"type\": \"<string>\",\n        \"display\": \"<string>\"\n      }\n    }\n  ],\n  \"period\": {\n    \"start\": \"<dateTime>\",\n    \"end\": \"<dateTime>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "d362052e-857d-44d2-b49a-ec8818be2363",
+              "name": "Encounter created",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "Encounter"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "Your Canvas Medical instance name",
+                      "type": "any",
+                      "value": "{{canvas-instance}}",
+                      "key": "canvas-instance"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/fhir+json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"resourceType\": \"<string>\",\n  \"status\": \"<string>\",\n  \"class\": {\n    \"system\": \"<string>\",\n    \"version\": \"<string>\",\n    \"code\": \"<string>\",\n    \"display\": \"<string>\",\n    \"userSelected\": \"<boolean>\"\n  },\n  \"id\": \"<string>\",\n  \"meta\": {\n    \"versionId\": \"<string>\",\n    \"lastUpdated\": \"<dateTime>\",\n    \"source\": \"<string>\",\n    \"profile\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"tag\": [\n      {\n        \"system\": \"<string>\",\n        \"version\": \"<string>\",\n        \"code\": \"<string>\",\n        \"display\": \"<string>\",\n        \"userSelected\": \"<boolean>\"\n      },\n      {\n        \"system\": \"<string>\",\n        \"version\": \"<string>\",\n        \"code\": \"<string>\",\n        \"display\": \"<string>\",\n        \"userSelected\": \"<boolean>\"\n      }\n    ]\n  },\n  \"text\": {\n    \"status\": \"<string>\",\n    \"div\": \"<string>\"\n  },\n  \"type\": [\n    {\n      \"coding\": [\n        {\n          \"system\": \"<string>\",\n          \"version\": \"<string>\",\n          \"code\": \"<string>\",\n          \"display\": \"<string>\",\n          \"userSelected\": \"<boolean>\"\n        },\n        {\n          \"system\": \"<string>\",\n          \"version\": \"<string>\",\n          \"code\": \"<string>\",\n          \"display\": \"<string>\",\n          \"userSelected\": \"<boolean>\"\n        }\n      ],\n      \"text\": \"<string>\"\n    },\n    {\n      \"coding\": [\n        {\n          \"system\": \"<string>\",\n          \"version\": \"<string>\",\n          \"code\": \"<string>\",\n          \"display\": \"<string>\",\n          \"userSelected\": \"<boolean>\"\n        },\n        {\n          \"system\": \"<string>\",\n          \"version\": \"<string>\",\n          \"code\": \"<string>\",\n          \"display\": \"<string>\",\n          \"userSelected\": \"<boolean>\"\n        }\n      ],\n      \"text\": \"<string>\"\n    }\n  ],\n  \"subject\": {\n    \"reference\": \"<string>\",\n    \"type\": \"<string>\",\n    \"display\": \"<string>\"\n  },\n  \"participant\": [\n    {\n      \"type\": [\n        {\n          \"coding\": [\n            {\n              \"system\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"version\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"code\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"display\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"userSelected\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"system\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"version\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"code\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"display\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"userSelected\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ],\n          \"text\": \"<string>\"\n        },\n        {\n          \"coding\": [\n            {\n              \"system\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"version\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"code\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"display\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"userSelected\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"system\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"version\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"code\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"display\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"userSelected\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ],\n          \"text\": \"<string>\"\n        }\n      ],\n      \"individual\": {\n        \"reference\": \"<string>\",\n        \"type\": \"<string>\",\n        \"display\": \"<string>\"\n      }\n    },\n    {\n      \"type\": [\n        {\n          \"coding\": [\n            {\n              \"system\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"version\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"code\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"display\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"userSelected\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"system\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"version\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"code\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"display\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"userSelected\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ],\n          \"text\": \"<string>\"\n        },\n        {\n          \"coding\": [\n            {\n              \"system\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"version\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"code\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"display\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"userSelected\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"system\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"version\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"code\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"display\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"userSelected\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ],\n          \"text\": \"<string>\"\n        }\n      ],\n      \"individual\": {\n        \"reference\": \"<string>\",\n        \"type\": \"<string>\",\n        \"display\": \"<string>\"\n      }\n    }\n  ],\n  \"period\": {\n    \"start\": \"<dateTime>\",\n    \"end\": \"<dateTime>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/fhir+json"
+                }
+              ],
+              "body": "{\n  \"resourceType\": \"<string>\",\n  \"status\": \"<string>\",\n  \"class\": {\n    \"system\": \"<string>\",\n    \"version\": \"<string>\",\n    \"code\": \"<string>\",\n    \"display\": \"<string>\",\n    \"userSelected\": \"<boolean>\"\n  },\n  \"id\": \"<string>\",\n  \"meta\": {\n    \"versionId\": \"<string>\",\n    \"lastUpdated\": \"<dateTime>\",\n    \"source\": \"<string>\",\n    \"profile\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"tag\": [\n      {\n        \"system\": \"<string>\",\n        \"version\": \"<string>\",\n        \"code\": \"<string>\",\n        \"display\": \"<string>\",\n        \"userSelected\": \"<boolean>\"\n      },\n      {\n        \"system\": \"<string>\",\n        \"version\": \"<string>\",\n        \"code\": \"<string>\",\n        \"display\": \"<string>\",\n        \"userSelected\": \"<boolean>\"\n      }\n    ]\n  },\n  \"text\": {\n    \"status\": \"<string>\",\n    \"div\": \"<string>\"\n  },\n  \"type\": [\n    {\n      \"coding\": [\n        {\n          \"system\": \"<string>\",\n          \"version\": \"<string>\",\n          \"code\": \"<string>\",\n          \"display\": \"<string>\",\n          \"userSelected\": \"<boolean>\"\n        },\n        {\n          \"system\": \"<string>\",\n          \"version\": \"<string>\",\n          \"code\": \"<string>\",\n          \"display\": \"<string>\",\n          \"userSelected\": \"<boolean>\"\n        }\n      ],\n      \"text\": \"<string>\"\n    },\n    {\n      \"coding\": [\n        {\n          \"system\": \"<string>\",\n          \"version\": \"<string>\",\n          \"code\": \"<string>\",\n          \"display\": \"<string>\",\n          \"userSelected\": \"<boolean>\"\n        },\n        {\n          \"system\": \"<string>\",\n          \"version\": \"<string>\",\n          \"code\": \"<string>\",\n          \"display\": \"<string>\",\n          \"userSelected\": \"<boolean>\"\n        }\n      ],\n      \"text\": \"<string>\"\n    }\n  ],\n  \"subject\": {\n    \"reference\": \"<string>\",\n    \"type\": \"<string>\",\n    \"display\": \"<string>\"\n  },\n  \"participant\": [\n    {\n      \"type\": [\n        {\n          \"coding\": [\n            {\n              \"system\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"version\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"code\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"display\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"userSelected\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"system\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"version\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"code\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"display\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"userSelected\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ],\n          \"text\": \"<string>\"\n        },\n        {\n          \"coding\": [\n            {\n              \"system\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"version\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"code\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"display\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"userSelected\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"system\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"version\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"code\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"display\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"userSelected\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ],\n          \"text\": \"<string>\"\n        }\n      ],\n      \"individual\": {\n        \"reference\": \"<string>\",\n        \"type\": \"<string>\",\n        \"display\": \"<string>\"\n      }\n    },\n    {\n      \"type\": [\n        {\n          \"coding\": [\n            {\n              \"system\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"version\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"code\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"display\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"userSelected\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"system\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"version\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"code\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"display\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"userSelected\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ],\n          \"text\": \"<string>\"\n        },\n        {\n          \"coding\": [\n            {\n              \"system\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"version\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"code\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"display\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"userSelected\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"system\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"version\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"code\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"display\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"userSelected\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ],\n          \"text\": \"<string>\"\n        }\n      ],\n      \"individual\": {\n        \"reference\": \"<string>\",\n        \"type\": \"<string>\",\n        \"display\": \"<string>\"\n      }\n    }\n  ],\n  \"period\": {\n    \"start\": \"<dateTime>\",\n    \"end\": \"<dateTime>\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "7cc5753c-c401-49df-82e7-ad5dc6f25235",
+              "name": "Authentication required",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "Encounter"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "Your Canvas Medical instance name",
+                      "type": "any",
+                      "value": "{{canvas-instance}}",
+                      "key": "canvas-instance"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/fhir+json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"resourceType\": \"<string>\",\n  \"status\": \"<string>\",\n  \"class\": {\n    \"system\": \"<string>\",\n    \"version\": \"<string>\",\n    \"code\": \"<string>\",\n    \"display\": \"<string>\",\n    \"userSelected\": \"<boolean>\"\n  },\n  \"id\": \"<string>\",\n  \"meta\": {\n    \"versionId\": \"<string>\",\n    \"lastUpdated\": \"<dateTime>\",\n    \"source\": \"<string>\",\n    \"profile\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"tag\": [\n      {\n        \"system\": \"<string>\",\n        \"version\": \"<string>\",\n        \"code\": \"<string>\",\n        \"display\": \"<string>\",\n        \"userSelected\": \"<boolean>\"\n      },\n      {\n        \"system\": \"<string>\",\n        \"version\": \"<string>\",\n        \"code\": \"<string>\",\n        \"display\": \"<string>\",\n        \"userSelected\": \"<boolean>\"\n      }\n    ]\n  },\n  \"text\": {\n    \"status\": \"<string>\",\n    \"div\": \"<string>\"\n  },\n  \"type\": [\n    {\n      \"coding\": [\n        {\n          \"system\": \"<string>\",\n          \"version\": \"<string>\",\n          \"code\": \"<string>\",\n          \"display\": \"<string>\",\n          \"userSelected\": \"<boolean>\"\n        },\n        {\n          \"system\": \"<string>\",\n          \"version\": \"<string>\",\n          \"code\": \"<string>\",\n          \"display\": \"<string>\",\n          \"userSelected\": \"<boolean>\"\n        }\n      ],\n      \"text\": \"<string>\"\n    },\n    {\n      \"coding\": [\n        {\n          \"system\": \"<string>\",\n          \"version\": \"<string>\",\n          \"code\": \"<string>\",\n          \"display\": \"<string>\",\n          \"userSelected\": \"<boolean>\"\n        },\n        {\n          \"system\": \"<string>\",\n          \"version\": \"<string>\",\n          \"code\": \"<string>\",\n          \"display\": \"<string>\",\n          \"userSelected\": \"<boolean>\"\n        }\n      ],\n      \"text\": \"<string>\"\n    }\n  ],\n  \"subject\": {\n    \"reference\": \"<string>\",\n    \"type\": \"<string>\",\n    \"display\": \"<string>\"\n  },\n  \"participant\": [\n    {\n      \"type\": [\n        {\n          \"coding\": [\n            {\n              \"system\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"version\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"code\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"display\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"userSelected\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"system\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"version\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"code\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"display\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"userSelected\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ],\n          \"text\": \"<string>\"\n        },\n        {\n          \"coding\": [\n            {\n              \"system\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"version\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"code\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"display\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"userSelected\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"system\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"version\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"code\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"display\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"userSelected\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ],\n          \"text\": \"<string>\"\n        }\n      ],\n      \"individual\": {\n        \"reference\": \"<string>\",\n        \"type\": \"<string>\",\n        \"display\": \"<string>\"\n      }\n    },\n    {\n      \"type\": [\n        {\n          \"coding\": [\n            {\n              \"system\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"version\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"code\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"display\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"userSelected\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"system\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"version\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"code\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"display\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"userSelected\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ],\n          \"text\": \"<string>\"\n        },\n        {\n          \"coding\": [\n            {\n              \"system\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"version\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"code\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"display\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"userSelected\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"system\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"version\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"code\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"display\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"userSelected\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ],\n          \"text\": \"<string>\"\n        }\n      ],\n      \"individual\": {\n        \"reference\": \"<string>\",\n        \"type\": \"<string>\",\n        \"display\": \"<string>\"\n      }\n    }\n  ],\n  \"period\": {\n    \"start\": \"<dateTime>\",\n    \"end\": \"<dateTime>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/fhir+json"
+                }
+              ],
+              "body": "{\n  \"resourceType\": \"OperationOutcome\",\n  \"issue\": [\n    {\n      \"severity\": \"error\",\n      \"code\": \"string\",\n      \"details\": {\n        \"coding\": [\n          {\n            \"system\": \"<string>\",\n            \"version\": \"<string>\",\n            \"code\": \"<string>\",\n            \"display\": \"<string>\",\n            \"userSelected\": \"<boolean>\"\n          },\n          {\n            \"system\": \"<string>\",\n            \"version\": \"<string>\",\n            \"code\": \"<string>\",\n            \"display\": \"<string>\",\n            \"userSelected\": \"<boolean>\"\n          }\n        ],\n        \"text\": \"<string>\"\n      },\n      \"diagnostics\": \"string\",\n      \"location\": [\n        \"string\",\n        \"string\"\n      ]\n    },\n    {\n      \"severity\": \"fatal\",\n      \"code\": \"string\",\n      \"details\": {\n        \"coding\": [\n          {\n            \"system\": \"<string>\",\n            \"version\": \"<string>\",\n            \"code\": \"<string>\",\n            \"display\": \"<string>\",\n            \"userSelected\": \"<boolean>\"\n          },\n          {\n            \"system\": \"<string>\",\n            \"version\": \"<string>\",\n            \"code\": \"<string>\",\n            \"display\": \"<string>\",\n            \"userSelected\": \"<boolean>\"\n          }\n        ],\n        \"text\": \"<string>\"\n      },\n      \"diagnostics\": \"string\",\n      \"location\": [\n        \"string\",\n        \"string\"\n      ]\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "85c25e36-4ec4-4539-b05e-9b10ee3cd412",
+              "name": "Validation error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "Encounter"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "Your Canvas Medical instance name",
+                      "type": "any",
+                      "value": "{{canvas-instance}}",
+                      "key": "canvas-instance"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/fhir+json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"resourceType\": \"<string>\",\n  \"status\": \"<string>\",\n  \"class\": {\n    \"system\": \"<string>\",\n    \"version\": \"<string>\",\n    \"code\": \"<string>\",\n    \"display\": \"<string>\",\n    \"userSelected\": \"<boolean>\"\n  },\n  \"id\": \"<string>\",\n  \"meta\": {\n    \"versionId\": \"<string>\",\n    \"lastUpdated\": \"<dateTime>\",\n    \"source\": \"<string>\",\n    \"profile\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"tag\": [\n      {\n        \"system\": \"<string>\",\n        \"version\": \"<string>\",\n        \"code\": \"<string>\",\n        \"display\": \"<string>\",\n        \"userSelected\": \"<boolean>\"\n      },\n      {\n        \"system\": \"<string>\",\n        \"version\": \"<string>\",\n        \"code\": \"<string>\",\n        \"display\": \"<string>\",\n        \"userSelected\": \"<boolean>\"\n      }\n    ]\n  },\n  \"text\": {\n    \"status\": \"<string>\",\n    \"div\": \"<string>\"\n  },\n  \"type\": [\n    {\n      \"coding\": [\n        {\n          \"system\": \"<string>\",\n          \"version\": \"<string>\",\n          \"code\": \"<string>\",\n          \"display\": \"<string>\",\n          \"userSelected\": \"<boolean>\"\n        },\n        {\n          \"system\": \"<string>\",\n          \"version\": \"<string>\",\n          \"code\": \"<string>\",\n          \"display\": \"<string>\",\n          \"userSelected\": \"<boolean>\"\n        }\n      ],\n      \"text\": \"<string>\"\n    },\n    {\n      \"coding\": [\n        {\n          \"system\": \"<string>\",\n          \"version\": \"<string>\",\n          \"code\": \"<string>\",\n          \"display\": \"<string>\",\n          \"userSelected\": \"<boolean>\"\n        },\n        {\n          \"system\": \"<string>\",\n          \"version\": \"<string>\",\n          \"code\": \"<string>\",\n          \"display\": \"<string>\",\n          \"userSelected\": \"<boolean>\"\n        }\n      ],\n      \"text\": \"<string>\"\n    }\n  ],\n  \"subject\": {\n    \"reference\": \"<string>\",\n    \"type\": \"<string>\",\n    \"display\": \"<string>\"\n  },\n  \"participant\": [\n    {\n      \"type\": [\n        {\n          \"coding\": [\n            {\n              \"system\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"version\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"code\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"display\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"userSelected\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"system\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"version\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"code\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"display\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"userSelected\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ],\n          \"text\": \"<string>\"\n        },\n        {\n          \"coding\": [\n            {\n              \"system\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"version\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"code\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"display\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"userSelected\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"system\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"version\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"code\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"display\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"userSelected\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ],\n          \"text\": \"<string>\"\n        }\n      ],\n      \"individual\": {\n        \"reference\": \"<string>\",\n        \"type\": \"<string>\",\n        \"display\": \"<string>\"\n      }\n    },\n    {\n      \"type\": [\n        {\n          \"coding\": [\n            {\n              \"system\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"version\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"code\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"display\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"userSelected\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"system\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"version\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"code\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"display\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"userSelected\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ],\n          \"text\": \"<string>\"\n        },\n        {\n          \"coding\": [\n            {\n              \"system\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"version\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"code\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"display\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"userSelected\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"system\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"version\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"code\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"display\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"userSelected\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ],\n          \"text\": \"<string>\"\n        }\n      ],\n      \"individual\": {\n        \"reference\": \"<string>\",\n        \"type\": \"<string>\",\n        \"display\": \"<string>\"\n      }\n    }\n  ],\n  \"period\": {\n    \"start\": \"<dateTime>\",\n    \"end\": \"<dateTime>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/fhir+json"
+                }
+              ],
+              "body": "{\n  \"resourceType\": \"OperationOutcome\",\n  \"issue\": [\n    {\n      \"severity\": \"error\",\n      \"code\": \"string\",\n      \"details\": {\n        \"coding\": [\n          {\n            \"system\": \"<string>\",\n            \"version\": \"<string>\",\n            \"code\": \"<string>\",\n            \"display\": \"<string>\",\n            \"userSelected\": \"<boolean>\"\n          },\n          {\n            \"system\": \"<string>\",\n            \"version\": \"<string>\",\n            \"code\": \"<string>\",\n            \"display\": \"<string>\",\n            \"userSelected\": \"<boolean>\"\n          }\n        ],\n        \"text\": \"<string>\"\n      },\n      \"diagnostics\": \"string\",\n      \"location\": [\n        \"string\",\n        \"string\"\n      ]\n    },\n    {\n      \"severity\": \"fatal\",\n      \"code\": \"string\",\n      \"details\": {\n        \"coding\": [\n          {\n            \"system\": \"<string>\",\n            \"version\": \"<string>\",\n            \"code\": \"<string>\",\n            \"display\": \"<string>\",\n            \"userSelected\": \"<boolean>\"\n          },\n          {\n            \"system\": \"<string>\",\n            \"version\": \"<string>\",\n            \"code\": \"<string>\",\n            \"display\": \"<string>\",\n            \"userSelected\": \"<boolean>\"\n          }\n        ],\n        \"text\": \"<string>\"\n      },\n      \"diagnostics\": \"string\",\n      \"location\": [\n        \"string\",\n        \"string\"\n      ]\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "0ea928d1-ff1b-46d8-ba6d-f35f9b84bcb2",
+          "name": "Read Encounter",
+          "request": {
+            "name": "Read Encounter",
+            "description": {},
+            "url": {
+              "path": [
+                "Encounter",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) Logical ID of the FHIR resource"
+                },
+                {
+                  "description": "Your Canvas Medical instance name",
+                  "type": "any",
+                  "value": "{{canvas-instance}}",
+                  "key": "canvas-instance"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/fhir+json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "6021ec12-574c-4d48-aafa-8d465d66a38f",
+              "name": "Encounter resource",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "Encounter",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) Logical ID of the FHIR resource"
+                    },
+                    {
+                      "description": "Your Canvas Medical instance name",
+                      "type": "any",
+                      "value": "{{canvas-instance}}",
+                      "key": "canvas-instance"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/fhir+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/fhir+json"
+                }
+              ],
+              "body": "{\n  \"resourceType\": \"<string>\",\n  \"status\": \"<string>\",\n  \"class\": {\n    \"system\": \"<string>\",\n    \"version\": \"<string>\",\n    \"code\": \"<string>\",\n    \"display\": \"<string>\",\n    \"userSelected\": \"<boolean>\"\n  },\n  \"id\": \"<string>\",\n  \"meta\": {\n    \"versionId\": \"<string>\",\n    \"lastUpdated\": \"<dateTime>\",\n    \"source\": \"<string>\",\n    \"profile\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"tag\": [\n      {\n        \"system\": \"<string>\",\n        \"version\": \"<string>\",\n        \"code\": \"<string>\",\n        \"display\": \"<string>\",\n        \"userSelected\": \"<boolean>\"\n      },\n      {\n        \"system\": \"<string>\",\n        \"version\": \"<string>\",\n        \"code\": \"<string>\",\n        \"display\": \"<string>\",\n        \"userSelected\": \"<boolean>\"\n      }\n    ]\n  },\n  \"text\": {\n    \"status\": \"<string>\",\n    \"div\": \"<string>\"\n  },\n  \"type\": [\n    {\n      \"coding\": [\n        {\n          \"system\": \"<string>\",\n          \"version\": \"<string>\",\n          \"code\": \"<string>\",\n          \"display\": \"<string>\",\n          \"userSelected\": \"<boolean>\"\n        },\n        {\n          \"system\": \"<string>\",\n          \"version\": \"<string>\",\n          \"code\": \"<string>\",\n          \"display\": \"<string>\",\n          \"userSelected\": \"<boolean>\"\n        }\n      ],\n      \"text\": \"<string>\"\n    },\n    {\n      \"coding\": [\n        {\n          \"system\": \"<string>\",\n          \"version\": \"<string>\",\n          \"code\": \"<string>\",\n          \"display\": \"<string>\",\n          \"userSelected\": \"<boolean>\"\n        },\n        {\n          \"system\": \"<string>\",\n          \"version\": \"<string>\",\n          \"code\": \"<string>\",\n          \"display\": \"<string>\",\n          \"userSelected\": \"<boolean>\"\n        }\n      ],\n      \"text\": \"<string>\"\n    }\n  ],\n  \"subject\": {\n    \"reference\": \"<string>\",\n    \"type\": \"<string>\",\n    \"display\": \"<string>\"\n  },\n  \"participant\": [\n    {\n      \"type\": [\n        {\n          \"coding\": [\n            {\n              \"system\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"version\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"code\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"display\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"userSelected\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"system\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"version\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"code\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"display\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"userSelected\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ],\n          \"text\": \"<string>\"\n        },\n        {\n          \"coding\": [\n            {\n              \"system\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"version\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"code\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"display\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"userSelected\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"system\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"version\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"code\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"display\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"userSelected\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ],\n          \"text\": \"<string>\"\n        }\n      ],\n      \"individual\": {\n        \"reference\": \"<string>\",\n        \"type\": \"<string>\",\n        \"display\": \"<string>\"\n      }\n    },\n    {\n      \"type\": [\n        {\n          \"coding\": [\n            {\n              \"system\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"version\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"code\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"display\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"userSelected\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"system\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"version\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"code\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"display\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"userSelected\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ],\n          \"text\": \"<string>\"\n        },\n        {\n          \"coding\": [\n            {\n              \"system\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"version\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"code\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"display\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"userSelected\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"system\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"version\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"code\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"display\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"userSelected\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ],\n          \"text\": \"<string>\"\n        }\n      ],\n      \"individual\": {\n        \"reference\": \"<string>\",\n        \"type\": \"<string>\",\n        \"display\": \"<string>\"\n      }\n    }\n  ],\n  \"period\": {\n    \"start\": \"<dateTime>\",\n    \"end\": \"<dateTime>\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "eab72f4f-cf9f-4b8a-b7f2-435bff9f5225",
+              "name": "Authentication required",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "Encounter",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) Logical ID of the FHIR resource"
+                    },
+                    {
+                      "description": "Your Canvas Medical instance name",
+                      "type": "any",
+                      "value": "{{canvas-instance}}",
+                      "key": "canvas-instance"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/fhir+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/fhir+json"
+                }
+              ],
+              "body": "{\n  \"resourceType\": \"OperationOutcome\",\n  \"issue\": [\n    {\n      \"severity\": \"error\",\n      \"code\": \"string\",\n      \"details\": {\n        \"coding\": [\n          {\n            \"system\": \"<string>\",\n            \"version\": \"<string>\",\n            \"code\": \"<string>\",\n            \"display\": \"<string>\",\n            \"userSelected\": \"<boolean>\"\n          },\n          {\n            \"system\": \"<string>\",\n            \"version\": \"<string>\",\n            \"code\": \"<string>\",\n            \"display\": \"<string>\",\n            \"userSelected\": \"<boolean>\"\n          }\n        ],\n        \"text\": \"<string>\"\n      },\n      \"diagnostics\": \"string\",\n      \"location\": [\n        \"string\",\n        \"string\"\n      ]\n    },\n    {\n      \"severity\": \"fatal\",\n      \"code\": \"string\",\n      \"details\": {\n        \"coding\": [\n          {\n            \"system\": \"<string>\",\n            \"version\": \"<string>\",\n            \"code\": \"<string>\",\n            \"display\": \"<string>\",\n            \"userSelected\": \"<boolean>\"\n          },\n          {\n            \"system\": \"<string>\",\n            \"version\": \"<string>\",\n            \"code\": \"<string>\",\n            \"display\": \"<string>\",\n            \"userSelected\": \"<boolean>\"\n          }\n        ],\n        \"text\": \"<string>\"\n      },\n      \"diagnostics\": \"string\",\n      \"location\": [\n        \"string\",\n        \"string\"\n      ]\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "62890491-8afe-4392-a586-46ef60ae5ce3",
+              "name": "Resource not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "Encounter",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) Logical ID of the FHIR resource"
+                    },
+                    {
+                      "description": "Your Canvas Medical instance name",
+                      "type": "any",
+                      "value": "{{canvas-instance}}",
+                      "key": "canvas-instance"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/fhir+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/fhir+json"
+                }
+              ],
+              "body": "{\n  \"resourceType\": \"OperationOutcome\",\n  \"issue\": [\n    {\n      \"severity\": \"error\",\n      \"code\": \"string\",\n      \"details\": {\n        \"coding\": [\n          {\n            \"system\": \"<string>\",\n            \"version\": \"<string>\",\n            \"code\": \"<string>\",\n            \"display\": \"<string>\",\n            \"userSelected\": \"<boolean>\"\n          },\n          {\n            \"system\": \"<string>\",\n            \"version\": \"<string>\",\n            \"code\": \"<string>\",\n            \"display\": \"<string>\",\n            \"userSelected\": \"<boolean>\"\n          }\n        ],\n        \"text\": \"<string>\"\n      },\n      \"diagnostics\": \"string\",\n      \"location\": [\n        \"string\",\n        \"string\"\n      ]\n    },\n    {\n      \"severity\": \"fatal\",\n      \"code\": \"string\",\n      \"details\": {\n        \"coding\": [\n          {\n            \"system\": \"<string>\",\n            \"version\": \"<string>\",\n            \"code\": \"<string>\",\n            \"display\": \"<string>\",\n            \"userSelected\": \"<boolean>\"\n          },\n          {\n            \"system\": \"<string>\",\n            \"version\": \"<string>\",\n            \"code\": \"<string>\",\n            \"display\": \"<string>\",\n            \"userSelected\": \"<boolean>\"\n          }\n        ],\n        \"text\": \"<string>\"\n      },\n      \"diagnostics\": \"string\",\n      \"location\": [\n        \"string\",\n        \"string\"\n      ]\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "d42ff189-6093-44c9-9084-7be8f73d59e5",
+          "name": "Update Encounter",
+          "request": {
+            "name": "Update Encounter",
+            "description": {},
+            "url": {
+              "path": [
+                "Encounter",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) Logical ID of the FHIR resource"
+                },
+                {
+                  "description": "Your Canvas Medical instance name",
+                  "type": "any",
+                  "value": "{{canvas-instance}}",
+                  "key": "canvas-instance"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/fhir+json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/fhir+json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"resourceType\": \"<string>\",\n  \"status\": \"<string>\",\n  \"class\": {\n    \"system\": \"<string>\",\n    \"version\": \"<string>\",\n    \"code\": \"<string>\",\n    \"display\": \"<string>\",\n    \"userSelected\": \"<boolean>\"\n  },\n  \"id\": \"<string>\",\n  \"meta\": {\n    \"versionId\": \"<string>\",\n    \"lastUpdated\": \"<dateTime>\",\n    \"source\": \"<string>\",\n    \"profile\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"tag\": [\n      {\n        \"system\": \"<string>\",\n        \"version\": \"<string>\",\n        \"code\": \"<string>\",\n        \"display\": \"<string>\",\n        \"userSelected\": \"<boolean>\"\n      },\n      {\n        \"system\": \"<string>\",\n        \"version\": \"<string>\",\n        \"code\": \"<string>\",\n        \"display\": \"<string>\",\n        \"userSelected\": \"<boolean>\"\n      }\n    ]\n  },\n  \"text\": {\n    \"status\": \"<string>\",\n    \"div\": \"<string>\"\n  },\n  \"type\": [\n    {\n      \"coding\": [\n        {\n          \"system\": \"<string>\",\n          \"version\": \"<string>\",\n          \"code\": \"<string>\",\n          \"display\": \"<string>\",\n          \"userSelected\": \"<boolean>\"\n        },\n        {\n          \"system\": \"<string>\",\n          \"version\": \"<string>\",\n          \"code\": \"<string>\",\n          \"display\": \"<string>\",\n          \"userSelected\": \"<boolean>\"\n        }\n      ],\n      \"text\": \"<string>\"\n    },\n    {\n      \"coding\": [\n        {\n          \"system\": \"<string>\",\n          \"version\": \"<string>\",\n          \"code\": \"<string>\",\n          \"display\": \"<string>\",\n          \"userSelected\": \"<boolean>\"\n        },\n        {\n          \"system\": \"<string>\",\n          \"version\": \"<string>\",\n          \"code\": \"<string>\",\n          \"display\": \"<string>\",\n          \"userSelected\": \"<boolean>\"\n        }\n      ],\n      \"text\": \"<string>\"\n    }\n  ],\n  \"subject\": {\n    \"reference\": \"<string>\",\n    \"type\": \"<string>\",\n    \"display\": \"<string>\"\n  },\n  \"participant\": [\n    {\n      \"type\": [\n        {\n          \"coding\": [\n            {\n              \"system\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"version\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"code\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"display\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"userSelected\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"system\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"version\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"code\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"display\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"userSelected\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ],\n          \"text\": \"<string>\"\n        },\n        {\n          \"coding\": [\n            {\n              \"system\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"version\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"code\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"display\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"userSelected\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"system\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"version\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"code\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"display\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"userSelected\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ],\n          \"text\": \"<string>\"\n        }\n      ],\n      \"individual\": {\n        \"reference\": \"<string>\",\n        \"type\": \"<string>\",\n        \"display\": \"<string>\"\n      }\n    },\n    {\n      \"type\": [\n        {\n          \"coding\": [\n            {\n              \"system\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"version\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"code\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"display\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"userSelected\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"system\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"version\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"code\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"display\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"userSelected\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ],\n          \"text\": \"<string>\"\n        },\n        {\n          \"coding\": [\n            {\n              \"system\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"version\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"code\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"display\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"userSelected\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"system\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"version\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"code\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"display\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"userSelected\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ],\n          \"text\": \"<string>\"\n        }\n      ],\n      \"individual\": {\n        \"reference\": \"<string>\",\n        \"type\": \"<string>\",\n        \"display\": \"<string>\"\n      }\n    }\n  ],\n  \"period\": {\n    \"start\": \"<dateTime>\",\n    \"end\": \"<dateTime>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "77ac6d80-7f6c-4ae9-bab6-23d39f8ae42f",
+              "name": "Encounter updated",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "Encounter",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) Logical ID of the FHIR resource"
+                    },
+                    {
+                      "description": "Your Canvas Medical instance name",
+                      "type": "any",
+                      "value": "{{canvas-instance}}",
+                      "key": "canvas-instance"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/fhir+json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"resourceType\": \"<string>\",\n  \"status\": \"<string>\",\n  \"class\": {\n    \"system\": \"<string>\",\n    \"version\": \"<string>\",\n    \"code\": \"<string>\",\n    \"display\": \"<string>\",\n    \"userSelected\": \"<boolean>\"\n  },\n  \"id\": \"<string>\",\n  \"meta\": {\n    \"versionId\": \"<string>\",\n    \"lastUpdated\": \"<dateTime>\",\n    \"source\": \"<string>\",\n    \"profile\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"tag\": [\n      {\n        \"system\": \"<string>\",\n        \"version\": \"<string>\",\n        \"code\": \"<string>\",\n        \"display\": \"<string>\",\n        \"userSelected\": \"<boolean>\"\n      },\n      {\n        \"system\": \"<string>\",\n        \"version\": \"<string>\",\n        \"code\": \"<string>\",\n        \"display\": \"<string>\",\n        \"userSelected\": \"<boolean>\"\n      }\n    ]\n  },\n  \"text\": {\n    \"status\": \"<string>\",\n    \"div\": \"<string>\"\n  },\n  \"type\": [\n    {\n      \"coding\": [\n        {\n          \"system\": \"<string>\",\n          \"version\": \"<string>\",\n          \"code\": \"<string>\",\n          \"display\": \"<string>\",\n          \"userSelected\": \"<boolean>\"\n        },\n        {\n          \"system\": \"<string>\",\n          \"version\": \"<string>\",\n          \"code\": \"<string>\",\n          \"display\": \"<string>\",\n          \"userSelected\": \"<boolean>\"\n        }\n      ],\n      \"text\": \"<string>\"\n    },\n    {\n      \"coding\": [\n        {\n          \"system\": \"<string>\",\n          \"version\": \"<string>\",\n          \"code\": \"<string>\",\n          \"display\": \"<string>\",\n          \"userSelected\": \"<boolean>\"\n        },\n        {\n          \"system\": \"<string>\",\n          \"version\": \"<string>\",\n          \"code\": \"<string>\",\n          \"display\": \"<string>\",\n          \"userSelected\": \"<boolean>\"\n        }\n      ],\n      \"text\": \"<string>\"\n    }\n  ],\n  \"subject\": {\n    \"reference\": \"<string>\",\n    \"type\": \"<string>\",\n    \"display\": \"<string>\"\n  },\n  \"participant\": [\n    {\n      \"type\": [\n        {\n          \"coding\": [\n            {\n              \"system\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"version\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"code\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"display\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"userSelected\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"system\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"version\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"code\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"display\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"userSelected\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ],\n          \"text\": \"<string>\"\n        },\n        {\n          \"coding\": [\n            {\n              \"system\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"version\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"code\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"display\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"userSelected\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"system\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"version\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"code\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"display\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"userSelected\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ],\n          \"text\": \"<string>\"\n        }\n      ],\n      \"individual\": {\n        \"reference\": \"<string>\",\n        \"type\": \"<string>\",\n        \"display\": \"<string>\"\n      }\n    },\n    {\n      \"type\": [\n        {\n          \"coding\": [\n            {\n              \"system\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"version\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"code\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"display\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"userSelected\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"system\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"version\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"code\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"display\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"userSelected\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ],\n          \"text\": \"<string>\"\n        },\n        {\n          \"coding\": [\n            {\n              \"system\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"version\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"code\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"display\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"userSelected\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"system\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"version\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"code\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"display\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"userSelected\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ],\n          \"text\": \"<string>\"\n        }\n      ],\n      \"individual\": {\n        \"reference\": \"<string>\",\n        \"type\": \"<string>\",\n        \"display\": \"<string>\"\n      }\n    }\n  ],\n  \"period\": {\n    \"start\": \"<dateTime>\",\n    \"end\": \"<dateTime>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/fhir+json"
+                }
+              ],
+              "body": "{\n  \"resourceType\": \"<string>\",\n  \"status\": \"<string>\",\n  \"class\": {\n    \"system\": \"<string>\",\n    \"version\": \"<string>\",\n    \"code\": \"<string>\",\n    \"display\": \"<string>\",\n    \"userSelected\": \"<boolean>\"\n  },\n  \"id\": \"<string>\",\n  \"meta\": {\n    \"versionId\": \"<string>\",\n    \"lastUpdated\": \"<dateTime>\",\n    \"source\": \"<string>\",\n    \"profile\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"tag\": [\n      {\n        \"system\": \"<string>\",\n        \"version\": \"<string>\",\n        \"code\": \"<string>\",\n        \"display\": \"<string>\",\n        \"userSelected\": \"<boolean>\"\n      },\n      {\n        \"system\": \"<string>\",\n        \"version\": \"<string>\",\n        \"code\": \"<string>\",\n        \"display\": \"<string>\",\n        \"userSelected\": \"<boolean>\"\n      }\n    ]\n  },\n  \"text\": {\n    \"status\": \"<string>\",\n    \"div\": \"<string>\"\n  },\n  \"type\": [\n    {\n      \"coding\": [\n        {\n          \"system\": \"<string>\",\n          \"version\": \"<string>\",\n          \"code\": \"<string>\",\n          \"display\": \"<string>\",\n          \"userSelected\": \"<boolean>\"\n        },\n        {\n          \"system\": \"<string>\",\n          \"version\": \"<string>\",\n          \"code\": \"<string>\",\n          \"display\": \"<string>\",\n          \"userSelected\": \"<boolean>\"\n        }\n      ],\n      \"text\": \"<string>\"\n    },\n    {\n      \"coding\": [\n        {\n          \"system\": \"<string>\",\n          \"version\": \"<string>\",\n          \"code\": \"<string>\",\n          \"display\": \"<string>\",\n          \"userSelected\": \"<boolean>\"\n        },\n        {\n          \"system\": \"<string>\",\n          \"version\": \"<string>\",\n          \"code\": \"<string>\",\n          \"display\": \"<string>\",\n          \"userSelected\": \"<boolean>\"\n        }\n      ],\n      \"text\": \"<string>\"\n    }\n  ],\n  \"subject\": {\n    \"reference\": \"<string>\",\n    \"type\": \"<string>\",\n    \"display\": \"<string>\"\n  },\n  \"participant\": [\n    {\n      \"type\": [\n        {\n          \"coding\": [\n            {\n              \"system\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"version\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"code\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"display\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"userSelected\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"system\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"version\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"code\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"display\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"userSelected\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ],\n          \"text\": \"<string>\"\n        },\n        {\n          \"coding\": [\n            {\n              \"system\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"version\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"code\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"display\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"userSelected\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"system\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"version\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"code\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"display\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"userSelected\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ],\n          \"text\": \"<string>\"\n        }\n      ],\n      \"individual\": {\n        \"reference\": \"<string>\",\n        \"type\": \"<string>\",\n        \"display\": \"<string>\"\n      }\n    },\n    {\n      \"type\": [\n        {\n          \"coding\": [\n            {\n              \"system\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"version\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"code\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"display\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"userSelected\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"system\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"version\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"code\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"display\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"userSelected\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ],\n          \"text\": \"<string>\"\n        },\n        {\n          \"coding\": [\n            {\n              \"system\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"version\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"code\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"display\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"userSelected\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"system\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"version\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"code\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"display\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"userSelected\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ],\n          \"text\": \"<string>\"\n        }\n      ],\n      \"individual\": {\n        \"reference\": \"<string>\",\n        \"type\": \"<string>\",\n        \"display\": \"<string>\"\n      }\n    }\n  ],\n  \"period\": {\n    \"start\": \"<dateTime>\",\n    \"end\": \"<dateTime>\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "87d80a17-4480-4a4b-a208-094fb4511049",
+              "name": "Authentication required",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "Encounter",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) Logical ID of the FHIR resource"
+                    },
+                    {
+                      "description": "Your Canvas Medical instance name",
+                      "type": "any",
+                      "value": "{{canvas-instance}}",
+                      "key": "canvas-instance"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/fhir+json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"resourceType\": \"<string>\",\n  \"status\": \"<string>\",\n  \"class\": {\n    \"system\": \"<string>\",\n    \"version\": \"<string>\",\n    \"code\": \"<string>\",\n    \"display\": \"<string>\",\n    \"userSelected\": \"<boolean>\"\n  },\n  \"id\": \"<string>\",\n  \"meta\": {\n    \"versionId\": \"<string>\",\n    \"lastUpdated\": \"<dateTime>\",\n    \"source\": \"<string>\",\n    \"profile\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"tag\": [\n      {\n        \"system\": \"<string>\",\n        \"version\": \"<string>\",\n        \"code\": \"<string>\",\n        \"display\": \"<string>\",\n        \"userSelected\": \"<boolean>\"\n      },\n      {\n        \"system\": \"<string>\",\n        \"version\": \"<string>\",\n        \"code\": \"<string>\",\n        \"display\": \"<string>\",\n        \"userSelected\": \"<boolean>\"\n      }\n    ]\n  },\n  \"text\": {\n    \"status\": \"<string>\",\n    \"div\": \"<string>\"\n  },\n  \"type\": [\n    {\n      \"coding\": [\n        {\n          \"system\": \"<string>\",\n          \"version\": \"<string>\",\n          \"code\": \"<string>\",\n          \"display\": \"<string>\",\n          \"userSelected\": \"<boolean>\"\n        },\n        {\n          \"system\": \"<string>\",\n          \"version\": \"<string>\",\n          \"code\": \"<string>\",\n          \"display\": \"<string>\",\n          \"userSelected\": \"<boolean>\"\n        }\n      ],\n      \"text\": \"<string>\"\n    },\n    {\n      \"coding\": [\n        {\n          \"system\": \"<string>\",\n          \"version\": \"<string>\",\n          \"code\": \"<string>\",\n          \"display\": \"<string>\",\n          \"userSelected\": \"<boolean>\"\n        },\n        {\n          \"system\": \"<string>\",\n          \"version\": \"<string>\",\n          \"code\": \"<string>\",\n          \"display\": \"<string>\",\n          \"userSelected\": \"<boolean>\"\n        }\n      ],\n      \"text\": \"<string>\"\n    }\n  ],\n  \"subject\": {\n    \"reference\": \"<string>\",\n    \"type\": \"<string>\",\n    \"display\": \"<string>\"\n  },\n  \"participant\": [\n    {\n      \"type\": [\n        {\n          \"coding\": [\n            {\n              \"system\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"version\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"code\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"display\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"userSelected\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"system\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"version\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"code\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"display\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"userSelected\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ],\n          \"text\": \"<string>\"\n        },\n        {\n          \"coding\": [\n            {\n              \"system\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"version\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"code\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"display\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"userSelected\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"system\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"version\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"code\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"display\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"userSelected\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ],\n          \"text\": \"<string>\"\n        }\n      ],\n      \"individual\": {\n        \"reference\": \"<string>\",\n        \"type\": \"<string>\",\n        \"display\": \"<string>\"\n      }\n    },\n    {\n      \"type\": [\n        {\n          \"coding\": [\n            {\n              \"system\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"version\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"code\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"display\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"userSelected\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"system\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"version\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"code\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"display\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"userSelected\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ],\n          \"text\": \"<string>\"\n        },\n        {\n          \"coding\": [\n            {\n              \"system\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"version\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"code\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"display\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"userSelected\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"system\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"version\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"code\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"display\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"userSelected\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ],\n          \"text\": \"<string>\"\n        }\n      ],\n      \"individual\": {\n        \"reference\": \"<string>\",\n        \"type\": \"<string>\",\n        \"display\": \"<string>\"\n      }\n    }\n  ],\n  \"period\": {\n    \"start\": \"<dateTime>\",\n    \"end\": \"<dateTime>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/fhir+json"
+                }
+              ],
+              "body": "{\n  \"resourceType\": \"OperationOutcome\",\n  \"issue\": [\n    {\n      \"severity\": \"error\",\n      \"code\": \"string\",\n      \"details\": {\n        \"coding\": [\n          {\n            \"system\": \"<string>\",\n            \"version\": \"<string>\",\n            \"code\": \"<string>\",\n            \"display\": \"<string>\",\n            \"userSelected\": \"<boolean>\"\n          },\n          {\n            \"system\": \"<string>\",\n            \"version\": \"<string>\",\n            \"code\": \"<string>\",\n            \"display\": \"<string>\",\n            \"userSelected\": \"<boolean>\"\n          }\n        ],\n        \"text\": \"<string>\"\n      },\n      \"diagnostics\": \"string\",\n      \"location\": [\n        \"string\",\n        \"string\"\n      ]\n    },\n    {\n      \"severity\": \"fatal\",\n      \"code\": \"string\",\n      \"details\": {\n        \"coding\": [\n          {\n            \"system\": \"<string>\",\n            \"version\": \"<string>\",\n            \"code\": \"<string>\",\n            \"display\": \"<string>\",\n            \"userSelected\": \"<boolean>\"\n          },\n          {\n            \"system\": \"<string>\",\n            \"version\": \"<string>\",\n            \"code\": \"<string>\",\n            \"display\": \"<string>\",\n            \"userSelected\": \"<boolean>\"\n          }\n        ],\n        \"text\": \"<string>\"\n      },\n      \"diagnostics\": \"string\",\n      \"location\": [\n        \"string\",\n        \"string\"\n      ]\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d7e8b514-2f4c-443b-bd6f-fe56c3d3d48d",
+              "name": "Resource not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "Encounter",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) Logical ID of the FHIR resource"
+                    },
+                    {
+                      "description": "Your Canvas Medical instance name",
+                      "type": "any",
+                      "value": "{{canvas-instance}}",
+                      "key": "canvas-instance"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/fhir+json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"resourceType\": \"<string>\",\n  \"status\": \"<string>\",\n  \"class\": {\n    \"system\": \"<string>\",\n    \"version\": \"<string>\",\n    \"code\": \"<string>\",\n    \"display\": \"<string>\",\n    \"userSelected\": \"<boolean>\"\n  },\n  \"id\": \"<string>\",\n  \"meta\": {\n    \"versionId\": \"<string>\",\n    \"lastUpdated\": \"<dateTime>\",\n    \"source\": \"<string>\",\n    \"profile\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"tag\": [\n      {\n        \"system\": \"<string>\",\n        \"version\": \"<string>\",\n        \"code\": \"<string>\",\n        \"display\": \"<string>\",\n        \"userSelected\": \"<boolean>\"\n      },\n      {\n        \"system\": \"<string>\",\n        \"version\": \"<string>\",\n        \"code\": \"<string>\",\n        \"display\": \"<string>\",\n        \"userSelected\": \"<boolean>\"\n      }\n    ]\n  },\n  \"text\": {\n    \"status\": \"<string>\",\n    \"div\": \"<string>\"\n  },\n  \"type\": [\n    {\n      \"coding\": [\n        {\n          \"system\": \"<string>\",\n          \"version\": \"<string>\",\n          \"code\": \"<string>\",\n          \"display\": \"<string>\",\n          \"userSelected\": \"<boolean>\"\n        },\n        {\n          \"system\": \"<string>\",\n          \"version\": \"<string>\",\n          \"code\": \"<string>\",\n          \"display\": \"<string>\",\n          \"userSelected\": \"<boolean>\"\n        }\n      ],\n      \"text\": \"<string>\"\n    },\n    {\n      \"coding\": [\n        {\n          \"system\": \"<string>\",\n          \"version\": \"<string>\",\n          \"code\": \"<string>\",\n          \"display\": \"<string>\",\n          \"userSelected\": \"<boolean>\"\n        },\n        {\n          \"system\": \"<string>\",\n          \"version\": \"<string>\",\n          \"code\": \"<string>\",\n          \"display\": \"<string>\",\n          \"userSelected\": \"<boolean>\"\n        }\n      ],\n      \"text\": \"<string>\"\n    }\n  ],\n  \"subject\": {\n    \"reference\": \"<string>\",\n    \"type\": \"<string>\",\n    \"display\": \"<string>\"\n  },\n  \"participant\": [\n    {\n      \"type\": [\n        {\n          \"coding\": [\n            {\n              \"system\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"version\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"code\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"display\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"userSelected\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"system\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"version\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"code\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"display\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"userSelected\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ],\n          \"text\": \"<string>\"\n        },\n        {\n          \"coding\": [\n            {\n              \"system\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"version\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"code\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"display\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"userSelected\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"system\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"version\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"code\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"display\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"userSelected\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ],\n          \"text\": \"<string>\"\n        }\n      ],\n      \"individual\": {\n        \"reference\": \"<string>\",\n        \"type\": \"<string>\",\n        \"display\": \"<string>\"\n      }\n    },\n    {\n      \"type\": [\n        {\n          \"coding\": [\n            {\n              \"system\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"version\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"code\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"display\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"userSelected\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"system\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"version\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"code\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"display\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"userSelected\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ],\n          \"text\": \"<string>\"\n        },\n        {\n          \"coding\": [\n            {\n              \"system\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"version\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"code\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"display\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"userSelected\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"system\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"version\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"code\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"display\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"userSelected\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ],\n          \"text\": \"<string>\"\n        }\n      ],\n      \"individual\": {\n        \"reference\": \"<string>\",\n        \"type\": \"<string>\",\n        \"display\": \"<string>\"\n      }\n    }\n  ],\n  \"period\": {\n    \"start\": \"<dateTime>\",\n    \"end\": \"<dateTime>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/fhir+json"
+                }
+              ],
+              "body": "{\n  \"resourceType\": \"OperationOutcome\",\n  \"issue\": [\n    {\n      \"severity\": \"error\",\n      \"code\": \"string\",\n      \"details\": {\n        \"coding\": [\n          {\n            \"system\": \"<string>\",\n            \"version\": \"<string>\",\n            \"code\": \"<string>\",\n            \"display\": \"<string>\",\n            \"userSelected\": \"<boolean>\"\n          },\n          {\n            \"system\": \"<string>\",\n            \"version\": \"<string>\",\n            \"code\": \"<string>\",\n            \"display\": \"<string>\",\n            \"userSelected\": \"<boolean>\"\n          }\n        ],\n        \"text\": \"<string>\"\n      },\n      \"diagnostics\": \"string\",\n      \"location\": [\n        \"string\",\n        \"string\"\n      ]\n    },\n    {\n      \"severity\": \"fatal\",\n      \"code\": \"string\",\n      \"details\": {\n        \"coding\": [\n          {\n            \"system\": \"<string>\",\n            \"version\": \"<string>\",\n            \"code\": \"<string>\",\n            \"display\": \"<string>\",\n            \"userSelected\": \"<boolean>\"\n          },\n          {\n            \"system\": \"<string>\",\n            \"version\": \"<string>\",\n            \"code\": \"<string>\",\n            \"display\": \"<string>\",\n            \"userSelected\": \"<boolean>\"\n          }\n        ],\n        \"text\": \"<string>\"\n      },\n      \"diagnostics\": \"string\",\n      \"location\": [\n        \"string\",\n        \"string\"\n      ]\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "description": {
+        "content": "Your Canvas Medical instance name",
+        "type": "text/plain"
+      },
+      "type": "any",
+      "value": "yoursandbox",
+      "key": "canvas-instance"
+    },
+    {
+      "type": "string",
+      "value": "https://fumage-{{canvas-instance}}.canvasmedical.com",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "oauth2",
+    "oauth2": [
+      {
+        "key": "scope",
+        "value": "system/*.read system/*.write system/Patient.read system/Patient.write system/Appointment.read system/Appointment.write system/Observation.read system/Observation.write"
+      },
+      {
+        "key": "accessTokenUrl",
+        "value": "https://{canvas-instance}.canvasmedical.com/auth/token/"
+      },
+      {
+        "key": "grant_type",
+        "value": "client_credentials"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "026b9abc-4d28-434e-b7b9-e49e0c89e455",
+    "name": "Canvas Medical FHIR AllergyIntolerance Encounter API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "A FHIR R4-compliant REST API providing secure access to electronic health record data. Canvas Medical supports 41 FHIR resources (21 with write capabilities) covering clinical, administrative, financial, and care coordination domains. The API follows the HL7 FHIR R4 specification and supports OAuth 2.0 Client Credentials and Authorization Code flows with SMART on FHIR scopes for machine-to-machine and user-delegated access.\n\n\nContact Support:\n Name: Canvas Medical Support",
+      "type": "text/plain"
+    }
+  }
+}

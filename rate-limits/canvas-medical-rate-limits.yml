@@ -1,42 +1,66 @@
-name: Canvas Medical API Rate Limits
-description: Canvas Medical does not publish explicit rate limit quotas or throttling thresholds in their public documentation. Both Builder and Enterprise plans advertise unlimited API calls. Access to the FHIR API is currently restricted to Canvas Medical customers and their trusted partners.
-url: https://docs.canvasmedical.com/api/
+generated: '2026-08-14'
+method: searched
+source: https://docs.canvasmedical.com/api/
+also:
+- https://www.canvasmedical.com/pricing
+- https://docs.canvasmedical.com/guides/platform-security-overview/
+- https://docs.canvasmedical.com/api/customer-authentication/
+- https://docs.canvasmedical.com/api/pagination/
+limit_count: 0
 documented: false
-notes:
-  - Canvas Medical does not publicly document specific rate limits or throttling policies
-  - Both subscription plans (Builder and Enterprise) include unlimited API calls
-  - The FHIR API is limited to practices using Canvas as their EHR and their trusted partners
-  - Third-party open access is planned for future availability
-  - Token validity is 10 hours (36,000 seconds) for access tokens
-  - Refresh tokens are non-expiring but single-use
-authentication:
-  tokenExpiry: 36000
-  tokenExpiryUnit: seconds
-  refreshTokens: non-expiring, single-use
-  type: OAuth 2.0
-  flows:
-    - name: Client Credentials
-      description: Machine-to-machine authentication for daemons and CLIs
-      tokenEndpoint: https://{canvas-instance}/auth/token/
-    - name: Authorization Code
-      description: User-delegated access for web and native applications
-      tokenEndpoint: https://{canvas-instance}/auth/token/
-scopes:
-  contexts:
-    - user/
-    - patient/
-    - system/
-  permissions:
-    - read
-    - write
-    - c (create)
-    - r (read)
-    - u (update)
-    - s (search)
-  examples:
-    - user/*.read
-    - user/Patient.write
-    - system/Task.*
-    - patient/Observation.read
+name: Canvas Medical API Rate Limits
+description: >-
+  Canvas Medical publishes no rate-limit numbers, no windows, no burst allowance and no response
+  headers. Both published plans advertise "unlimited API calls". A limit nonetheless exists — the
+  platform security overview states that the edge boundary enforces "TLS termination, IP
+  allow-listing, rate limiting, WAF and DDoS protection" — but it is undocumented and emits no
+  documented client-visible signal, so an agent has nothing to back off against.
+limits: []
+response_headers:
+  ratelimit_standard: []
+  x_ratelimit: []
+  retry_after: false
+  exhaustion_status: null
+  note: >-
+    No X-RateLimit-*, no RateLimit-*, no Retry-After documented anywhere in the API reference, and no
+    429 in the published error table (which lists 400, 401, 403, 404, 412, 422 and 5xx only). Not
+    observed live either: the FHIR API is authenticated on every path, so there is no unauthenticated
+    response to read headers from.
+adjacent_throttles:
+- name: page size ceiling
+  scope: per-request
+  value: "_count max 100 (server-enforced), default 10"
+  docs: https://docs.canvasmedical.com/api/pagination/
+  note: >-
+    The one hard, published numeric limit on this API. The docs warn it "can change without warning",
+    so clients must follow Bundle links rather than construct offsets.
+- name: IP allow-list
+  scope: per-instance
+  value: enforced at the edge, backed by cloud security groups
+  note: >-
+    An access precondition rather than a rate limit — an unlisted source address is rejected outright.
+- name: plugin reload IP block
+  scope: per-IP
+  value: temporary site-wide 403 during plugin install/update/reinstall
+  status: fixed 2026-08-06
+  note: >-
+    Recorded because it was a real throttling behaviour visible to integrators. The 2026-08-06 release
+    stopped plugin-endpoint requests counting toward that block.
+token_limits:
+  access_token_ttl_seconds: 36000
+  refresh_token: non-expiring but single-use
+  authorization_code_ttl_seconds: 60
+  guidance: >-
+    "You can and should reuse access tokens to reduce the number of tokens that are valid at any given
+    time." The nearest thing to a published quota on this API is a request to mint fewer tokens.
+plans:
+  builder: Unlimited API calls
+  enterprise: Unlimited API calls
+  source: https://www.canvasmedical.com/pricing
 contacts:
-  - Support for rate limit inquiries via help.canvasmedical.com
+- https://help.canvasmedical.com/
+- developer-access@canvasmedical.com
+gap: >-
+  This is the clearest agent-readiness gap on the Canvas API. An autonomous client has no published
+  budget, no header to read, and no documented status code to retry on — it can only discover the
+  edge limit by hitting it.

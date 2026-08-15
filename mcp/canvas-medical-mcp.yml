@@ -1,0 +1,68 @@
+generated: '2026-08-14'
+method: derived
+status: candidate
+source: openapi/canvas-medical-*-openapi.yml (27 refined FHIR R4 specs) + docs.canvasmedical.com/llms.txt
+search_result: >-
+  No Canvas Medical MCP server exists. Searched the docs (llms.txt indexes every page and names no MCP
+  surface), the github.com/canvas-medical organization (38 repos, none an MCP server), npm and PyPI.
+  Canvas has published its position explicitly: its CEO's post "Multi-Agent Systems Need More Than MCP
+  to Work in Healthcare" (https://www.canvasmedical.com/articles/multiagent-coordination-with-mcp)
+  argues MCP alone does not solve task orientation, identity, governance or state synchronization, and
+  names the Canvas SDK — server-side plugins running inside the EMR — as the foundation layer instead.
+  The tools below are therefore an API Evangelist candidate derived from the FHIR operations Canvas
+  does publish, NOT a server Canvas ships.
+deployment:
+  mode: none
+  auth: oauth
+  verified: searched
+  note: >-
+    mode:none — nobody ships a server. No hosted endpoint and no stdio package exist, so no endpoint
+    or install command is recorded. If Canvas ever ships one it will be per-customer-instance, since
+    every customer runs an isolated instance with its own base URL and its own authorization server.
+server:
+  name: canvas-medical
+  transport: null
+  url: null
+tools:
+- name: search_patients
+  description: Search for patients by name, identifier, birthdate, or other demographics.
+  source_operation: openapi/canvas-medical-patient-api-openapi.yml#searchPatient
+- name: get_patient
+  description: Read a single Patient resource by id.
+  source_operation: openapi/canvas-medical-patient-api-openapi.yml#readPatient
+- name: search_appointments
+  description: Search appointments for a patient, practitioner, or date range.
+  source_operation: openapi/canvas-medical-appointment-api-openapi.yml#searchAppointment
+- name: create_appointment
+  description: Book an appointment.
+  source_operation: openapi/canvas-medical-appointment-api-openapi.yml#createAppointment
+- name: search_slots
+  description: Find open scheduling slots.
+  source_operation: openapi/canvas-medical-slot-api-openapi.yml#searchSlot
+- name: search_conditions
+  description: Retrieve a patient's problem list and diagnoses.
+  source_operation: openapi/canvas-medical-condition-api-openapi.yml#searchCondition
+- name: search_medication_requests
+  description: Retrieve a patient's active and historical prescriptions.
+  source_operation: openapi/canvas-medical-medicationrequest-api-openapi.yml#searchMedicationRequest
+- name: search_allergy_intolerances
+  description: Retrieve a patient's allergies and intolerances.
+  source_operation: openapi/canvas-medical-allergyintolerance-api-openapi.yml#searchAllergyIntolerance
+- name: search_observations
+  description: Retrieve vitals and lab results for a patient.
+  source_operation: openapi/canvas-medical-observation-api-openapi.yml#searchObservation
+- name: search_diagnostic_reports
+  description: Retrieve diagnostic and lab reports.
+  source_operation: openapi/canvas-medical-diagnosticreport-api-openapi.yml#searchDiagnosticReport
+- name: search_tasks
+  description: Retrieve clinical and administrative tasks.
+  source_operation: openapi/canvas-medical-task-api-openapi.yml#searchTask
+- name: get_capability_statement
+  description: Read the FHIR CapabilityStatement for a Canvas instance.
+  source_operation: openapi/canvas-medical-metadata-api-openapi.yml#getCapabilityStatement
+guardrails:
+  note: >-
+    Every tool above touches PHI on a per-customer instance. A real server would need the SMART scope
+    model in scopes/canvas-medical-scopes.yml (patient/, user/, system/ contexts) enforced per call,
+    and the agentic-access classification in agentic-access/canvas-medical-agentic-access.yml applied
+    to the write operations. Do not treat this candidate list as an authorization design.

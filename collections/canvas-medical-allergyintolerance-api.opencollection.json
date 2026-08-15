@@ -1,0 +1,123 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Canvas Medical FHIR AllergyIntolerance API",
+    "version": "4.0"
+  },
+  "request": {
+    "auth": {
+      "type": "oauth2",
+      "flow": "client_credentials",
+      "accessTokenUrl": "https://{canvas-instance}.canvasmedical.com/auth/token/",
+      "credentials": {
+        "clientId": "{{clientId}}",
+        "clientSecret": "{{clientSecret}}"
+      }
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "AllergyIntolerance",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Search AllergyIntolerances",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://fumage-{canvas-instance}.canvasmedical.com/AllergyIntolerance",
+            "params": [
+              {
+                "name": "patient",
+                "value": "",
+                "type": "query",
+                "description": "Filter by patient ID or reference"
+              },
+              {
+                "name": "status",
+                "value": "",
+                "type": "query",
+                "description": "Filter by resource status"
+              },
+              {
+                "name": "_count",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of results per page"
+              },
+              {
+                "name": "_page_token",
+                "value": "",
+                "type": "query",
+                "description": "Pagination token for next page"
+              }
+            ]
+          },
+          "docs": "Search AllergyIntolerances"
+        },
+        {
+          "info": {
+            "name": "Create AllergyIntolerance",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://fumage-{canvas-instance}.canvasmedical.com/AllergyIntolerance",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create AllergyIntolerance"
+        },
+        {
+          "info": {
+            "name": "Read AllergyIntolerance",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://fumage-{canvas-instance}.canvasmedical.com/AllergyIntolerance/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Logical ID of the FHIR resource"
+              }
+            ]
+          },
+          "docs": "Read AllergyIntolerance"
+        },
+        {
+          "info": {
+            "name": "Update AllergyIntolerance",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://fumage-{canvas-instance}.canvasmedical.com/AllergyIntolerance/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Logical ID of the FHIR resource"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update AllergyIntolerance"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,85 +1,194 @@
-generated: '2026-07-11'
-method: derived
+generated: '2026-08-14'
+method: searched
 source: openapi/canvas-medical-fhir-api-openapi.yml
+docs: https://docs.canvasmedical.com/api/customer-authentication/#scopes
+also:
+- https://docs.canvasmedical.com/api/authentication-best-practices/
+- https://fumage-apex.canvasmedical.com/.well-known/smart-configuration
+standard: SMART App Launch (SMART on FHIR) scopes — https://hl7.org/fhir/smart-app-launch/STU2/scopes-and-launch-context.html
+note: >-
+  Upgraded from derived to searched on 2026-08-14. The spec declared 11 scopes; the docs publish the
+  full grammar, the per-context resource matrix, the launch/OpenID scopes and three operation scopes
+  that appear nowhere in the spec. The live /.well-known/smart-configuration on a production instance
+  confirms both permission-v1 and permission-v2 are supported.
 schemes:
 - name: OAuth2ClientCredentials
   source: openapi/canvas-medical-fhir-api-openapi.yml
   flows:
   - flow: clientCredentials
     tokenUrl: https://{canvas-instance}.canvasmedical.com/auth/token/
-  description: Machine-to-machine authentication using client credentials grant. Obtain client_id
-    and client_secret from Canvas admin panel.
+  description: >-
+    Machine-to-machine authentication using the client credentials grant. Register the application at
+    {instance}/auth/applications/ with Client type "Confidential" to obtain client_id/client_secret.
+  scope_requirement: >-
+    Optional. If omitted, the token is issued with the OAuth application's configured allowed scopes.
 - name: OAuth2AuthCode
   source: openapi/canvas-medical-fhir-api-openapi.yml
   flows:
   - flow: authorizationCode
     authorizationUrl: https://{canvas-instance}.canvasmedical.com/auth/authorize/
     tokenUrl: https://{canvas-instance}.canvasmedical.com/auth/token/
-  description: User-delegated access using Authorization Code flow with SMART on FHIR scopes.
+  description: User-delegated access using the Authorization Code flow with SMART on FHIR scopes.
+  scope_requirement: Required — scopes must be passed in the authorize URL.
+grammar:
+  form: <context>/<resource>.<permission>
+  separator: space (encode as %20 in a URL)
+  encoding: encode "/" as %2F in the authorize URL
+  contexts:
+  - id: user/
+    description: Staff member; mirrors that user's EHR permissions.
+  - id: patient/
+    description: Limited to the launch-context patient; read/write that patient's records only.
+  - id: system/
+    description: Machine-to-machine, used with client credentials.
+  resources: A FHIR resource name (e.g. Patient) or `*` for any supported resource.
+  permissions:
+    v1: [read, write, '*']
+    v2_granular: [c, r, u, s]
+    v2_note: v2 letters combine, e.g. Patient.crus (create+read+update+search).
+  wildcard_guidance: >-
+    Verbatim from the docs — "Canvas provides support for the wildcard character, but highly
+    recommends only requesting the minimal scopes and access needed and using it as a convenience
+    when both read and write are truly required."
+resources_by_context:
+  user:
+    read_write: ['*', AllergyIntolerance, CarePlan, CareTeam, Condition, DetectedIssue, Device, DiagnosticReport, DocumentReference, Encounter, Goal, Immunization, Location, Medication, MedicationRequest, Observation, Organization, Patient, Practitioner, PractitionerRole, Procedure, Provenance, QuestionnaireResponse]
+    read_only: [Coverage, MedicationDispense, Questionnaire, RelatedPerson, ServiceRequest, Specimen]
+    special:
+    - resource: Note
+      note: supports `read` and `write` only — no `*`
+  system:
+    note: Same set as user/, plus Task with full access.
+    additional_full_access: [Task]
+    read_only: [Coverage, MedicationDispense, Questionnaire, RelatedPerson, ServiceRequest, Specimen]
+    management:
+    - scope: system/Plugins.*
+      description: Full access to plugin install / list / management endpoints.
+  patient:
+    note: Restricted to the launch-context patient.
+    writable: [Appointment, Communication, Consent, Coverage, Media, MedicationStatement, Patient, PaymentNotice, QuestionnaireResponse]
+    read_only_additional: [Appointment, Communication, Consent, Media, MedicationStatement, PaymentNotice, Schedule, Slot]
+    rule: All resources other than the writable list are read-only in patient context.
 scopes:
-- scope: patient/*.read
-  description: Read patient-context FHIR resources
-  flows:
-  - authorizationCode
-  sources:
-  - openapi/canvas-medical-fhir-api-openapi.yml
-- scope: system/*.read
-  description: Read all FHIR resources
-  flows:
-  - clientCredentials
-  sources:
-  - openapi/canvas-medical-fhir-api-openapi.yml
-- scope: system/*.write
-  description: Write all FHIR resources
-  flows:
-  - clientCredentials
-  sources:
-  - openapi/canvas-medical-fhir-api-openapi.yml
-- scope: system/Appointment.read
-  description: Read Appointment resources
-  flows:
-  - clientCredentials
-  sources:
-  - openapi/canvas-medical-fhir-api-openapi.yml
-- scope: system/Appointment.write
-  description: Write Appointment resources
-  flows:
-  - clientCredentials
-  sources:
-  - openapi/canvas-medical-fhir-api-openapi.yml
-- scope: system/Observation.read
-  description: Read Observation resources
-  flows:
-  - clientCredentials
-  sources:
-  - openapi/canvas-medical-fhir-api-openapi.yml
-- scope: system/Observation.write
-  description: Write Observation resources
-  flows:
-  - clientCredentials
-  sources:
-  - openapi/canvas-medical-fhir-api-openapi.yml
-- scope: system/Patient.read
-  description: Read Patient resources
-  flows:
-  - clientCredentials
-  sources:
-  - openapi/canvas-medical-fhir-api-openapi.yml
-- scope: system/Patient.write
-  description: Write Patient resources
-  flows:
-  - clientCredentials
-  sources:
-  - openapi/canvas-medical-fhir-api-openapi.yml
 - scope: user/*.read
-  description: Read user-context FHIR resources
-  flows:
-  - authorizationCode
-  sources:
-  - openapi/canvas-medical-fhir-api-openapi.yml
+  description: Read access to all resources the staff user may see.
+  flows: [authorizationCode]
+  sources: [openapi/canvas-medical-fhir-api-openapi.yml, docs]
 - scope: user/*.write
-  description: Write user-context FHIR resources
-  flows:
-  - authorizationCode
-  sources:
-  - openapi/canvas-medical-fhir-api-openapi.yml
+  description: Write access to all resources the staff user may modify.
+  flows: [authorizationCode]
+  sources: [openapi/canvas-medical-fhir-api-openapi.yml, docs]
+- scope: user/*.*
+  description: Full access to all resources in staff-user context.
+  flows: [authorizationCode]
+  sources: [docs]
+- scope: user/Patient.read
+  description: Read Patient resources only, in staff-user context.
+  flows: [authorizationCode]
+  sources: [docs]
+- scope: patient/*.read
+  description: Read the launch-context patient's FHIR resources.
+  flows: [authorizationCode]
+  sources: [openapi/canvas-medical-fhir-api-openapi.yml, docs]
+- scope: patient/Patient.read
+  description: Read the launch-context patient's demographic record.
+  flows: [authorizationCode, clientCredentials]
+  sources: [docs]
+- scope: patient/Appointment.*
+  description: Read and write the launch-context patient's appointments.
+  flows: [authorizationCode, clientCredentials]
+  sources: [docs]
+- scope: patient/Practitioner.read
+  description: Read practitioners in patient context.
+  flows: [authorizationCode, clientCredentials]
+  sources: [docs]
+- scope: patient/Observation.read
+  description: Read the launch-context patient's observations.
+  flows: [authorizationCode]
+  sources: [docs]
+- scope: system/*.read
+  description: System-level read across all resources; the scope used for bulk export (Group/{id}/$export).
+  flows: [clientCredentials]
+  sources: [openapi/canvas-medical-fhir-api-openapi.yml, docs]
+- scope: system/*.write
+  description: System-level write across all resources.
+  flows: [clientCredentials]
+  sources: [openapi/canvas-medical-fhir-api-openapi.yml]
+- scope: system/Patient.read
+  description: Read Patient resources.
+  flows: [clientCredentials]
+  sources: [openapi/canvas-medical-fhir-api-openapi.yml]
+- scope: system/Patient.write
+  description: Write Patient resources.
+  flows: [clientCredentials]
+  sources: [openapi/canvas-medical-fhir-api-openapi.yml]
+- scope: system/Patient.crus
+  description: Granular v2 example — create, read, update and search Patient.
+  flows: [clientCredentials]
+  sources: [docs]
+- scope: system/Appointment.read
+  description: Read Appointment resources.
+  flows: [clientCredentials]
+  sources: [openapi/canvas-medical-fhir-api-openapi.yml]
+- scope: system/Appointment.write
+  description: Write Appointment resources.
+  flows: [clientCredentials]
+  sources: [openapi/canvas-medical-fhir-api-openapi.yml]
+- scope: system/Observation.read
+  description: Read Observation resources.
+  flows: [clientCredentials]
+  sources: [openapi/canvas-medical-fhir-api-openapi.yml]
+- scope: system/Observation.write
+  description: Write Observation resources.
+  flows: [clientCredentials]
+  sources: [openapi/canvas-medical-fhir-api-openapi.yml]
+- scope: system/Task.*
+  description: Full access to Task; Task is system-context only.
+  flows: [clientCredentials]
+  sources: [docs]
+- scope: system/Plugins.*
+  description: Full access to plugin install, list and management endpoints.
+  flows: [clientCredentials]
+  sources: [docs]
+launch_and_identity_scopes:
+- scope: launch
+  description: Allows external app launches.
+- scope: launch/patient
+  description: Allows patient context.
+- scope: openid
+  description: OpenID Connect scope.
+- scope: fhirUser
+  description: Returns the authenticated user's FHIR identity.
+- scope: offline_access
+  description: Requests a refresh token.
+operation_scopes:
+  note: Some FHIR operations require a dedicated scope IN ADDITION to the resource scope. Available under both user/ and system/.
+  scopes:
+  - suffix: Claim.add-activity-log-item
+    operation: Add an activity log entry to a Claim.
+  - suffix: DiagnosticReport.create-lab-report
+    operation: Create a lab report.
+  - suffix: Practitioner.send-reset-password-email
+    operation: Send a password-reset email to a practitioner.
+patient_scoped_tokens:
+  supported: true
+  mechanism: >-
+    A client-credentials token request that additionally carries `patient=<canvas patient id>` and a
+    space-separated list of patient/ scopes. The response echoes back patient, smart_style_url and
+    need_patient_banner.
+  enforcement: >-
+    Records referencing other patients cannot be retrieved with the token, and requests for resource
+    types absent from the token's scope — or types that do not support patient-scoped tokens — are
+    denied.
+  validation: >-
+    A request that includes the patient parameter but omits scope, or requests invalid scopes, is
+    rejected.
+refresh_scope_rule: >-
+  On refresh_token grants the `scope` parameter must match the original grant or be a subset. If
+  omitted, Canvas falls back to the application's default allowed scopes, which may fail with
+  invalid_scope.
+smart_capabilities_observed:
+  source: https://fumage-apex.canvasmedical.com/.well-known/smart-configuration
+  fetched: '2026-08-14'
+  http_status: 200
+  values: [authorize-post, client-confidential-asymmetric, client-confidential-symmetric, client-public, context-banner, context-ehr-encounter, context-ehr-patient, context-standalone-patient, context-style, launch-ehr, launch-standalone, permission-offline, permission-patient, permission-user, permission-v1, permission-v2, sso-openid-connect]

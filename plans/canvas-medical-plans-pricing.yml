@@ -1,3 +1,7 @@
+generated: '2026-08-14'
+method: searched
+source: https://www.canvasmedical.com/pricing
+plan_count: 2
 name: Canvas Medical Plans and Pricing
 description: Canvas Medical offers two subscription tiers for healthcare organizations building on the EHR platform, priced per monthly active patient with unlimited API calls included in both plans.
 url: https://www.canvasmedical.com/pricing

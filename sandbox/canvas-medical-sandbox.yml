@@ -1,0 +1,84 @@
+generated: '2026-08-14'
+method: searched
+source: >-
+  https://docs.canvasmedical.com/api/developer-access/,
+  https://docs.canvasmedical.com/api/quickstart/,
+  https://docs.canvasmedical.com/api/service-base-urls/,
+  https://www.canvasmedical.com/emrs/developer-sandbox
+description: >-
+  Canvas Medical provisions a real, fully separate Canvas instance as a sandbox rather than a test
+  mode inside a shared account. There is no test-vs-live key prefix and no magic test values: a
+  sandbox is its own subdomain, its own database, its own OAuth authorization server and its own set
+  of credentials. The consequence for an integrator is that the sandbox is gated — you request it,
+  you do not self-serve it.
+access:
+  self_serve: false
+  gate: email request
+  contact: developer-access@canvasmedical.com
+  request_with:
+  - organization name
+  - description of your application
+  - access model needed (patient-directed, or population/bulk)
+  - technical point of contact
+  verification_sla: authenticity verification completed within 10 business days (45 CFR 170.404)
+  enablement_sla: registered and enabled for production within 5 business days of verification
+  fees: none — "There is no fee to register, verify, or enable a third-party application"
+  marketing_page: https://www.canvasmedical.com/emrs/developer-sandbox
+  note: >-
+    Third-party developers do not need to be an existing Canvas customer to request sandbox access.
+    Sandbox credentials are requested as part of the same step-1 email as production access.
+environments:
+- name: sandbox
+  fhir_base_url_pattern: https://fumage-<sandbox-name>.canvasmedical.com
+  ui_url_pattern: https://<sandbox-name>.canvasmedical.com
+  auth_base: https://<sandbox-name>.canvasmedical.com/auth/
+  directory: https://docs.canvasmedical.com/assets/static/fhir-service-base-urls-nonproduction.json
+- name: customer dev
+  fhir_base_url_pattern: https://fumage-<subdomain>-dev.canvasmedical.com
+- name: customer staging
+  fhir_base_url_pattern: https://fumage-<subdomain>-staging.canvasmedical.com
+- name: production
+  fhir_base_url_pattern: https://fumage-<subdomain>.canvasmedical.com
+  directory: https://docs.canvasmedical.com/assets/static/fhir-service-base-urls-production.json
+test_credentials:
+  key_prefixes: none
+  test_mode_flag: none
+  note: >-
+    Credentials are per-instance OAuth client_id/client_secret registered at
+    {instance}/auth/applications/. A sandbox client secret is structurally identical to a production
+    one — nothing in the token or the key distinguishes test from live, so environment separation is
+    entirely a matter of which base URL you point at.
+seeded_data:
+  practitioner: >-
+    "If you are using one of our canvas sandboxes, there will already be a demo staff member loaded in
+    the instance." The quickstart reads it back with GET /Practitioner and shows a seeded Practitioner
+    carrying a us-npi identifier.
+  patients: none seeded — the quickstart's first step is creating one.
+fixtures:
+  note: >-
+    Canvas publishes worked request bodies rather than fixture tooling. The quickstart's Patient
+    create body (US Core birthsex extension, gender, name, birthDate) is the documented minimum-viable
+    create. github.com/canvas-medical/canvas-fhir-example-requests is a first-party collection of
+    example FHIR requests for the Bruno API client.
+  example_requests_repo: https://github.com/canvas-medical/canvas-fhir-example-requests
+  local_examples: examples/canvas-medical-{patient,appointment,observation}-example.json
+time_simulation:
+  supported: false
+  note: No test clocks or time-travel tooling documented.
+triggers:
+  supported: false
+  note: >-
+    No fixture/trigger endpoints. Event simulation is done by performing the real action on the
+    sandbox instance (e.g. create a Task to fire TASK_CREATED) and watching `canvas logs`.
+local_development:
+  note: >-
+    Plugin development runs against a real instance, not a local emulator. `canvas validate` runs the
+    plugin-runner sandbox locally so handler-load and RestrictedPython violations are caught before
+    upload, but there is no offline FHIR server. github.com/canvas-medical/fhirstarter is a
+    first-party FHIR server framework and is sometimes used to stand one up, but it is not a Canvas
+    API emulator.
+network_precondition:
+  ip_allow_list: true
+  note: >-
+    Instance endpoints carry IP allow-lists backed by cloud security groups, so a sandbox is not
+    reachable from an arbitrary address until the customer allow-lists it.

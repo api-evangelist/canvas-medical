@@ -1,0 +1,143 @@
+generated: '2026-08-14'
+method: searched
+source: >-
+  https://docs.canvasmedical.com/guides/platform-security-overview/,
+  https://docs.canvasmedical.com/api/developer-access/,
+  https://docs.canvasmedical.com/product-updates/rwt/,
+  https://docs.canvasmedical.com/api/customer-authentication/,
+  and the live FHIR CapabilityStatement at https://fumage-apex.canvasmedical.com/metadata
+capability_statement:
+  file: canvas-medical-capabilitystatement.json
+  source: https://fumage-apex.canvasmedical.com/metadata
+  fetched: '2026-08-14'
+  http_status: 200
+  content_type: application/fhir+json
+  publisher: Canvas Medical
+  fhir_version: 4.0.1
+  resources: 40
+  note: >-
+    Canvas serves a live FHIR R4 CapabilityStatement at /metadata on every customer instance. It is
+    the machine-readable conformance resource for the FHIR API and the FHIR-native equivalent of a
+    published spec. Captured from fumage-apex.canvasmedical.com, a production endpoint listed in
+    Canvas Medical's own published Service Base URLs directory. It advertises 40 resource types —
+    13 more than the 27 refined OpenAPI documents in openapi/ cover.
+standards:
+- id: fhir-r4
+  conforms: true
+  evidence: >-
+    CapabilityStatement fhirVersion 4.0.1, publisher "Canvas Medical", 40 resource types; every
+    OpenAPI in openapi/ models FHIR R4 resources and Bundle searchsets.
+- id: us-core
+  conforms: true
+  evidence: >-
+    ONC §170.315(g)(10) certification requires US Core; the docs ship a US Core patient retrieval
+    flow and arazzo/canvas-medical-smart-us-core-patient-retrieval-workflow.yml exercises it.
+- id: smart-app-launch
+  conforms: true
+  evidence: >-
+    /.well-known/smart-configuration returns 200 with capabilities including launch-ehr,
+    launch-standalone, context-ehr-patient, context-standalone-patient, permission-v1, permission-v2,
+    permission-patient, permission-user, permission-offline, sso-openid-connect,
+    client-confidential-symmetric, client-confidential-asymmetric and client-public.
+- id: smart-scopes-v2
+  conforms: true
+  evidence: >-
+    Docs document both v1 (.read/.write/.*) and v2 granular (c/r/u/s) scope syntax, e.g. Patient.crus;
+    smart-configuration advertises permission-v1 and permission-v2.
+- id: oauth2
+  conforms: true
+  evidence: >-
+    Canvas is an OAuth 2.0 authorization server; authorization_code and client_credentials grants,
+    token endpoint /auth/token/, authorize endpoint /auth/authorize/.
+- id: oauth2-pkce
+  conforms: true
+  evidence: smart-configuration advertises code_challenge_methods_supported ["S256"].
+- id: oidc
+  conforms: true
+  evidence: >-
+    https://<instance>.canvasmedical.com/auth/.well-known/openid-configuration returns 200 with a
+    jwks_uri; smart-configuration lists the sso-openid-connect capability and the openid/fhirUser scopes.
+- id: onc-170.315-g10
+  conforms: true
+  evidence: >-
+    "Canvas Medical is certified to ONC's §170.315(g)(10) Standardized API for Patient and Population
+    Services" (docs /api/developer-access/), with Real World Test plans and results published for
+    2023, 2024 and 2025 at /product-updates/rwt/.
+- id: 45-cfr-170.404
+  conforms: true
+  evidence: >-
+    Published API Condition of Certification terms: ten business days to complete authenticity
+    verification, five business days to enable for production, no fees or royalties, no exclusivity,
+    no reciprocal data access.
+- id: hti-1-service-base-urls
+  conforms: true
+  evidence: >-
+    Production and non-production FHIR R4 Bundles of Organization + Endpoint resources published at
+    docs.canvasmedical.com/assets/static/fhir-service-base-urls-*.json; 76 production endpoints.
+- id: hitrust-csf-r2
+  conforms: true
+  evidence: >-
+    "Canvas holds HITRUST CSF r2 certification" — /guides/platform-security-overview/. The
+    certification report, SOC-equivalent artifacts and the most recent independent penetration test
+    are available under NDA, not publicly.
+- id: hipaa
+  conforms: true
+  evidence: >-
+    US EHR handling PHI; platform security overview documents AES-256 encryption at rest, TLS in
+    transit, RBAC with model and object permissions, per-customer database isolation, audit logging
+    and telemetry.
+- id: bulk-data-export
+  conforms: true
+  evidence: >-
+    system/*.read scope is documented for bulk-data export via Group/{id}/$export
+    (docs /api/customer-authentication/#scopes).
+- id: rfc9457-problem-details
+  conforms: false
+  evidence: >-
+    Errors are FHIR OperationOutcome resources, not application/problem+json. That is the correct
+    FHIR-native choice; recorded so the error format is not mistaken for RFC 9457.
+- id: rfc9727-api-catalog
+  conforms: false
+  evidence: >-
+    No /.well-known/api-catalog. The equivalent directory is published at a documented static path
+    instead (see well-known/canvas-medical-well-known.yml).
+- id: rfc9116-security-txt
+  conforms: false
+  evidence: /.well-known/security.txt returns 404 on every canvasmedical.com host probed.
+- id: rfc8594-sunset-header
+  conforms: false
+  evidence: >-
+    Deprecations and end-of-life dates are published on the Important Dates page, but no Sunset or
+    Deprecation response header is documented.
+- id: idempotency-key
+  conforms: false
+  evidence: >-
+    No Idempotency-Key header and no FHIR conditional-create (If-None-Exist) support appears in the
+    docs or in any spec in openapi/. Concurrency is handled with If-Unmodified-Since -> 412 instead.
+- id: a2a
+  conforms: false
+  evidence: No agent card at /.well-known/agent-card.json or /.well-known/agent.json on any host.
+- id: mcp
+  conforms: false
+  evidence: >-
+    No MCP server published; Canvas states publicly that the SDK, not MCP, is its agent foundation
+    layer.
+compliance_program:
+  published: true
+  url: https://docs.canvasmedical.com/guides/platform-security-overview/
+  certifications:
+  - HITRUST CSF r2
+  - ONC/ASTP Health IT Certification §170.315(g)(10)
+  attestations:
+  - name: Real World Testing plans and results
+    url: https://docs.canvasmedical.com/product-updates/rwt/
+    years: [2023, 2024, 2025]
+  under_nda:
+  - HITRUST certification report
+  - SOC-equivalent artifacts
+  - most recent independent penetration test
+  note: >-
+    Canvas publishes the certification claims and the ONC attestation artifacts openly, but gates the
+    underlying reports behind an NDA. There is no public trust center at trust.canvasmedical.com
+    (DNS does not resolve) and www.canvasmedical.com/security, /trust and /compliance all serve the
+    marketing homepage as a soft-404, so no TrustCenter pointer is emitted.

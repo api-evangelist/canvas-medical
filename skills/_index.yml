@@ -1,0 +1,85 @@
+generated: '2026-08-14'
+method: searched
+source: https://github.com/canvas-medical/coding-agents/tree/main/canvas-plugin-assistant/skills
+description: >-
+  Canvas Medical publishes its own Agent Skills. These eleven SKILL.md files are saved VERBATIM from
+  the canvas-medical/coding-agents repository — they are not API Evangelist generations. They ship as
+  part of "cpa" (Canvas Plugin Assistant), a Claude Code plugin distributed through a marketplace
+  manifest at .claude-plugin/marketplace.json, authored by Canvas Medical (ai@canvasmedical.com).
+publisher:
+  name: Canvas Medical
+  contact: ai@canvasmedical.com
+  marketplace: https://github.com/canvas-medical/coding-agents/blob/main/.claude-plugin/marketplace.json
+  plugin:
+    name: cpa
+    description: Helps solutions consultants build Canvas Medical plugins through guided dialogue and automated workflows
+    version: 1.29.0
+note: >-
+  Each upstream skill directory also carries a large `*_context.txt` grounding corpus (up to ~1.9 MB
+  for the SDK and FHIR client skills). Those corpora are NOT mirrored here — they are Canvas's docs
+  concatenated, they change with every docs release, and the repository is the source of truth. Only
+  the SKILL.md operating instructions are captured.
+skills:
+- file: canvas-medical-canvas-sdk.md
+  name: canvas-sdk
+  description: >-
+    Canvas SDK reference and documentation. Use whenever a question, claim, or piece of code touches
+    Canvas SDK capabilities, API usage, implementation patterns, or testing.
+  api: https://docs.canvasmedical.com/sdk/
+  upstream: canvas-plugin-assistant/skills/canvas-sdk/SKILL.md
+- file: canvas-medical-fhir-api-client-development.md
+  name: fhir-api-client-development
+  description: FHIR API reference for Canvas plugins that need to read or write data via FHIR endpoints.
+  api: openapi/canvas-medical-patient-api-openapi.yml
+  upstream: canvas-plugin-assistant/skills/fhir-api-client-development/SKILL.md
+- file: canvas-medical-fhir-api-client-security.md
+  name: fhir-api-client-security
+  description: >-
+    Security review for plugins acting as FHIR API clients — token management, scope validation and
+    patient-scoped authorization.
+  api: scopes/canvas-medical-scopes.yml
+  upstream: canvas-plugin-assistant/skills/fhir-api-client-security/SKILL.md
+- file: canvas-medical-plugin-api-server-security.md
+  name: plugin-api-server-security
+  description: >-
+    Security review for plugin API endpoints (SimpleAPI, WebSocket) — authentication and authorization
+    when the plugin is the SERVER.
+  upstream: canvas-plugin-assistant/skills/plugin-api-server-security/SKILL.md
+- file: canvas-medical-plugin-patterns.md
+  name: plugin-patterns
+  description: Canvas plugin architecture patterns, best practices, and implementation templates.
+  upstream: canvas-plugin-assistant/skills/plugin-patterns/SKILL.md
+- file: canvas-medical-companion-app-patterns.md
+  name: companion-app-patterns
+  description: >-
+    Design, UI, data-access and packaging conventions for Canvas provider companion applications
+    (provider_companion_global / _patient_specific / _note_specific scopes).
+  upstream: canvas-plugin-assistant/skills/companion-app-patterns/SKILL.md
+- file: canvas-medical-custom-data-patterns.md
+  name: custom-data-patterns
+  description: Custom Data anti-patterns and corrections — AttributeHubs vs CustomModels, compatibility checks.
+  upstream: canvas-plugin-assistant/skills/custom-data-patterns/SKILL.md
+- file: canvas-medical-database-performance.md
+  name: database-performance
+  description: >-
+    Database performance for Canvas plugins — N+1 detection, over-hydration/memory, write
+    amplification, and Canvas execution limits (effect-batch ceiling, dbid PK).
+  upstream: canvas-plugin-assistant/skills/database-performance/SKILL.md
+- file: canvas-medical-testing.md
+  name: testing
+  description: Unit test authoring and coverage checking for Canvas plugins.
+  upstream: canvas-plugin-assistant/skills/testing/SKILL.md
+- file: canvas-medical-instance-analyze.md
+  name: instance-analyze
+  description: Analyze Canvas instance configuration to understand the target environment for plugin development.
+  upstream: canvas-plugin-assistant/skills/instance-analyze/SKILL.md
+- file: canvas-medical-icon-generation.md
+  name: icon-generation
+  description: Generate SVG icons and convert them to 48x48 PNG for Canvas plugins and applications.
+  upstream: canvas-plugin-assistant/skills/icon-generation/SKILL.md
+observation: >-
+  Note what these skills are FOR. Every one of them targets building a Canvas plugin — code that runs
+  inside the EMR — rather than calling the Canvas API from outside it. Two of the eleven
+  (fhir-api-client-development, fhir-api-client-security) address the FHIR API, and both frame it as
+  something a plugin calls. That is consistent with Canvas's published position that the SDK, not an
+  external tool protocol, is its agent foundation layer.

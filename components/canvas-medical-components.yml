@@ -1,0 +1,83 @@
+generated: '2026-08-14'
+method: searched
+source: >-
+  https://github.com/canvas-medical/embed,
+  https://docs.canvasmedical.com/guides/choosing-your-patient-experience/,
+  https://docs.canvasmedical.com/guides/embedding-a-smart-on-fhir-application/,
+  npm registry metadata
+description: >-
+  Canvas Medical ships two client-side embeddable widgets for the patient experience — a self-service
+  scheduler and an appointments manager — distributed both as npm packages and as unpinned CDN
+  bundles. They are configured at init() time and talk to the FHIR API through a proxy the customer
+  deploys, because the widgets themselves cannot hold an OAuth secret.
+families:
+- name: Patient self-scheduling embeds
+  repo: https://github.com/canvas-medical/embed
+  license: see repo
+  components:
+  - name: Scheduler
+    global: Scheduler
+    npm: "@canvas-medical/embed-scheduler"
+    npm_version: 0.0.9
+    npm_published: '2022-02-24'
+    cdn: https://d1a32bn8n735rs.cloudfront.net/scheduler.js
+    cdn_version_label: V1
+    cdn_pinned: false
+    mount: <div id="embed-root"></div>
+    init: Scheduler.init({...})
+    config_keys: [api, appointmentCoding, bailoutURL, duration, locationId, patientId, patientKey, providerIds, description, returnURL, rootId, brandColor, accentColor, fontFamily]
+    purpose: Patient-facing appointment booking against Slot/Appointment.
+  - name: Appointments
+    global: Appointments
+    npm: "@canvas-medical/embed-appointments"
+    npm_version: 0.0.9
+    npm_published: '2022-02-24'
+    cdn: https://d16rsv1d4y8ohr.cloudfront.net/appointments.js
+    cdn_version_label: V1
+    cdn_pinned: false
+    mount: <div id="embed-root"></div>
+    init: Appointments.init({...})
+    config_keys: [api, bailoutURL, locationId, patientId, patientKey, rootId, brandColor, accentColor, fontFamily]
+    purpose: Display and manage a patient's existing appointments.
+  loader_libraries:
+  - name: "@canvas-medical/embed-common"
+    npm_version: 0.0.9
+    npm_published: '2022-02-24'
+    purpose: Shared business logic and components; a dependency of both widgets, not used directly.
+  theming:
+    keys: [brandColor, accentColor, fontFamily]
+    note: Hex brand/accent colors and a custom font family are the full theming surface.
+  auth_model:
+    proxy_required: true
+    repo_path: https://github.com/canvas-medical/embed/tree/main/proxy
+    flow: >-
+      The widgets need a `patientKey`. The customer deploys the reference proxy, which holds the OAuth
+      credentials and exposes GET {proxyURL}/Auth?key={apiKey}&patient={patientId} returning
+      {patient_key}. The repo marks the proxy as "a temporary measure to be used until a
+      patient-scoped OAuth token is implemented on the Canvas Medical FHIR API".
+    note: >-
+      That caveat is now stale in Canvas's own favour — patient-scoped tokens ARE implemented and
+      documented (see the Patient Scoped Tokens section of /api/customer-authentication/), so the
+      proxy's stated reason for existing has been superseded without the embed repo being updated.
+  example_apps:
+  - react
+  - static
+other_embedding:
+- name: SMART on FHIR app embedding
+  docs: https://docs.canvasmedical.com/guides/embedding-a-smart-on-fhir-application/
+  note: >-
+    Not a Canvas-supplied component — the customer's own SMART app is embedded INTO the Canvas chart
+    via the SMART App Launch flow advertised in /.well-known/smart-configuration
+    (launch-ehr, context-ehr-patient, context-ehr-encounter, context-banner, context-style).
+- name: Provider Companion
+  docs: https://docs.canvasmedical.com/sdk/companion.md
+  note: Mobile-first companion applications for providers, built with the SDK rather than a JS widget library.
+- name: Chart UI extension points
+  note: >-
+    The bulk of Canvas's UI extensibility is server-side via SDK effects (custom landing pages, panel
+    buttons, search results, growth charts, patient timeline) rather than client-side components.
+    Those live in the SDK, not here.
+currency_finding: >-
+  Both published widgets were last released to npm on 2022-02-24 at 0.0.9, and the CDN URLs carry no
+  version segment — a consumer loading scheduler.js cannot tell which build they get. The source repo
+  is more current than either distribution channel.

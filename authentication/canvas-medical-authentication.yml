@@ -1,13 +1,34 @@
-generated: '2026-07-11'
-method: derived
+generated: '2026-08-14'
+method: searched
 source: openapi/canvas-medical-fhir-api-openapi.yml
+docs: https://docs.canvasmedical.com/api/customer-authentication/
+also:
+- https://docs.canvasmedical.com/api/authentication-best-practices/
+- https://docs.canvasmedical.com/api/developer-access/
+- https://fumage-apex.canvasmedical.com/.well-known/smart-configuration
+- https://apex.canvasmedical.com/auth/.well-known/openid-configuration
+note: >-
+  Upgraded from derived to searched on 2026-08-14 against the Canvas docs and two live discovery
+  documents on a production instance. Canvas is itself an OAuth 2.0 authorization server, one per
+  customer instance — there is no central IdP shared across customers.
 summary:
-  types:
-  - http
-  - oauth2
-  oauth2_flows:
-  - authorizationCode
-  - clientCredentials
+  types: [oauth2, http, openIdConnect]
+  oauth2_flows: [authorizationCode, clientCredentials, refreshToken]
+  api_key_in: []
+  pkce: [S256]
+  bearer_format: JWT
+  standard: SMART App Launch (SMART on FHIR) over OAuth 2.0 + OIDC
+authorization_server:
+  model: one authorization server per customer instance
+  issuer_pattern: https://{canvas-instance}.canvasmedical.com
+  token_endpoint: https://{canvas-instance}.canvasmedical.com/auth/token/
+  authorization_endpoint: https://{canvas-instance}.canvasmedical.com/auth/authorize/
+  application_registration: https://{canvas-instance}.canvasmedical.com/auth/applications/
+  jwks_uri: https://{canvas-instance}.canvasmedical.com/auth/.well-known/jwks.json
+  smart_configuration: https://fumage-{canvas-instance}.canvasmedical.com/.well-known/smart-configuration
+  openid_configuration: https://{canvas-instance}.canvasmedical.com/auth/.well-known/openid-configuration
+  discovery_verified: '2026-08-14'
+  discovery_http_status: 200
 schemes:
 - name: OAuth2ClientCredentials
   type: oauth2
@@ -15,10 +36,20 @@ schemes:
   - flow: clientCredentials
     tokenUrl: https://{canvas-instance}.canvasmedical.com/auth/token/
     scopes: 8
-  description: Machine-to-machine authentication using client credentials grant. Obtain client_id
-    and client_secret from Canvas admin panel.
-  sources:
-  - openapi/canvas-medical-fhir-api-openapi.yml
+  description: >-
+    Machine-to-machine authentication using the client credentials grant, for daemons, CLIs and
+    server-side integrations. Register a Confidential client at {instance}/auth/applications/ and use
+    the resulting client_id/client_secret.
+  request: >-
+    POST {instance}/auth/token/ with Content-Type: application/x-www-form-urlencoded and
+    grant_type=client_credentials, client_id, client_secret.
+  scope_behaviour: >-
+    Scopes are optional; when omitted the token carries the OAuth application's configured allowed
+    scopes.
+  patient_scoped_variant: >-
+    Adding patient=<id> plus explicit patient/ scopes to the same request yields a patient-scoped
+    token. Omitting scope, or requesting invalid scopes, is rejected.
+  sources: [openapi/canvas-medical-fhir-api-openapi.yml, docs]
 - name: OAuth2AuthCode
   type: oauth2
   flows:
@@ -26,12 +57,75 @@ schemes:
     authorizationUrl: https://{canvas-instance}.canvasmedical.com/auth/authorize/
     tokenUrl: https://{canvas-instance}.canvasmedical.com/auth/token/
     scopes: 3
-  description: User-delegated access using Authorization Code flow with SMART on FHIR scopes.
-  sources:
-  - openapi/canvas-medical-fhir-api-openapi.yml
+  description: >-
+    User-delegated access for web and native applications. The access token carries the identity of
+    the authorizing user, so FHIR calls are scoped to that user's permissions and SimpleAPI plugin
+    endpoints receive them as the event actor.
+  pkce: S256
+  hard_requirements:
+  - >-
+    Staff (user/) launches MUST include a `launch` query parameter holding a base64-encoded JSON
+    context object, e.g. {"patient":""} -> eyJwYXRpZW50IjoiIn0=. Without it the authorization is
+    denied with error=access_denied.
+  - Scopes are required in the authorize URL; encode "/" as %2F and the separator space as %20.
+  - The authorization code is valid for approximately 60 seconds — exchange it immediately.
+  sources: [openapi/canvas-medical-fhir-api-openapi.yml, docs]
 - name: BearerAuth
   type: http
   scheme: bearer
   bearerFormat: JWT
-  sources:
-  - openapi/canvas-medical-fhir-api-openapi.yml
+  description: >-
+    All API calls present the token as `Authorization: Bearer <access_token>` — both the FHIR API
+    ({FUMAGE_BASE_URL}/Patient) and SimpleAPI plugin endpoints
+    ({instance}/plugin-io/api/{plugin_name}/{endpoint}).
+  sources: [openapi/canvas-medical-fhir-api-openapi.yml, docs]
+tokens:
+  access_token:
+    ttl_seconds: 36000
+    ttl_human: 10 hours
+    type: Bearer
+    reuse_guidance: >-
+      "You can and should reuse access tokens to reduce the number of tokens that are valid at any
+      given time."
+  refresh_token:
+    expires: false
+    single_use: true
+    behaviour: >-
+      Each refresh consumes the old refresh token and returns a NEW one, which must be stored. The
+      scope parameter on refresh must match the original grant or be a subset.
+    requested_by: offline_access scope
+  authorization_code:
+    ttl_seconds: 60
+patient_scoped_token_response_fields:
+- access_token
+- expires_in
+- token_type
+- scope
+- smart_style_url
+- patient
+- need_patient_banner
+access_gate:
+  self_serve: false
+  note: >-
+    Registering an application is only possible once you have access to an instance. Third-party
+    developers request access at developer-access@canvasmedical.com; authenticity verification
+    completes within 10 business days and production enablement within 5 more (45 CFR 170.404). No
+    fees, no exclusivity, no reciprocal data access.
+  models:
+  - name: patient-directed
+    authorized_by: the individual patient, via the SMART authorization-code flow
+    context: patient/
+  - name: population / bulk
+    authorized_by: the practice or organization holding the data
+    context: system/
+    note: typically client credentials plus bulk export
+platform_identity:
+  sso: SAML supported for EHR users; where SSO is used, password policy, MFA, session lifetime and account lifecycle are governed by the customer's IdP.
+  fallback: Canvas-managed credentials validate minimum length, similarity to name/username, all-numeric values and a common-password list.
+  lockout: Failed-login lockout applies to interactive sessions on either path.
+  authorization: RBAC with model permissions (record types) and object permissions (specific records, scoped by patient group), administered through roles and groups.
+  source: https://docs.canvasmedical.com/guides/platform-security-overview/
+cross_ref:
+  scopes: scopes/canvas-medical-scopes.yml
+  conventions: conventions/canvas-medical-conventions.yml
+  well_known: well-known/canvas-medical-well-known.yml

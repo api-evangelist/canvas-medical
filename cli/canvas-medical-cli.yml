@@ -1,0 +1,103 @@
+generated: '2026-08-14'
+method: searched
+source: https://docs.canvasmedical.com/sdk/canvas_cli/
+name: canvas
+official: true
+description: >-
+  First-party CLI for the Canvas Medical EMR. Its job is the plugin lifecycle — scaffold a plugin,
+  validate it against the plugin-runner sandbox, install/enable/disable it on a Canvas instance,
+  manage its configuration variables and stream its logs. It is not a client for the FHIR API; it
+  authenticates with the same OAuth credentials but talks to the plugin management surface.
+package:
+  registry: pypi
+  name: canvas
+  url: https://pypi.org/project/canvas/
+  version: 0.196.1
+  published: '2026-08-13'
+  note: The CLI and the Canvas SDK ship as one distribution — see packages/canvas-medical-packages.yml.
+install:
+- method: pip
+  command: pip install canvas
+  upgrade: pip install --upgrade canvas
+- method: uv
+  command: uv tool install canvas
+  upgrade: uv tool upgrade canvas
+  note: uv will find or procure an acceptable Python version.
+requirements:
+  python: ['3.11', '3.12', '3.13']
+authentication:
+  file: ~/.canvas/credentials.ini
+  format: ini, one section per Canvas instance subdomain
+  fields: [client_id, client_secret, is_default]
+  mechanism: OAuth 2.0 client credentials — the same credentials as the FHIR API
+  default_host: >-
+    Set is_default=true in a section, otherwise the first section in the file is used. Any command
+    can override with --host.
+  docs: https://docs.canvasmedical.com/api/customer-authentication/#registering-a-third-party-application-on-canvas
+usage: canvas [OPTIONS] COMMAND [ARGS]...
+global_options: ['--version', '--help']
+commands:
+- group: plugin lifecycle
+  commands:
+  - name: init
+    summary: Create a new plugin from a scaffold (prompts for a project name).
+  - name: install
+    summary: Install a plugin into a Canvas instance.
+    args: [PLUGIN_NAME]
+    options: ['--variable TEXT', '--secret TEXT', '--enable / --disable', '--host TEXT']
+    note: >-
+      Runs the same pre-flight as `canvas validate` (manifest validation, static lint, sandbox-load)
+      and aborts before build/upload if anything errors, so a bad plugin never reaches the instance.
+      Excludes __pycache__, *.pyc/*.pyo, node_modules and hidden files; a .canvasignore file
+      (.gitignore syntax) adds exclusions.
+  - name: uninstall
+    summary: Uninstall a plugin from a Canvas instance.
+    args: [NAME]
+    options: ['--force', '--host TEXT']
+  - name: enable
+    summary: Enable an installed plugin.
+    args: [NAME]
+    options: ['--host TEXT']
+  - name: disable
+    summary: Disable an installed plugin.
+    args: [NAME]
+    options: ['--host TEXT']
+  - name: list
+    summary: List all plugins on a Canvas instance.
+    options: ['--host TEXT']
+- group: validation
+  commands:
+  - name: validate
+    summary: Full pre-flight — manifest validation, static lint, and sandbox-load of every handler.
+    args: [PLUGIN_NAME]
+    exit_code: 1 if any handler fails
+    note: >-
+      Static lint emits bracketed rule codes: setattr-blocked, delattr-blocked, bytearray-blocked,
+      type-3arg-blocked, augmented-subscript (sandbox errors); custom-model-wrong-dir,
+      missing-custom-data-block (Custom Data errors); custom-model-id-vs-dbid, lazy-fk-string-ref
+      (warnings). A pass does not guarantee sandbox-clean at request time.
+  - name: validate-manifest
+    summary: Validate CANVAS_MANIFEST.json schema and resolve every declared handler class to a file.
+    args: [PLUGIN_NAME]
+- group: observability
+  commands:
+  - name: logs
+    summary: Subscribe to an instance log stream and print to the console; can fetch history first.
+    options: ['--host TEXT']
+- group: configuration
+  commands:
+  - name: config list
+    summary: List plugin variables on a Canvas instance; sensitive values show only as [set]/[not set].
+  - name: config set
+    summary: Set plugin variables on a Canvas instance.
+key_flows:
+- name: Scaffold, install, and watch a plugin
+  steps: ['canvas init', 'canvas validate <plugin>', 'canvas install <plugin>', 'canvas logs']
+- name: Ship a webhook
+  steps: ['canvas init', 'write a BaseHandler with RESPONDS_TO = EventType.Name(EventType.TASK_CREATED)', 'canvas install <plugin> --secret AUTH_TOKEN=...', 'canvas logs']
+  docs: https://docs.canvasmedical.com/guides/creating-webhooks-with-the-canvas-sdk/
+update_notifications:
+  source: https://pypi.org/project/canvas/
+  frequency: at most once every 12 hours, cached locally
+  output: standard error, so piped output is unaffected
+  disable: CANVAS_NO_UPDATE_CHECK=1

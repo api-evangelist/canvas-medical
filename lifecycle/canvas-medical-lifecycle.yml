@@ -1,0 +1,91 @@
+generated: '2026-08-14'
+method: searched
+source: >-
+  https://docs.canvasmedical.com/product-updates/release-notes/,
+  https://docs.canvasmedical.com/product-updates/important-dates/,
+  https://docs.canvasmedical.com/product-updates/roadmap/,
+  https://status.canvasmedical.com/,
+  https://docs.canvasmedical.com/api/service-base-urls/
+versioning:
+  scheme: standard-version
+  current: FHIR R4 (4.0.1)
+  docs: https://docs.canvasmedical.com/api/
+  note: >-
+    The FHIR API carries no Canvas-specific version segment. The base URL is
+    https://fumage-<subdomain>.canvasmedical.com with resource paths directly at the root
+    (/Patient, /Appointment), so the contract version is the FHIR version the server advertises in
+    its CapabilityStatement (4.0.1). There is no /v1/ path, no version header and no date-pinned
+    version train — clients are always on the current build. The platform itself ships continuously:
+    the release notes carry near-daily dated entries.
+  sdk_versioning:
+    scheme: semver
+    current: 0.196.1
+    published: '2026-08-13'
+    registry: https://pypi.org/project/canvas/
+    note: The Canvas SDK/CLI is the versioned surface; the FHIR API is not.
+deprecation:
+  policy_url: https://docs.canvasmedical.com/product-updates/important-dates/
+  published: true
+  sunset_header: false
+  deprecation_header: false
+  note: >-
+    Canvas publishes an Important Dates table with Description / Type / What You Need To Know /
+    Release Date / End of Life columns, and marks breaking changes inline in the dated changelog.
+    There is no RFC 8594 Sunset or Deprecation response header, and no fixed notice period is
+    committed to in writing — end-of-life dates are given as TBD until a migration path exists.
+  current_entries:
+  - item: Workflow SDK
+    type: New Version
+    status: deprecated
+    end_of_life: TBD (Not Soon)
+    detail: >-
+      The Workflow SDK is deprecated and receives only defect and security fixes. It is being replaced
+      by the Canvas SDK and its plugins; no removal date will be set until the Canvas SDK reaches
+      feature parity, at which point Canvas commits to publishing a migration plan for converting
+      Workflow SDK Protocols into Canvas Plugins.
+  - item: "FHIR API: setting appointment location using the location integer value"
+    type: Breaking Change
+    status: planned-discontinuation
+    release_date: TBD
+    detail: >-
+      The FHIR Appointment endpoint now uses the reference from the Location Read/Search endpoint for
+      the Location in supportingInformation. Canvas plans to discontinue support for the integer
+      location value.
+deprecated_operations: []
+deprecated_operations_note: >-
+  No operation in any spec under openapi/ carries `deprecated: true`. The one FHIR-level breaking
+  change in flight is a field-level change on Appointment.supportingInformation, not a whole operation.
+status_page:
+  url: https://status.canvasmedical.com/
+  provider: Instatus
+  published: true
+  components_reported: true
+  incident_history: true
+  uptime_published: true
+  subscribe: true
+sla:
+  url: null
+  uptime_target: null
+  note: >-
+    No public SLA or uptime commitment. The status page reports historical uptime but names no target,
+    and neither the pricing page nor the docs publish availability or support-response commitments.
+support:
+  url: https://help.canvasmedical.com/
+  community: https://github.com/canvas-medical
+  developer_access: developer-access@canvasmedical.com
+  commitments:
+  - >-
+    Third-party developer authenticity verification completed within 10 business days of request
+    (45 CFR 170.404).
+  - Registration and production enablement within 5 business days of verification completing.
+roadmap:
+  url: https://docs.canvasmedical.com/product-updates/roadmap/
+  published: true
+  format: embedded Airtable view
+  note: Public forward-looking roadmap embedded in the developer docs under Product Updates.
+endpoint_directory:
+  url: https://docs.canvasmedical.com/api/service-base-urls/
+  note: >-
+    Because every customer has its own instance, the lifecycle of an *endpoint* is per-customer.
+    Canvas publishes the machine-readable production and non-production directories so a client can
+    discover which base URLs currently exist — see well-known/canvas-medical-well-known.yml.

@@ -1,0 +1,103 @@
+overlay: 1.0.0
+info:
+  title: API Evangelist enhancements for Canvas Medical FHIR API
+  version: 1.0.0
+extends: openapi/_original/canvas-medical-fhir-api-openapi.yml
+x-provenance:
+  generated: '2026-08-14'
+  method: generated
+  source: >-
+    Facts asserted below come from docs.canvasmedical.com (service base URLs, pagination, conditional
+    requests, errors, customer authentication) and from live probes of a production Canvas FHIR host
+    recorded in well-known/ and conformance/. The overlay never mutates the harvested spec.
+actions:
+- target: $.info
+  update:
+    x-apievangelist-slug: canvas-medical
+    x-apievangelist-enriched: '2026-08-14'
+    x-fhir-version: 4.0.1
+    x-capability-statement: https://fumage-{canvas-instance}.canvasmedical.com/metadata
+    x-service-base-url-directory: https://docs.canvasmedical.com/api/service-base-urls/
+    x-onc-certification: 170.315(g)(10) Standardized API for Patient and Population Services
+- target: $.info
+  update:
+    x-identifier-format:
+      patient_and_staff_keys: UUID without dashes
+      other_resources: standard dashed UUID
+      source: https://docs.canvasmedical.com/llms.txt
+- target: $.info
+  update:
+    x-pagination:
+      style: fhir-searchset
+      count_param: _count
+      offset_param: _offset
+      default_page_size: 10
+      max_page_size: 100
+      max_page_size_stability: server-enforced and may change without warning
+      link_relations: [self, first, last, next]
+      termination: absence of a `next` relation
+      rule: follow the Bundle links; do not construct offsets by hand
+      docs: https://docs.canvasmedical.com/api/pagination/
+- target: $.info
+  update:
+    x-concurrency:
+      request_header: If-Unmodified-Since
+      format: RFC 2616 HTTP-date
+      failure_status: 412
+      failure_body: OperationOutcome (issue[].code = conflict)
+      etag: false
+      docs: https://docs.canvasmedical.com/api/conditional-requests/
+    x-idempotency:
+      supported: false
+      note: >-
+        No Idempotency-Key header and no FHIR conditional-create (If-None-Exist). A retried POST
+        creates a duplicate resource. Use the search-then-update upsert pattern.
+- target: $.info
+  update:
+    x-error-format:
+      media_type: application/fhir+json
+      shape: FHIR OperationOutcome
+      discriminator: issue[].code
+      codes: [invalid, unknown, forbidden, not-found, conflict, business-rule, exception]
+      rfc9457: false
+      catalog: errors/canvas-medical-problem-types.yml
+      docs: https://docs.canvasmedical.com/api/errors/
+- target: $.info
+  update:
+    x-rate-limits:
+      documented: false
+      response_headers: []
+      note: >-
+        Both published plans advertise unlimited API calls. The platform security overview states the
+        edge enforces rate limiting, but no quota, window, header or exhaustion status is published.
+    x-network-precondition:
+      ip_allow_list: true
+      note: Instance endpoints carry IP allow-lists; egress addresses must be allow-listed by the customer.
+- target: $.info
+  update:
+    x-access-model:
+      self_serve: false
+      request_via: developer-access@canvasmedical.com
+      verification_sla_business_days: 10
+      enablement_sla_business_days: 5
+      fees: none
+      docs: https://docs.canvasmedical.com/api/developer-access/
+- target: $.servers[0]
+  update:
+    x-instance-model: one isolated instance per customer; each has its own FHIR base URL and its own OAuth authorization server
+    x-environments:
+      production: https://fumage-{subdomain}.canvasmedical.com
+      dev: https://fumage-{subdomain}-dev.canvasmedical.com
+      staging: https://fumage-{subdomain}-staging.canvasmedical.com
+    x-auth-base: https://{subdomain}.canvasmedical.com/auth/
+- target: $.components.securitySchemes
+  update:
+    x-smart-configuration: https://fumage-{canvas-instance}.canvasmedical.com/.well-known/smart-configuration
+    x-openid-configuration: https://{canvas-instance}.canvasmedical.com/auth/.well-known/openid-configuration
+    x-pkce: S256
+    x-access-token-ttl-seconds: 36000
+    x-refresh-token: non-expiring, single-use
+    x-authorization-code-ttl-seconds: 60
+    x-launch-parameter-required-for-staff: true
+    x-scope-versions: [v1, v2-granular-crus]
+    x-scopes-artifact: scopes/canvas-medical-scopes.yml

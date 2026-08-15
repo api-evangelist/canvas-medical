@@ -1,0 +1,84 @@
+generated: '2026-08-14'
+method: searched
+source: >-
+  https://docs.canvasmedical.com/guides/creating-webhooks-with-the-canvas-sdk/,
+  https://docs.canvasmedical.com/sdk/events.md,
+  https://raw.githubusercontent.com/canvas-medical/canvas-plugins/refs/heads/main/protobufs/canvas_generated/messages/events.proto
+spec_type: none
+asyncapi_published: false
+asyncapi_note: >-
+  Canvas Medical publishes no AsyncAPI document. Nothing is fabricated here — this artifact records
+  the event surface that DOES exist, in the form the provider actually publishes it.
+surface_model: plugin-authored
+summary: >-
+  Canvas has a large, first-party, machine-readable event catalog — 1,181 EventType values in
+  events.proto, the same file the plugin runner is generated from — but no managed webhook
+  subscription API. There is no endpoint where a consumer registers a callback URL and no
+  Canvas-operated delivery, retry, or signing. Delivery is authored by the customer: a plugin handler
+  declares RESPONDS_TO = EventType.Name(EventType.<EVENT>) and makes its own outbound HTTP call from
+  inside the EMR. Canvas documents this pattern explicitly in "Creating Webhooks With the Canvas SDK".
+event_catalog:
+  format: protobuf enum (proto3)
+  file: grpc/canvas-medical-events.proto
+  source: https://github.com/canvas-medical/canvas-plugins/blob/main/protobufs/canvas_generated/messages/events.proto
+  event_count: 1181
+  docs: https://docs.canvasmedical.com/sdk/events/
+  note: >-
+    1,181 enum members including UNKNOWN. Canvas markets "650+ clinical and operational events"; the
+    generated enum has grown past that, largely through per-command lifecycle events.
+  families:
+  - name: resource lifecycle
+    pattern: <RESOURCE>_CREATED / _UPDATED / _DELETED
+    examples: [ALLERGY_INTOLERANCE_CREATED, CONDITION_RESOLVED, COVERAGE_UPDATED, ENCOUNTER_CREATED, LAB_REPORT_CREATED, TASK_CREATED]
+    note: The events that map most directly onto FHIR resources, and the ones a webhook integration usually wants.
+  - name: appointment lifecycle
+    examples: [APPOINTMENT_CREATED, APPOINTMENT_CHECKED_IN, APPOINTMENT_CANCELED, APPOINTMENT_NO_SHOWED, APPOINTMENT_RESCHEDULED, APPOINTMENT_RESTORED]
+  - name: command lifecycle
+    pattern: <COMMAND>_COMMAND__<PHASE>
+    per_command_events: ~15
+    examples: [PRESCRIBE_COMMAND, ASSESS_COMMAND, VITALS_COMMAND, LAB_ORDER_COMMAND, TASK_COMMAND, REFER_COMMAND]
+    note: The largest family by count — roughly 15 phases per charting command.
+  - name: pre/post search hooks
+    pattern: <SURFACE>__PRE_SEARCH / __POST_SEARCH
+    examples: [FAX__RECIPIENT__PRE_SEARCH, FAX__RECIPIENT__POST_SEARCH, PATIENT_PROFILE__EXTERNAL_CARE_TEAM__PRE_SEARCH]
+    note: Synchronous interception points, not notifications — a handler returns results into the UI.
+  - name: patient portal
+    examples: [PATIENT_PORTAL events, 16 members]
+  - name: calendar
+    examples: [CALENDAR_CREATED, CALENDAR_UPDATED, CALENDAR_DELETED, CALENDAR_EVENT_CREATED, CALENDAR_EVENT_UPDATED, CALENDAR_EVENT_DELETED]
+    added: '2026-08-04'
+effects_catalog:
+  file: grpc/canvas-medical-effects.proto
+  effect_count: 390
+  note: >-
+    The write side of the same contract — what a handler may return in response to an event. Captured
+    alongside the events because an agent reasoning about Canvas's event surface needs both halves.
+webhook_authoring:
+  guide: https://docs.canvasmedical.com/guides/creating-webhooks-with-the-canvas-sdk/
+  mechanism:
+    handler_base: canvas_sdk.handlers.BaseHandler
+    subscription: RESPONDS_TO = EventType.Name(EventType.TASK_CREATED)
+    payload_context:
+    - self.target — the id of the event subject; the SAME id used by the corresponding FHIR endpoint
+    - self.secrets — key/value pairs declared in CANVAS_MANIFEST.json `variables` and set post-install
+    - self.event.actor — the authenticated user, for requests arriving through a SimpleAPI endpoint
+    http_client: canvas_sdk.utils.Http (post/get)
+    secret_declaration: '{"name": "AUTH_TOKEN", "sensitive": true} in CANVAS_MANIFEST.json variables'
+  operational_warning: >-
+    Verbatim caution from the guide — outbound HTTP runs inline with plugin execution: "making HTTP
+    requests to external servers will slow plugin execution while it waits on the external server to
+    respond." A slow receiver slows the EMR.
+  delivery_semantics:
+    managed_retry: false
+    signing: false
+    dead_letter: false
+    ordering_guarantee: not documented
+    at_least_once: not documented
+    note: >-
+      All delivery semantics are whatever the plugin author implements. Canvas provides the trigger
+      and the HTTP client, not a delivery guarantee.
+gaps:
+- No AsyncAPI document, and no event schema published in any AsyncAPI-consumable form (the protobuf enum is the closest machine-readable artifact).
+- No subscription API — a consumer cannot register a callback URL without deploying a plugin into the customer's instance.
+- No signature, no replay protection, no retry/backoff, no delivery log described in the public docs.
+- Events are per-instance; there is no cross-customer event stream, matching the per-customer instance model.

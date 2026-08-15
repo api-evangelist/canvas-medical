@@ -1,0 +1,127 @@
+generated: '2026-08-14'
+method: searched
+source: >-
+  https://docs.canvasmedical.com/api/pagination/,
+  https://docs.canvasmedical.com/api/conditional-requests/,
+  https://docs.canvasmedical.com/api/errors/,
+  https://docs.canvasmedical.com/api/customer-authentication/,
+  https://docs.canvasmedical.com/api/authentication-best-practices/,
+  https://docs.canvasmedical.com/api/service-base-urls/,
+  https://docs.canvasmedical.com/llms.txt
+  — cross-checked against the 27 refined specs in openapi/.
+summary: >-
+  Canvas Medical's FHIR API follows HL7 FHIR R4 conventions rather than house conventions: FHIR
+  searchset Bundles for pagination, OperationOutcome for errors, SMART on FHIR scopes for
+  authorization. The two things an agent most needs and does NOT get are an idempotency contract and
+  a documented rate-limit signal.
+base_url:
+  pattern: https://fumage-{customer-subdomain}.canvasmedical.com
+  templated: true
+  docs: https://docs.canvasmedical.com/api/service-base-urls/
+  note: >-
+    One isolated instance per customer, each with its own FHIR base URL and its own OAuth
+    authorization server at https://{customer-subdomain}.canvasmedical.com/auth/. There is no shared
+    endpoint spanning customers. Environments are suffixed: -dev, -staging. The full production and
+    non-production directories are published as FHIR Bundles.
+authentication:
+  style: oauth2-bearer
+  header: "Authorization: Bearer <access_token>"
+  flows: [client_credentials, authorization_code, refresh_token]
+  token_endpoint: "{instance}/auth/token/"
+  authorize_endpoint: "{instance}/auth/authorize/"
+  access_token_ttl_seconds: 36000
+  refresh_token: non-expiring but single-use — each refresh returns a new one that must be stored
+  authorization_code_ttl_seconds: 60
+  pkce: S256
+  launch_parameter: >-
+    Staff (user/) authorization-code launches REQUIRE a `launch` query parameter carrying a
+    base64-encoded JSON context object, e.g. {"patient":""}. Without it authorization is denied with
+    error=access_denied.
+  scope_encoding: URL-encode `/` as %2F and the scope separator space as %20 in the authorize URL.
+  cross_ref: authentication/canvas-medical-authentication.yml, scopes/canvas-medical-scopes.yml
+idempotency:
+  supported: false
+  header: null
+  conditional_create: false
+  note: >-
+    No Idempotency-Key header, and no FHIR conditional-create (If-None-Exist) support appears anywhere
+    in the docs or in any spec under openapi/. A retried POST creates a second resource. The only
+    safe-retry pattern Canvas documents is the search-then-update upsert modelled in
+    arazzo/canvas-medical-patient-registration-workflow.yml. No Idempotency pointer is emitted for
+    this provider — this is a genuine gap, not a missing pointer.
+concurrency:
+  optimistic_locking: true
+  request_header: If-Unmodified-Since
+  format: RFC 2616 HTTP-date, e.g. "Wed, 21 Oct 2015 07:28:00 GMT"
+  applies_to: endpoints that perform update operations
+  failure_status: 412
+  failure_body: OperationOutcome with issue[].code = conflict
+  etag: false
+  if_match: false
+  docs: https://docs.canvasmedical.com/api/conditional-requests/
+  note: >-
+    Canvas uses a timestamp precondition rather than ETag/If-Match. This is concurrency control, not
+    idempotency — it prevents a lost update, it does not make a retry safe.
+pagination:
+  style: fhir-searchset
+  supported_on: most search operations
+  request_params:
+  - name: _count
+    description: Page size. Defaults to 10 when omitted. Server-enforced maximum is 100 "at the time of writing, but can change without warning".
+  - name: _offset
+    description: Offset into the searchset; appears in the server-generated link URLs.
+  response_fields:
+  - name: link[]
+    description: Array of {relation, url}. Relations used are self, first, next, last.
+  - name: total
+    description: Total number of matching resources in the searchset.
+  - name: entry[]
+    description: The page of resources.
+  termination: Absence of a `next` relation means you are on the last page.
+  empty_result: No pagination links are returned for an empty result set.
+  rule: >-
+    "Clients must use the links in a search bundle to paginate after an initial search request is
+    sent" — do not construct _offset URLs by hand, since the max page size can change without notice.
+  docs: https://docs.canvasmedical.com/api/pagination/
+filtering:
+  style: fhir-search
+  date_filtering_docs: https://docs.canvasmedical.com/api/date-filtering/
+  note: FHIR R4 search parameters per resource; see each spec in openapi/ for the supported set.
+error_envelope:
+  media_type: application/fhir+json
+  shape: FHIR OperationOutcome
+  discriminator: issue[].code
+  rfc9457: false
+  cross_ref: errors/canvas-medical-problem-types.yml
+rate_limiting:
+  documented: false
+  response_headers: []
+  retry_after: false
+  exhaustion_status: null
+  note: >-
+    Both published plans advertise "unlimited API calls" and no quota, window or burst is documented.
+    The platform security overview does say the edge boundary enforces "TLS termination, IP
+    allow-listing, rate limiting, WAF and DDoS protection", so a limit exists at the edge but is not
+    published and emits no documented client-visible signal. Separately, plugin install/reload was
+    observed to trigger a temporary IP-level 403 block (fixed 2026-08-06 per the changelog).
+  cross_ref: rate-limits/canvas-medical-rate-limits.yml
+network_access:
+  ip_allow_list: true
+  note: >-
+    Each instance's externally reachable endpoints carry IP allow-lists backed by cloud security
+    groups. An integration must have its egress addresses allow-listed by the customer before any
+    request succeeds — this is an access precondition an agent cannot satisfy at runtime.
+request_tracing:
+  request_id_header: null
+  note: >-
+    No request-id or correlation header is documented for the FHIR API. Server-side observability is
+    documented for plugins instead (see /guides/audit-logging-and-telemetry/).
+identifiers:
+  note: >-
+    From llms.txt, verbatim: "Patient and staff keys are UUIDs without dashes; other identifiers use
+    standard dashed UUIDs." This asymmetry is the most common integration trip-hazard on this API.
+attachments:
+  docs: https://docs.canvasmedical.com/api/accessing-resource-attachment-files/
+  note: Binary content is reached through presigned URLs rather than inline base64 on the resource.
+versioning:
+  cross_ref: lifecycle/canvas-medical-lifecycle.yml

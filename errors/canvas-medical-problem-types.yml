@@ -1,0 +1,92 @@
+generated: '2026-08-14'
+method: searched
+source: https://docs.canvasmedical.com/api/errors/
+derived_from: openapi/canvas-medical-*-openapi.yml
+format: fhir-operationoutcome
+envelope:
+  media_type: application/fhir+json
+  resource_type: OperationOutcome
+  path: issue[].details.text
+  fields:
+  - name: issue[].severity
+    description: Severity of the issue; "error" for every documented failure.
+  - name: issue[].code
+    description: >-
+      FHIR IssueType code — the machine-readable discriminator. Canvas uses invalid, unknown,
+      forbidden, not-found, conflict, business-rule and exception.
+  - name: issue[].details.text
+    description: Human-readable explanation of what failed.
+  note: >-
+    Canvas does NOT use RFC 9457 application/problem+json. It returns the FHIR-native OperationOutcome
+    resource, which is the correct choice for a FHIR R4 server. There is no type URI, no title field
+    and no instance field — an agent should branch on the HTTP status plus issue[].code.
+coverage:
+  note: >-
+    "All 4xx errors that could be handled programmatically (e.g., resource not found) include an
+    OperationOutcome that explains the error reported." Canvas does not commit to an OperationOutcome
+    on every 4xx — only on the programmatically handleable ones.
+problems:
+- status: 400
+  code: invalid
+  title: Bad Request
+  description: The request was malformed or rejected by validation.
+  example_detail: The request was malformed or failed validation.
+  remediation: Fix the request body or query parameters; validate against the FHIR R4 resource profile.
+- status: 401
+  code: unknown
+  title: Unauthorized
+  description: No valid Bearer token provided.
+  example_detail: Authentication failed
+  remediation: >-
+    Obtain a token from {instance}/auth/token/ and send it as `Authorization: Bearer <token>`. Access
+    tokens are valid 10 hours (36000s); refresh with the single-use refresh token.
+- status: 403
+  code: forbidden
+  title: Forbidden
+  description: Token bearer is forbidden from performing the operation.
+  example_detail: Authorization failed
+  remediation: >-
+    Request the SMART scope that covers the resource and verb (see scopes/canvas-medical-scopes.yml).
+    A patient-scoped token cannot reach another patient's records, and requests for resource types
+    absent from the token's scope are denied.
+- status: 404
+  code: not-found
+  title: Not Found
+  description: The requested resource doesn't exist.
+  example_detail: Unknown Patient resource 'REDACTED_RESOURCE_ID'
+  remediation: >-
+    Confirm the resource id. Patient and staff keys are UUIDs without dashes; other identifiers use
+    standard dashed UUIDs.
+- status: 412
+  code: conflict
+  title: Precondition Failed
+  description: A conditional request failed because the resource has been modified since the precondition was specified.
+  example_detail: The resource has been modified since the precondition was specified.
+  remediation: >-
+    Re-read the resource, re-apply the change, and retry with a fresh If-Unmodified-Since value.
+    See conventions/canvas-medical-conventions.yml.
+  triggered_by: If-Unmodified-Since request header on update operations
+- status: 422
+  code: business-rule
+  title: Unprocessable Entity
+  description: The request was syntactically correct but failed due to request semantics, database state, or a business rule.
+  example_detail: This appointment time is no longer available.
+  remediation: >-
+    Not retryable as-is. Re-read current state (e.g. re-search Slot before re-booking) and adjust the
+    request. This is the status that carries clinical and scheduling business rules.
+- status: 5xx
+  code: exception
+  title: Server Error
+  description: Something went wrong on Canvas's end.
+  example_detail: Internal server error
+  remediation: Retry with backoff; escalate via help.canvasmedical.com if persistent.
+success_codes:
+- status: 200
+  description: Everything worked as expected.
+gaps:
+- >-
+  No error catalogue beyond the seven status classes above — Canvas publishes no per-code registry
+  (no numeric error codes, no error slugs) and no per-operation error reference.
+- >-
+  No documented retry guidance, no Retry-After, and no rate-limit error class, even though the
+  platform security overview says the edge enforces rate limiting.
