@@ -73,6 +73,12 @@ apis:
   - SDK
   - Python
   - Plugins
+  - Workflow-Automation
+  - EMR
+  tags_raw:
+  - SDK
+  - Python
+  - Plugins
   - Workflow Automation
   - EMR
   properties:
@@ -138,6 +144,8 @@ apis:
   humanURL: https://docs.canvasmedical.com/api/
   baseURL: https://fumage-{canvas-instance}.canvasmedical.com
   tags:
+  - Communications
+  tags_raw:
   - Communication
   properties:
   - type: OpenAPI
