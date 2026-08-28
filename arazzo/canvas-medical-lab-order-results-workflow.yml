@@ -10,8 +10,14 @@ info:
     pattern. Every step inlines its request so the flow is self-contained.
   version: 1.0.0
 sourceDescriptions:
-- name: canvasFhir
-  url: ../openapi/canvas-medical-fhir-api-openapi.yml
+- name: diagnosticreportApi
+  url: ../openapi/canvas-medical-diagnosticreport-api-openapi.yml
+  type: openapi
+- name: observationApi
+  url: ../openapi/canvas-medical-observation-api-openapi.yml
+  type: openapi
+- name: servicerequestApi
+  url: ../openapi/canvas-medical-servicerequest-api-openapi.yml
   type: openapi
 workflows:
 - workflowId: lab-order-to-results

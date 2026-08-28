@@ -11,8 +11,11 @@ info:
     self-contained.
   version: 1.0.0
 sourceDescriptions:
-- name: canvasFhir
-  url: ../openapi/canvas-medical-fhir-api-openapi.yml
+- name: questionnaireApi
+  url: ../openapi/canvas-medical-questionnaire-api-openapi.yml
+  type: openapi
+- name: questionnaireresponseApi
+  url: ../openapi/canvas-medical-questionnaireresponse-api-openapi.yml
   type: openapi
 workflows:
 - workflowId: questionnaire-assessment-capture

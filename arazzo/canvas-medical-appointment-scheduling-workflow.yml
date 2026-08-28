@@ -10,8 +10,20 @@ info:
     back to confirm. Every step inlines its request so the flow is self-contained.
   version: 1.0.0
 sourceDescriptions:
-- name: canvasFhir
-  url: ../openapi/canvas-medical-fhir-api-openapi.yml
+- name: appointmentApi
+  url: ../openapi/canvas-medical-appointment-api-openapi.yml
+  type: openapi
+- name: patientApi
+  url: ../openapi/canvas-medical-patient-api-openapi.yml
+  type: openapi
+- name: practitionerApi
+  url: ../openapi/canvas-medical-practitioner-api-openapi.yml
+  type: openapi
+- name: scheduleApi
+  url: ../openapi/canvas-medical-schedule-api-openapi.yml
+  type: openapi
+- name: slotApi
+  url: ../openapi/canvas-medical-slot-api-openapi.yml
   type: openapi
 workflows:
 - workflowId: appointment-scheduling

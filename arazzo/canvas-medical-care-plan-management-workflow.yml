@@ -10,8 +10,17 @@ info:
     inlines its request so the flow is self-contained.
   version: 1.0.0
 sourceDescriptions:
-- name: canvasFhir
-  url: ../openapi/canvas-medical-fhir-api-openapi.yml
+- name: careplanApi
+  url: ../openapi/canvas-medical-careplan-api-openapi.yml
+  type: openapi
+- name: careteamApi
+  url: ../openapi/canvas-medical-careteam-api-openapi.yml
+  type: openapi
+- name: goalApi
+  url: ../openapi/canvas-medical-goal-api-openapi.yml
+  type: openapi
+- name: patientApi
+  url: ../openapi/canvas-medical-patient-api-openapi.yml
   type: openapi
 workflows:
 - workflowId: care-plan-management

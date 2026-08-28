@@ -12,8 +12,23 @@ info:
     opening the underlying OpenAPI description.
   version: 1.0.0
 sourceDescriptions:
-- name: canvasFhir
-  url: ../openapi/canvas-medical-fhir-api-openapi.yml
+- name: allergyintoleranceApi
+  url: ../openapi/canvas-medical-allergyintolerance-api-openapi.yml
+  type: openapi
+- name: conditionApi
+  url: ../openapi/canvas-medical-condition-api-openapi.yml
+  type: openapi
+- name: medicationrequestApi
+  url: ../openapi/canvas-medical-medicationrequest-api-openapi.yml
+  type: openapi
+- name: metadataApi
+  url: ../openapi/canvas-medical-metadata-api-openapi.yml
+  type: openapi
+- name: observationApi
+  url: ../openapi/canvas-medical-observation-api-openapi.yml
+  type: openapi
+- name: patientApi
+  url: ../openapi/canvas-medical-patient-api-openapi.yml
   type: openapi
 workflows:
 - workflowId: smart-us-core-retrieval
