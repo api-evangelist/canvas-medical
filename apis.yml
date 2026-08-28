@@ -6,6 +6,18 @@ description: Canvas Medical is a developer-first EHR platform built for virtual 
   combines a standards-based FHIR API with a native Python SDK that enables plugins
   to execute synchronously within the EMR, supporting scheduling, charting, billing,
   and custom workflow automation across more than 650 clinical and operational events.
+deliveryModel:
+  model: saas
+  open_source: false
+  commercial: true
+  callable_host: true
+  label: Hosted service · you call their endpoint
+  confidence: high
+  source:
+  - openapi
+  - pricing
+  generated: '2026-08-28'
+  method: derived
 accessModel:
   pricing: paid
   onboarding: self-serve
