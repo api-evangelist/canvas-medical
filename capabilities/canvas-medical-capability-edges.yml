@@ -1,0 +1,120 @@
+slug: canvas-medical
+provider: Canvas Medical
+generated_by: planning/capability-mapping/scripts/classify_capabilities.py
+model: claude-opus-5
+frame:
+- Healthcare Providers
+min_confidence: 0.7
+capability_model:
+  source: https://github.com/vincentmakes/turbo-ea-capabilities
+  license: CC-BY-4.0
+  attribution: Turbo EA Capabilities by Vincent Verdet — Turbo EA, https://github.com/vincentmakes/turbo-ea-capabilities,
+    CC BY 4.0
+  notice: NOTICE
+edge_count: 11
+edges:
+- tag: Appointment
+  spec_file: canvas-medical-appointment-api-openapi.yml
+  capability_id: BC-2800.10
+  capability_id_l1: BC-2800
+  capability_name: Scheduling & Appointment Management
+  confidence: 0.85
+  evidence: POST /Appointment createAppointment "Create Appointment"; GET /Appointment searchAppointment
+    "Search Appointments"
+  reason: FHIR Appointment resource with create/read/update/search on an EHR platform that supports scheduling
+    — appointment booking and management.
+- tag: Schedule
+  spec_file: canvas-medical-schedule-api-openapi.yml
+  capability_id: BC-2800.10
+  capability_id_l1: BC-2800
+  capability_name: Scheduling & Appointment Management
+  confidence: 0.85
+  evidence: 'GET /Schedule searchSchedule Search Schedules; schemas: Schedule, Period, Reference; vendor
+    description ''supporting scheduling, charting, billing'''
+  reason: FHIR Schedule expresses provider/resource availability windows used for appointment booking,
+    which is squarely provider and resource scheduling. Read-only access keeps it just short of certainty.
+- tag: DiagnosticReport
+  spec_file: canvas-medical-diagnosticreport-api-openapi.yml
+  capability_id: BC-2860.60
+  capability_id_l1: BC-2860
+  capability_name: Diagnostic Results Management
+  confidence: 0.8
+  evidence: GET /DiagnosticReport searchDiagnosticReport — Search DiagnosticReports; read-only surface
+  reason: FHIR DiagnosticReport exposes finalised lab/imaging diagnostic results for distribution and
+    consumption, matching diagnostic results management.
+- tag: Claim
+  spec_file: canvas-medical-claim-api-openapi.yml
+  capability_id: BC-2870.30
+  capability_id_l1: BC-2870
+  capability_name: Claim Production & Submission
+  confidence: 0.78
+  evidence: POST /Claim createClaim "Create Claim"; GET /Claim searchClaim "Search Claims"
+  reason: FHIR Claim resource creation and search on a provider EHR covering the "financial" domain —
+    production of claims for payer submission within provider revenue cycle.
+- tag: MedicationRequest
+  spec_file: canvas-medical-medicationrequest-api-openapi.yml
+  capability_id: BC-2830.20
+  capability_id_l1: BC-2830
+  capability_name: Computerised Provider Order Entry
+  confidence: 0.78
+  evidence: POST /MedicationRequest createMedicationRequest — Create MedicationRequest
+  reason: FHIR MedicationRequest is the prescription/medication order, i.e. provider order entry for medications,
+    which is exactly computerised provider order entry.
+- tag: Coverage
+  spec_file: canvas-medical-coverage-api-openapi.yml
+  capability_id: BC-2800.30
+  capability_id_l1: BC-2800
+  capability_name: Eligibility & Benefits Verification
+  confidence: 0.75
+  evidence: 'POST /Coverage createCoverage; schemas: Coverage, Period'
+  reason: FHIR Coverage records a patient's insurance plan/payer coverage, the data foundation for verifying
+    insurance coverage and benefits before service delivery.
+- tag: Patient
+  spec_file: canvas-medical-patient-api-openapi.yml
+  capability_id: BC-2800.20
+  capability_id_l1: BC-2800
+  capability_name: Patient Registration Management
+  confidence: 0.75
+  evidence: 'POST /Patient createPatient Create Patient; PUT /Patient/{id} updatePatient Update Patient;
+    schemas: Patient, HumanName, Address, ContactPoint, Identifier'
+  reason: Full create/read/update/search of patient demographic and identity records (HumanName, Address,
+    Identifier) is exactly capture and stewardship of the data needed to register a patient. Some chance
+    the intended reading is master patient index stewardship (BC-2900.10), hence 0.75 rather than higher.
+- tag: Consent
+  spec_file: canvas-medical-consent-api-openapi.yml
+  capability_id: BC-2910.50
+  capability_id_l1: BC-2910
+  capability_name: Patient Rights & Ethics
+  confidence: 0.72
+  evidence: 'POST /Consent createConsent — Create Consent; schemas: Consent'
+  reason: FHIR Consent captures patient consent/privacy directives and authorisations, which aligns with
+    oversight of patient rights, informed consent processes and advance directives.
+- tag: CarePlan
+  spec_file: canvas-medical-careplan-api-openapi.yml
+  capability_id: BC-2820
+  capability_id_l1: BC-2820
+  capability_name: Care Coordination Management
+  confidence: 0.7
+  evidence: GET /CarePlan searchCarePlan "Search CarePlans"; schemas CarePlan, Period
+  reason: Read-only access to patient care plans in an EHR built for value-based care — care planning
+    is care coordination. L2 withheld since the resource could serve case management or transitions equally.
+- tag: Condition
+  spec_file: canvas-medical-condition-api-openapi.yml
+  capability_id: BC-2830
+  capability_id_l1: BC-2830
+  capability_name: Clinical Documentation Management
+  confidence: 0.7
+  evidence: GET /Condition searchCondition — Search Conditions; POST /Condition createCondition
+  reason: FHIR Condition is the problem-list/diagnosis element of the active clinical record, maintained
+    via EHR documentation workflows. Mapped to Clinical Documentation Management at L1 only since no specific
+    sub-capability (note authoring vs. order entry) is named.
+- tag: Immunization
+  spec_file: canvas-medical-immunization-api-openapi.yml
+  capability_id: BC-2880.20
+  capability_id_l1: BC-2880
+  capability_name: Preventive Care & Wellness
+  confidence: 0.7
+  evidence: 'POST /Immunization createImmunization — Create Immunization; schemas: Immunization'
+  reason: Immunization records document vaccine administration, which sits in preventive care and immunisation
+    management; some overlap with medication administration but immunisation is explicitly named in the
+    preventive care sub-capability.

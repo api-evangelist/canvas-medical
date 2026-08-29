@@ -383,6 +383,9 @@ apis:
   - type: OpenAPI
     url: openapi/canvas-medical-task-api-openapi.yml
 common:
+- type: CapabilityMap
+  url: capabilities/canvas-medical-capability-edges.yml
+  name: Canvas Medical Business Capability Map
 - type: AgenticAccess
   url: agentic-access/canvas-medical-agentic-access.yml
 - type: DomainSecurity
