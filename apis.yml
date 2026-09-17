@@ -100,16 +100,6 @@ apis:
     url: https://docs.canvasmedical.com/learn/overview/
   - type: Examples
     url: https://docs.canvasmedical.com/sdk/examples/
-- aid: canvas-medical:canvas-medical-allergyintolerance-api
-  name: Canvas Medical AllergyIntolerance API
-  description: Allergy and intolerance records
-  humanURL: https://docs.canvasmedical.com/api/
-  baseURL: https://fumage-{canvas-instance}.canvasmedical.com
-  tags:
-  - AllergyIntolerance
-  properties:
-  - type: OpenAPI
-    url: openapi/canvas-medical-allergyintolerance-api-openapi.yml
 - aid: canvas-medical:canvas-medical-appointment-api
   name: Canvas Medical Appointment API
   description: Appointment scheduling and management
@@ -120,16 +110,6 @@ apis:
   properties:
   - type: OpenAPI
     url: openapi/canvas-medical-appointment-api-openapi.yml
-- aid: canvas-medical:canvas-medical-careplan-api
-  name: Canvas Medical CarePlan API
-  description: Care plan management
-  humanURL: https://docs.canvasmedical.com/api/
-  baseURL: https://fumage-{canvas-instance}.canvasmedical.com
-  tags:
-  - CarePlan
-  properties:
-  - type: OpenAPI
-    url: openapi/canvas-medical-careplan-api-openapi.yml
 - aid: canvas-medical:canvas-medical-careteam-api
   name: Canvas Medical CareTeam API
   description: Care team coordination
@@ -202,16 +182,6 @@ apis:
   properties:
   - type: OpenAPI
     url: openapi/canvas-medical-diagnosticreport-api-openapi.yml
-- aid: canvas-medical:canvas-medical-documentreference-api
-  name: Canvas Medical DocumentReference API
-  description: Clinical documents and attachments
-  humanURL: https://docs.canvasmedical.com/api/
-  baseURL: https://fumage-{canvas-instance}.canvasmedical.com
-  tags:
-  - DocumentReference
-  properties:
-  - type: OpenAPI
-    url: openapi/canvas-medical-documentreference-api-openapi.yml
 - aid: canvas-medical:canvas-medical-encounter-api
   name: Canvas Medical Encounter API
   description: Clinical encounters and visits
@@ -252,16 +222,6 @@ apis:
   properties:
   - type: OpenAPI
     url: openapi/canvas-medical-location-api-openapi.yml
-- aid: canvas-medical:canvas-medical-medicationrequest-api
-  name: Canvas Medical MedicationRequest API
-  description: Medication prescriptions and orders
-  humanURL: https://docs.canvasmedical.com/api/
-  baseURL: https://fumage-{canvas-instance}.canvasmedical.com
-  tags:
-  - MedicationRequest
-  properties:
-  - type: OpenAPI
-    url: openapi/canvas-medical-medicationrequest-api-openapi.yml
 - aid: canvas-medical:canvas-medical-metadata-api
   name: Canvas Medical Metadata API
   description: FHIR server capabilities
@@ -382,6 +342,46 @@ apis:
   properties:
   - type: OpenAPI
     url: openapi/canvas-medical-task-api-openapi.yml
+- aid: canvas-medical:canvas-medical-allergy-intolerance-api
+  name: Canvas Medical Allergy Intolerance API
+  description: Allergy and intolerance records
+  humanURL: https://docs.canvasmedical.com/api/
+  baseURL: https://fumage-{canvas-instance}.canvasmedical.com
+  tags:
+  - Allergy Intolerance
+  properties:
+  - type: OpenAPI
+    url: openapi/canvas-medical-allergy-intolerance-api-openapi.yml
+- aid: canvas-medical:canvas-medical-care-plan-api
+  name: Canvas Medical Care plan API
+  description: Care plan management
+  humanURL: https://docs.canvasmedical.com/api/
+  baseURL: https://fumage-{canvas-instance}.canvasmedical.com
+  tags:
+  - Care plan
+  properties:
+  - type: OpenAPI
+    url: openapi/canvas-medical-care-plan-api-openapi.yml
+- aid: canvas-medical:canvas-medical-document-reference-api
+  name: Canvas Medical Document Reference API
+  description: Clinical documents and attachments
+  humanURL: https://docs.canvasmedical.com/api/
+  baseURL: https://fumage-{canvas-instance}.canvasmedical.com
+  tags:
+  - Document Reference
+  properties:
+  - type: OpenAPI
+    url: openapi/canvas-medical-document-reference-api-openapi.yml
+- aid: canvas-medical:canvas-medical-medication-request-api
+  name: Canvas Medical Medication Request API
+  description: Medication prescriptions and orders
+  humanURL: https://docs.canvasmedical.com/api/
+  baseURL: https://fumage-{canvas-instance}.canvasmedical.com
+  tags:
+  - Medication Request
+  properties:
+  - type: OpenAPI
+    url: openapi/canvas-medical-medication-request-api-openapi.yml
 common:
 - type: CapabilityMap
   url: capabilities/canvas-medical-capability-edges.yml
