@@ -258,6 +258,8 @@ apis:
   humanURL: https://docs.canvasmedical.com/api/
   baseURL: https://fumage-{canvas-instance}.canvasmedical.com
   tags:
+  - Patients
+  tags_raw:
   - Patient
   properties:
   - type: OpenAPI
@@ -348,6 +350,8 @@ apis:
   humanURL: https://docs.canvasmedical.com/api/
   baseURL: https://fumage-{canvas-instance}.canvasmedical.com
   tags:
+  - AllergyIntolerance
+  tags_raw:
   - Allergy Intolerance
   properties:
   - type: OpenAPI
@@ -358,6 +362,8 @@ apis:
   humanURL: https://docs.canvasmedical.com/api/
   baseURL: https://fumage-{canvas-instance}.canvasmedical.com
   tags:
+  - CarePlan
+  tags_raw:
   - Care plan
   properties:
   - type: OpenAPI
@@ -368,6 +374,8 @@ apis:
   humanURL: https://docs.canvasmedical.com/api/
   baseURL: https://fumage-{canvas-instance}.canvasmedical.com
   tags:
+  - DocumentReference
+  tags_raw:
   - Document Reference
   properties:
   - type: OpenAPI
@@ -378,6 +386,8 @@ apis:
   humanURL: https://docs.canvasmedical.com/api/
   baseURL: https://fumage-{canvas-instance}.canvasmedical.com
   tags:
+  - MedicationRequest
+  tags_raw:
   - Medication Request
   properties:
   - type: OpenAPI
