@@ -44,7 +44,8 @@ edges:
   reason: DiagnosticReport exposes finalised lab/imaging results for distribution and review, matching
     diagnostic results management; read-only so modality-specific L2s do not apply.
 - tag: MedicationRequest
-  spec_file: canvas-medical-medicationrequest-api-openapi.yml
+  spec_file: canvas-medical-medication-request-api-openapi.yml
+  reanchored_from: canvas-medical-medicationrequest-api-openapi.yml
   capability_id: BC-2830.20
   capability_id_l1: BC-2830
   capability_name: Computerised Provider Order Entry
