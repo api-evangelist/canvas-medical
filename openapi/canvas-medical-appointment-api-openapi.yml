@@ -1,9 +1,7 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
-  title: Canvas Medical FHIR AllergyIntolerance Appointment API
-  description: 'A FHIR R4-compliant REST API providing secure access to electronic health record data. Canvas Medical supports 41 FHIR resources (21 with write capabilities) covering clinical, administrative, financial, and care coordination domains. The API follows the HL7 FHIR R4 specification and supports OAuth 2.0 Client Credentials and Authorization Code flows with SMART on FHIR scopes for machine-to-machine and user-delegated access.
-
-    '
+  title: Canvas Medical FHIR Appointment API
+  description: A FHIR R4-compliant REST API providing secure access to electronic health record data. Canvas Medical supports 41 FHIR resources (21 with write capabilities) covering clinical, administrative, financial, and care coordination domains. The API follows the HL7 FHIR R4 specification and supports OAuth 2.0 Client Credentials and Authorization Code flows with SMART on FHIR scopes for machine-to-machine and user-delegated access.
   version: '4.0'
   contact:
     name: Canvas Medical Support
@@ -128,7 +126,116 @@ paths:
         '404':
           $ref: '#/components/responses/ResourceNotFound'
 components:
+  responses:
+    ResourceNotFound:
+      description: Resource not found
+      content:
+        application/fhir+json:
+          schema:
+            $ref: '#/components/schemas/OperationOutcome'
+    UnprocessableEntity:
+      description: Validation error
+      content:
+        application/fhir+json:
+          schema:
+            $ref: '#/components/schemas/OperationOutcome'
+    Unauthorized:
+      description: Authentication required
+      content:
+        application/fhir+json:
+          schema:
+            $ref: '#/components/schemas/OperationOutcome'
   schemas:
+    OperationOutcome:
+      type: object
+      properties:
+        resourceType:
+          type: string
+          default: OperationOutcome
+        issue:
+          type: array
+          items:
+            type: object
+            properties:
+              severity:
+                type: string
+                enum:
+                - fatal
+                - error
+                - warning
+                - information
+              code:
+                type: string
+              details:
+                $ref: '#/components/schemas/CodeableConcept'
+              diagnostics:
+                type: string
+              location:
+                type: array
+                items:
+                  type: string
+    Narrative:
+      type: object
+      properties:
+        status:
+          type: string
+          enum:
+          - generated
+          - extensions
+          - additional
+          - empty
+        div:
+          type: string
+    Bundle:
+      type: object
+      properties:
+        resourceType:
+          type: string
+          default: Bundle
+        id:
+          type: string
+        type:
+          type: string
+          enum:
+          - document
+          - message
+          - transaction
+          - transaction-response
+          - batch
+          - batch-response
+          - history
+          - searchset
+          - collection
+          - subscription-notification
+        total:
+          type: integer
+        link:
+          type: array
+          items:
+            type: object
+            properties:
+              relation:
+                type: string
+              url:
+                type: string
+        entry:
+          type: array
+          items:
+            type: object
+            properties:
+              fullUrl:
+                type: string
+              resource:
+                $ref: '#/components/schemas/FHIRResource'
+              search:
+                type: object
+                properties:
+                  mode:
+                    type: string
+                    enum:
+                    - match
+                    - include
+                    - outcome
     FHIRResource:
       type: object
       description: Base FHIR R4 resource properties
@@ -143,15 +250,6 @@ components:
           $ref: '#/components/schemas/Meta'
         text:
           $ref: '#/components/schemas/Narrative'
-    CodeableConcept:
-      type: object
-      properties:
-        coding:
-          type: array
-          items:
-            $ref: '#/components/schemas/Coding'
-        text:
-          type: string
     Appointment:
       allOf:
       - $ref: '#/components/schemas/FHIRResource'
@@ -206,96 +304,37 @@ components:
                   - declined
                   - tentative
                   - needs-action
-    Bundle:
+    Reference:
       type: object
       properties:
-        resourceType:
-          type: string
-          default: Bundle
-        id:
+        reference:
           type: string
         type:
           type: string
-          enum:
-          - document
-          - message
-          - transaction
-          - transaction-response
-          - batch
-          - batch-response
-          - history
-          - searchset
-          - collection
-          - subscription-notification
-        total:
-          type: integer
-        link:
-          type: array
-          items:
-            type: object
-            properties:
-              relation:
-                type: string
-              url:
-                type: string
-        entry:
-          type: array
-          items:
-            type: object
-            properties:
-              fullUrl:
-                type: string
-              resource:
-                $ref: '#/components/schemas/FHIRResource'
-              search:
-                type: object
-                properties:
-                  mode:
-                    type: string
-                    enum:
-                    - match
-                    - include
-                    - outcome
-    Narrative:
+        display:
+          type: string
+    CodeableConcept:
       type: object
       properties:
-        status:
-          type: string
-          enum:
-          - generated
-          - extensions
-          - additional
-          - empty
-        div:
-          type: string
-    OperationOutcome:
-      type: object
-      properties:
-        resourceType:
-          type: string
-          default: OperationOutcome
-        issue:
+        coding:
           type: array
           items:
-            type: object
-            properties:
-              severity:
-                type: string
-                enum:
-                - fatal
-                - error
-                - warning
-                - information
-              code:
-                type: string
-              details:
-                $ref: '#/components/schemas/CodeableConcept'
-              diagnostics:
-                type: string
-              location:
-                type: array
-                items:
-                  type: string
+            $ref: '#/components/schemas/Coding'
+        text:
+          type: string
+    Coding:
+      type: object
+      properties:
+        system:
+          type: string
+        version:
+          type: string
+        code:
+          type: string
+        display:
+          type: string
+        userSelected:
+          type: boolean
     Meta:
       type: object
       properties:
@@ -314,61 +353,7 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Coding'
-    Coding:
-      type: object
-      properties:
-        system:
-          type: string
-        version:
-          type: string
-        code:
-          type: string
-        display:
-          type: string
-        userSelected:
-          type: boolean
-    Reference:
-      type: object
-      properties:
-        reference:
-          type: string
-        type:
-          type: string
-        display:
-          type: string
-  responses:
-    Unauthorized:
-      description: Authentication required
-      content:
-        application/fhir+json:
-          schema:
-            $ref: '#/components/schemas/OperationOutcome'
-    ResourceNotFound:
-      description: Resource not found
-      content:
-        application/fhir+json:
-          schema:
-            $ref: '#/components/schemas/OperationOutcome'
-    UnprocessableEntity:
-      description: Validation error
-      content:
-        application/fhir+json:
-          schema:
-            $ref: '#/components/schemas/OperationOutcome'
   parameters:
-    status:
-      name: status
-      in: query
-      schema:
-        type: string
-      description: Filter by resource status
-    count:
-      name: _count
-      in: query
-      schema:
-        type: integer
-        default: 20
-      description: Maximum number of results per page
     resourceId:
       name: id
       in: path
@@ -382,6 +367,19 @@ components:
       schema:
         type: string
       description: Pagination token for next page
+    status:
+      name: status
+      in: query
+      schema:
+        type: string
+      description: Filter by resource status
+    count:
+      name: _count
+      in: query
+      schema:
+        type: integer
+        default: 20
+      description: Maximum number of results per page
     patient:
       name: patient
       in: query

@@ -1,9 +1,7 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
-  title: Canvas Medical FHIR AllergyIntolerance Patient API
-  description: 'A FHIR R4-compliant REST API providing secure access to electronic health record data. Canvas Medical supports 41 FHIR resources (21 with write capabilities) covering clinical, administrative, financial, and care coordination domains. The API follows the HL7 FHIR R4 specification and supports OAuth 2.0 Client Credentials and Authorization Code flows with SMART on FHIR scopes for machine-to-machine and user-delegated access.
-
-    '
+  title: Canvas Medical FHIR Patient API
+  description: A FHIR R4-compliant REST API providing secure access to electronic health record data. Canvas Medical supports 41 FHIR resources (21 with write capabilities) covering clinical, administrative, financial, and care coordination domains. The API follows the HL7 FHIR R4 specification and supports OAuth 2.0 Client Credentials and Authorization Code flows with SMART on FHIR scopes for machine-to-machine and user-delegated access.
   version: '4.0'
   contact:
     name: Canvas Medical Support
@@ -154,39 +152,6 @@ paths:
           $ref: '#/components/responses/UnprocessableEntity'
 components:
   schemas:
-    Address:
-      type: object
-      properties:
-        use:
-          type: string
-          enum:
-          - home
-          - work
-          - temp
-          - old
-          - billing
-        type:
-          type: string
-          enum:
-          - postal
-          - physical
-          - both
-        text:
-          type: string
-        line:
-          type: array
-          items:
-            type: string
-        city:
-          type: string
-        district:
-          type: string
-        state:
-          type: string
-        postalCode:
-          type: string
-        country:
-          type: string
     Bundle:
       type: object
       properties:
@@ -237,6 +202,213 @@ components:
                     - match
                     - include
                     - outcome
+    Identifier:
+      type: object
+      properties:
+        use:
+          type: string
+          enum:
+          - usual
+          - official
+          - temp
+          - secondary
+          - old
+        type:
+          $ref: '#/components/schemas/CodeableConcept'
+        system:
+          type: string
+        value:
+          type: string
+        period:
+          $ref: '#/components/schemas/Period'
+    OperationOutcome:
+      type: object
+      properties:
+        resourceType:
+          type: string
+          default: OperationOutcome
+        issue:
+          type: array
+          items:
+            type: object
+            properties:
+              severity:
+                type: string
+                enum:
+                - fatal
+                - error
+                - warning
+                - information
+              code:
+                type: string
+              details:
+                $ref: '#/components/schemas/CodeableConcept'
+              diagnostics:
+                type: string
+              location:
+                type: array
+                items:
+                  type: string
+    Narrative:
+      type: object
+      properties:
+        status:
+          type: string
+          enum:
+          - generated
+          - extensions
+          - additional
+          - empty
+        div:
+          type: string
+    Period:
+      type: object
+      properties:
+        start:
+          type: string
+          format: date-time
+        end:
+          type: string
+          format: date-time
+    Coding:
+      type: object
+      properties:
+        system:
+          type: string
+        version:
+          type: string
+        code:
+          type: string
+        display:
+          type: string
+        userSelected:
+          type: boolean
+    ContactPoint:
+      type: object
+      properties:
+        system:
+          type: string
+          enum:
+          - phone
+          - fax
+          - email
+          - pager
+          - url
+          - sms
+          - other
+        value:
+          type: string
+        use:
+          type: string
+          enum:
+          - home
+          - work
+          - temp
+          - old
+          - mobile
+    Meta:
+      type: object
+      properties:
+        versionId:
+          type: string
+        lastUpdated:
+          type: string
+          format: date-time
+        source:
+          type: string
+        profile:
+          type: array
+          items:
+            type: string
+        tag:
+          type: array
+          items:
+            $ref: '#/components/schemas/Coding'
+    FHIRResource:
+      type: object
+      description: Base FHIR R4 resource properties
+      properties:
+        resourceType:
+          type: string
+          description: FHIR resource type name
+        id:
+          type: string
+          description: Logical id of this artifact
+        meta:
+          $ref: '#/components/schemas/Meta'
+        text:
+          $ref: '#/components/schemas/Narrative'
+    Address:
+      type: object
+      properties:
+        use:
+          type: string
+          enum:
+          - home
+          - work
+          - temp
+          - old
+          - billing
+        type:
+          type: string
+          enum:
+          - postal
+          - physical
+          - both
+        text:
+          type: string
+        line:
+          type: array
+          items:
+            type: string
+        city:
+          type: string
+        district:
+          type: string
+        state:
+          type: string
+        postalCode:
+          type: string
+        country:
+          type: string
+    HumanName:
+      type: object
+      properties:
+        use:
+          type: string
+          enum:
+          - usual
+          - official
+          - temp
+          - nickname
+          - anonymous
+          - old
+          - maiden
+        text:
+          type: string
+        family:
+          type: string
+        given:
+          type: array
+          items:
+            type: string
+        prefix:
+          type: array
+          items:
+            type: string
+        suffix:
+          type: array
+          items:
+            type: string
+    CodeableConcept:
+      type: object
+      properties:
+        coding:
+          type: array
+          items:
+            $ref: '#/components/schemas/Coding'
+        text:
+          type: string
     Patient:
       allOf:
       - $ref: '#/components/schemas/FHIRResource'
@@ -285,199 +457,6 @@ components:
             items:
               type: object
             description: Canvas-specific extensions including us-core-race, us-core-ethnicity, us-core-birthsex, preferred-pharmacy
-    Narrative:
-      type: object
-      properties:
-        status:
-          type: string
-          enum:
-          - generated
-          - extensions
-          - additional
-          - empty
-        div:
-          type: string
-    Meta:
-      type: object
-      properties:
-        versionId:
-          type: string
-        lastUpdated:
-          type: string
-          format: date-time
-        source:
-          type: string
-        profile:
-          type: array
-          items:
-            type: string
-        tag:
-          type: array
-          items:
-            $ref: '#/components/schemas/Coding'
-    Coding:
-      type: object
-      properties:
-        system:
-          type: string
-        version:
-          type: string
-        code:
-          type: string
-        display:
-          type: string
-        userSelected:
-          type: boolean
-    HumanName:
-      type: object
-      properties:
-        use:
-          type: string
-          enum:
-          - usual
-          - official
-          - temp
-          - nickname
-          - anonymous
-          - old
-          - maiden
-        text:
-          type: string
-        family:
-          type: string
-        given:
-          type: array
-          items:
-            type: string
-        prefix:
-          type: array
-          items:
-            type: string
-        suffix:
-          type: array
-          items:
-            type: string
-    CodeableConcept:
-      type: object
-      properties:
-        coding:
-          type: array
-          items:
-            $ref: '#/components/schemas/Coding'
-        text:
-          type: string
-    Period:
-      type: object
-      properties:
-        start:
-          type: string
-          format: date-time
-        end:
-          type: string
-          format: date-time
-    ContactPoint:
-      type: object
-      properties:
-        system:
-          type: string
-          enum:
-          - phone
-          - fax
-          - email
-          - pager
-          - url
-          - sms
-          - other
-        value:
-          type: string
-        use:
-          type: string
-          enum:
-          - home
-          - work
-          - temp
-          - old
-          - mobile
-    OperationOutcome:
-      type: object
-      properties:
-        resourceType:
-          type: string
-          default: OperationOutcome
-        issue:
-          type: array
-          items:
-            type: object
-            properties:
-              severity:
-                type: string
-                enum:
-                - fatal
-                - error
-                - warning
-                - information
-              code:
-                type: string
-              details:
-                $ref: '#/components/schemas/CodeableConcept'
-              diagnostics:
-                type: string
-              location:
-                type: array
-                items:
-                  type: string
-    FHIRResource:
-      type: object
-      description: Base FHIR R4 resource properties
-      properties:
-        resourceType:
-          type: string
-          description: FHIR resource type name
-        id:
-          type: string
-          description: Logical id of this artifact
-        meta:
-          $ref: '#/components/schemas/Meta'
-        text:
-          $ref: '#/components/schemas/Narrative'
-    Identifier:
-      type: object
-      properties:
-        use:
-          type: string
-          enum:
-          - usual
-          - official
-          - temp
-          - secondary
-          - old
-        type:
-          $ref: '#/components/schemas/CodeableConcept'
-        system:
-          type: string
-        value:
-          type: string
-        period:
-          $ref: '#/components/schemas/Period'
-  responses:
-    ResourceNotFound:
-      description: Resource not found
-      content:
-        application/fhir+json:
-          schema:
-            $ref: '#/components/schemas/OperationOutcome'
-    UnprocessableEntity:
-      description: Validation error
-      content:
-        application/fhir+json:
-          schema:
-            $ref: '#/components/schemas/OperationOutcome'
-    Unauthorized:
-      description: Authentication required
-      content:
-        application/fhir+json:
-          schema:
-            $ref: '#/components/schemas/OperationOutcome'
   parameters:
     pageToken:
       name: _page_token
@@ -499,6 +478,25 @@ components:
       schema:
         type: string
       description: Logical ID of the FHIR resource
+  responses:
+    ResourceNotFound:
+      description: Resource not found
+      content:
+        application/fhir+json:
+          schema:
+            $ref: '#/components/schemas/OperationOutcome'
+    UnprocessableEntity:
+      description: Validation error
+      content:
+        application/fhir+json:
+          schema:
+            $ref: '#/components/schemas/OperationOutcome'
+    Unauthorized:
+      description: Authentication required
+      content:
+        application/fhir+json:
+          schema:
+            $ref: '#/components/schemas/OperationOutcome'
   securitySchemes:
     OAuth2ClientCredentials:
       type: oauth2

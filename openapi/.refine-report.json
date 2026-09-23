@@ -1,34 +1,7 @@
 {
   "provider": "canvas-medical",
   "sources": [
-    "canvas-medical-allergyintolerance-api-openapi.yml",
-    "canvas-medical-appointment-api-openapi.yml",
-    "canvas-medical-careplan-api-openapi.yml",
-    "canvas-medical-careteam-api-openapi.yml",
-    "canvas-medical-claim-api-openapi.yml",
-    "canvas-medical-communication-api-openapi.yml",
-    "canvas-medical-condition-api-openapi.yml",
-    "canvas-medical-consent-api-openapi.yml",
-    "canvas-medical-coverage-api-openapi.yml",
-    "canvas-medical-diagnosticreport-api-openapi.yml",
-    "canvas-medical-documentreference-api-openapi.yml",
-    "canvas-medical-encounter-api-openapi.yml",
-    "canvas-medical-goal-api-openapi.yml",
-    "canvas-medical-immunization-api-openapi.yml",
-    "canvas-medical-location-api-openapi.yml",
-    "canvas-medical-medicationrequest-api-openapi.yml",
-    "canvas-medical-metadata-api-openapi.yml",
-    "canvas-medical-observation-api-openapi.yml",
-    "canvas-medical-organization-api-openapi.yml",
-    "canvas-medical-patient-api-openapi.yml",
-    "canvas-medical-practitioner-api-openapi.yml",
-    "canvas-medical-procedure-api-openapi.yml",
-    "canvas-medical-questionnaire-api-openapi.yml",
-    "canvas-medical-questionnaireresponse-api-openapi.yml",
-    "canvas-medical-schedule-api-openapi.yml",
-    "canvas-medical-servicerequest-api-openapi.yml",
-    "canvas-medical-slot-api-openapi.yml",
-    "canvas-medical-task-api-openapi.yml"
+    "_original/canvas-medical-fhir-api-openapi.yml"
   ],
   "outputs": [
     "canvas-medical-allergyintolerance-api-openapi.yml",
@@ -60,9 +33,45 @@
     "canvas-medical-slot-api-openapi.yml",
     "canvas-medical-task-api-openapi.yml"
   ],
-  "archived": [],
+  "archived": [
+    "deleted 4 superseded output(s) from the previous generation"
+  ],
   "errors": [],
   "warnings": [],
-  "notes": [],
-  "skipped": []
+  "notes": [
+    "sourced from openapi/_original/ (1 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "canvas-medical-fhir-api-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
+    "superseded outputs removed: canvas-medical-allergy-intolerance-api-openapi.yml, canvas-medical-care-plan-api-openapi.yml, canvas-medical-document-reference-api-openapi.yml, canvas-medical-medication-request-api-openapi.yml",
+    "apis.yml register: written (+4 apis, 30 total)"
+  ],
+  "skipped": [
+    "canvas-medical-allergy-intolerance-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "canvas-medical-appointment-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "canvas-medical-care-plan-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "canvas-medical-careteam-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "canvas-medical-claim-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "canvas-medical-communication-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "canvas-medical-condition-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "canvas-medical-consent-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "canvas-medical-coverage-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "canvas-medical-diagnosticreport-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "canvas-medical-document-reference-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "canvas-medical-encounter-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "canvas-medical-goal-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "canvas-medical-immunization-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "canvas-medical-location-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "canvas-medical-medication-request-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "canvas-medical-metadata-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "canvas-medical-observation-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "canvas-medical-organization-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "canvas-medical-patient-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "canvas-medical-practitioner-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "canvas-medical-procedure-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "canvas-medical-questionnaire-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "canvas-medical-questionnaireresponse-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "canvas-medical-schedule-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "canvas-medical-servicerequest-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "canvas-medical-slot-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "canvas-medical-task-api-openapi.yml: previously refined output, superseded by openapi/_original/"
+  ]
 }

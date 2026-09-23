@@ -1,0 +1,28 @@
+# Front Door AI Index — canvas-medical — 2026-09-17
+# AI vocabulary counted on the provider's root page. Generated; do not edit.
+# `score` is null unless ownership is `own` — see front_door_ai.py.
+front_door_ai:
+  slug: canvas-medical
+  lexicon_version: '1.0'
+  probed_at: '2026-09-17'
+  host: www.canvasmedical.com
+  final_host: www.canvasmedical.com
+  ownership: own
+  owner: canvas-medical
+  shares_host_with: null
+  inherited_from: null
+  verdict: scored
+  score: 5
+  host_score: 5
+  density: 7.6
+  words: 658
+  tiers:
+    agentic: 1
+    core: 4
+    model: 0
+  ambiguous: 10
+  top_terms:
+    agent: 8
+    AI: 4
+    automation: 2
+    AI agent: 1

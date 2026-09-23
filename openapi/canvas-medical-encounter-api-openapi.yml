@@ -1,9 +1,7 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
-  title: Canvas Medical FHIR AllergyIntolerance Encounter API
-  description: 'A FHIR R4-compliant REST API providing secure access to electronic health record data. Canvas Medical supports 41 FHIR resources (21 with write capabilities) covering clinical, administrative, financial, and care coordination domains. The API follows the HL7 FHIR R4 specification and supports OAuth 2.0 Client Credentials and Authorization Code flows with SMART on FHIR scopes for machine-to-machine and user-delegated access.
-
-    '
+  title: Canvas Medical FHIR Encounter API
+  description: A FHIR R4-compliant REST API providing secure access to electronic health record data. Canvas Medical supports 41 FHIR resources (21 with write capabilities) covering clinical, administrative, financial, and care coordination domains. The API follows the HL7 FHIR R4 specification and supports OAuth 2.0 Client Credentials and Authorization Code flows with SMART on FHIR scopes for machine-to-machine and user-delegated access.
   version: '4.0'
   contact:
     name: Canvas Medical Support
@@ -165,76 +163,6 @@ components:
                     - match
                     - include
                     - outcome
-    Narrative:
-      type: object
-      properties:
-        status:
-          type: string
-          enum:
-          - generated
-          - extensions
-          - additional
-          - empty
-        div:
-          type: string
-    Meta:
-      type: object
-      properties:
-        versionId:
-          type: string
-        lastUpdated:
-          type: string
-          format: date-time
-        source:
-          type: string
-        profile:
-          type: array
-          items:
-            type: string
-        tag:
-          type: array
-          items:
-            $ref: '#/components/schemas/Coding'
-    Coding:
-      type: object
-      properties:
-        system:
-          type: string
-        version:
-          type: string
-        code:
-          type: string
-        display:
-          type: string
-        userSelected:
-          type: boolean
-    Reference:
-      type: object
-      properties:
-        reference:
-          type: string
-        type:
-          type: string
-        display:
-          type: string
-    CodeableConcept:
-      type: object
-      properties:
-        coding:
-          type: array
-          items:
-            $ref: '#/components/schemas/Coding'
-        text:
-          type: string
-    Period:
-      type: object
-      properties:
-        start:
-          type: string
-          format: date-time
-        end:
-          type: string
-          format: date-time
     OperationOutcome:
       type: object
       properties:
@@ -263,6 +191,67 @@ components:
                 type: array
                 items:
                   type: string
+    Narrative:
+      type: object
+      properties:
+        status:
+          type: string
+          enum:
+          - generated
+          - extensions
+          - additional
+          - empty
+        div:
+          type: string
+    Period:
+      type: object
+      properties:
+        start:
+          type: string
+          format: date-time
+        end:
+          type: string
+          format: date-time
+    Reference:
+      type: object
+      properties:
+        reference:
+          type: string
+        type:
+          type: string
+        display:
+          type: string
+    Coding:
+      type: object
+      properties:
+        system:
+          type: string
+        version:
+          type: string
+        code:
+          type: string
+        display:
+          type: string
+        userSelected:
+          type: boolean
+    Meta:
+      type: object
+      properties:
+        versionId:
+          type: string
+        lastUpdated:
+          type: string
+          format: date-time
+        source:
+          type: string
+        profile:
+          type: array
+          items:
+            type: string
+        tag:
+          type: array
+          items:
+            $ref: '#/components/schemas/Coding'
     FHIRResource:
       type: object
       description: Base FHIR R4 resource properties
@@ -322,6 +311,54 @@ components:
                   $ref: '#/components/schemas/Reference'
           period:
             $ref: '#/components/schemas/Period'
+    CodeableConcept:
+      type: object
+      properties:
+        coding:
+          type: array
+          items:
+            $ref: '#/components/schemas/Coding'
+        text:
+          type: string
+  parameters:
+    pageToken:
+      name: _page_token
+      in: query
+      schema:
+        type: string
+      description: Pagination token for next page
+    status:
+      name: status
+      in: query
+      schema:
+        type: string
+      description: Filter by resource status
+    count:
+      name: _count
+      in: query
+      schema:
+        type: integer
+        default: 20
+      description: Maximum number of results per page
+    date:
+      name: date
+      in: query
+      schema:
+        type: string
+      description: Filter by date (FHIR date search parameter)
+    resourceId:
+      name: id
+      in: path
+      required: true
+      schema:
+        type: string
+      description: Logical ID of the FHIR resource
+    patient:
+      name: patient
+      in: query
+      schema:
+        type: string
+      description: Filter by patient ID or reference
   responses:
     ResourceNotFound:
       description: Resource not found
@@ -341,45 +378,6 @@ components:
         application/fhir+json:
           schema:
             $ref: '#/components/schemas/OperationOutcome'
-  parameters:
-    pageToken:
-      name: _page_token
-      in: query
-      schema:
-        type: string
-      description: Pagination token for next page
-    date:
-      name: date
-      in: query
-      schema:
-        type: string
-      description: Filter by date (FHIR date search parameter)
-    status:
-      name: status
-      in: query
-      schema:
-        type: string
-      description: Filter by resource status
-    count:
-      name: _count
-      in: query
-      schema:
-        type: integer
-        default: 20
-      description: Maximum number of results per page
-    resourceId:
-      name: id
-      in: path
-      required: true
-      schema:
-        type: string
-      description: Logical ID of the FHIR resource
-    patient:
-      name: patient
-      in: query
-      schema:
-        type: string
-      description: Filter by patient ID or reference
   securitySchemes:
     OAuth2ClientCredentials:
       type: oauth2

@@ -1,9 +1,7 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
-  title: Canvas Medical FHIR AllergyIntolerance Location API
-  description: 'A FHIR R4-compliant REST API providing secure access to electronic health record data. Canvas Medical supports 41 FHIR resources (21 with write capabilities) covering clinical, administrative, financial, and care coordination domains. The API follows the HL7 FHIR R4 specification and supports OAuth 2.0 Client Credentials and Authorization Code flows with SMART on FHIR scopes for machine-to-machine and user-delegated access.
-
-    '
+  title: Canvas Medical FHIR Location API
+  description: A FHIR R4-compliant REST API providing secure access to electronic health record data. Canvas Medical supports 41 FHIR resources (21 with write capabilities) covering clinical, administrative, financial, and care coordination domains. The API follows the HL7 FHIR R4 specification and supports OAuth 2.0 Client Credentials and Authorization Code flows with SMART on FHIR scopes for machine-to-machine and user-delegated access.
   version: '4.0'
   contact:
     name: Canvas Medical Support
@@ -69,85 +67,60 @@ paths:
         '404':
           $ref: '#/components/responses/ResourceNotFound'
 components:
+  responses:
+    ResourceNotFound:
+      description: Resource not found
+      content:
+        application/fhir+json:
+          schema:
+            $ref: '#/components/schemas/OperationOutcome'
+    Unauthorized:
+      description: Authentication required
+      content:
+        application/fhir+json:
+          schema:
+            $ref: '#/components/schemas/OperationOutcome'
   schemas:
-    Address:
+    OperationOutcome:
       type: object
-      properties:
-        use:
-          type: string
-          enum:
-          - home
-          - work
-          - temp
-          - old
-          - billing
-        type:
-          type: string
-          enum:
-          - postal
-          - physical
-          - both
-        text:
-          type: string
-        line:
-          type: array
-          items:
-            type: string
-        city:
-          type: string
-        district:
-          type: string
-        state:
-          type: string
-        postalCode:
-          type: string
-        country:
-          type: string
-    FHIRResource:
-      type: object
-      description: Base FHIR R4 resource properties
       properties:
         resourceType:
           type: string
-          description: FHIR resource type name
-        id:
-          type: string
-          description: Logical id of this artifact
-        meta:
-          $ref: '#/components/schemas/Meta'
-        text:
-          $ref: '#/components/schemas/Narrative'
-    CodeableConcept:
-      type: object
-      properties:
-        coding:
+          default: OperationOutcome
+        issue:
           type: array
           items:
-            $ref: '#/components/schemas/Coding'
-        text:
+            type: object
+            properties:
+              severity:
+                type: string
+                enum:
+                - fatal
+                - error
+                - warning
+                - information
+              code:
+                type: string
+              details:
+                $ref: '#/components/schemas/CodeableConcept'
+              diagnostics:
+                type: string
+              location:
+                type: array
+                items:
+                  type: string
+    Narrative:
+      type: object
+      properties:
+        status:
           type: string
-    Location:
-      allOf:
-      - $ref: '#/components/schemas/FHIRResource'
-      - type: object
-        properties:
-          resourceType:
-            type: string
-            default: Location
-          status:
-            type: string
-            enum:
-            - active
-            - suspended
-            - inactive
-          name:
-            type: string
-          telecom:
-            type: array
-            items:
-              $ref: '#/components/schemas/ContactPoint'
-          address:
-            $ref: '#/components/schemas/Address'
+          enum:
+          - generated
+          - extensions
+          - additional
+          - empty
+        div:
+          type: string
     Bundle:
       type: object
       properties:
@@ -198,6 +171,64 @@ components:
                     - match
                     - include
                     - outcome
+    FHIRResource:
+      type: object
+      description: Base FHIR R4 resource properties
+      properties:
+        resourceType:
+          type: string
+          description: FHIR resource type name
+        id:
+          type: string
+          description: Logical id of this artifact
+        meta:
+          $ref: '#/components/schemas/Meta'
+        text:
+          $ref: '#/components/schemas/Narrative'
+    CodeableConcept:
+      type: object
+      properties:
+        coding:
+          type: array
+          items:
+            $ref: '#/components/schemas/Coding'
+        text:
+          type: string
+    Location:
+      allOf:
+      - $ref: '#/components/schemas/FHIRResource'
+      - type: object
+        properties:
+          resourceType:
+            type: string
+            default: Location
+          status:
+            type: string
+            enum:
+            - active
+            - suspended
+            - inactive
+          name:
+            type: string
+          telecom:
+            type: array
+            items:
+              $ref: '#/components/schemas/ContactPoint'
+          address:
+            $ref: '#/components/schemas/Address'
+    Coding:
+      type: object
+      properties:
+        system:
+          type: string
+        version:
+          type: string
+        code:
+          type: string
+        display:
+          type: string
+        userSelected:
+          type: boolean
     ContactPoint:
       type: object
       properties:
@@ -221,46 +252,39 @@ components:
           - temp
           - old
           - mobile
-    Narrative:
+    Address:
       type: object
       properties:
-        status:
+        use:
           type: string
           enum:
-          - generated
-          - extensions
-          - additional
-          - empty
-        div:
+          - home
+          - work
+          - temp
+          - old
+          - billing
+        type:
           type: string
-    OperationOutcome:
-      type: object
-      properties:
-        resourceType:
+          enum:
+          - postal
+          - physical
+          - both
+        text:
           type: string
-          default: OperationOutcome
-        issue:
+        line:
           type: array
           items:
-            type: object
-            properties:
-              severity:
-                type: string
-                enum:
-                - fatal
-                - error
-                - warning
-                - information
-              code:
-                type: string
-              details:
-                $ref: '#/components/schemas/CodeableConcept'
-              diagnostics:
-                type: string
-              location:
-                type: array
-                items:
-                  type: string
+            type: string
+        city:
+          type: string
+        district:
+          type: string
+        state:
+          type: string
+        postalCode:
+          type: string
+        country:
+          type: string
     Meta:
       type: object
       properties:
@@ -279,40 +303,7 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Coding'
-    Coding:
-      type: object
-      properties:
-        system:
-          type: string
-        version:
-          type: string
-        code:
-          type: string
-        display:
-          type: string
-        userSelected:
-          type: boolean
-  responses:
-    ResourceNotFound:
-      description: Resource not found
-      content:
-        application/fhir+json:
-          schema:
-            $ref: '#/components/schemas/OperationOutcome'
-    Unauthorized:
-      description: Authentication required
-      content:
-        application/fhir+json:
-          schema:
-            $ref: '#/components/schemas/OperationOutcome'
   parameters:
-    count:
-      name: _count
-      in: query
-      schema:
-        type: integer
-        default: 20
-      description: Maximum number of results per page
     resourceId:
       name: id
       in: path
@@ -326,6 +317,13 @@ components:
       schema:
         type: string
       description: Pagination token for next page
+    count:
+      name: _count
+      in: query
+      schema:
+        type: integer
+        default: 20
+      description: Maximum number of results per page
   securitySchemes:
     OAuth2ClientCredentials:
       type: oauth2

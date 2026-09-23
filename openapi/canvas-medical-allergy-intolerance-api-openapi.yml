@@ -1,9 +1,7 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
-  title: Canvas Medical FHIR AllergyIntolerance MedicationRequest API
-  description: 'A FHIR R4-compliant REST API providing secure access to electronic health record data. Canvas Medical supports 41 FHIR resources (21 with write capabilities) covering clinical, administrative, financial, and care coordination domains. The API follows the HL7 FHIR R4 specification and supports OAuth 2.0 Client Credentials and Authorization Code flows with SMART on FHIR scopes for machine-to-machine and user-delegated access.
-
-    '
+  title: Canvas Medical FHIR Allergy Intolerance API
+  description: A FHIR R4-compliant REST API providing secure access to electronic health record data. Canvas Medical supports 41 FHIR resources (21 with write capabilities) covering clinical, administrative, financial, and care coordination domains. The API follows the HL7 FHIR R4 specification and supports OAuth 2.0 Client Credentials and Authorization Code flows with SMART on FHIR scopes for machine-to-machine and user-delegated access.
   version: '4.0'
   contact:
     name: Canvas Medical Support
@@ -24,28 +22,23 @@ security:
 - OAuth2AuthCode: []
 - BearerAuth: []
 tags:
-- name: MedicationRequest
-  description: Medication prescriptions and orders
+- name: Allergy Intolerance
+  description: Allergy and intolerance records
 paths:
-  /MedicationRequest:
+  /AllergyIntolerance:
     get:
-      operationId: searchMedicationRequest
-      summary: Search MedicationRequests
-      description: Search for medication prescriptions and orders
+      operationId: searchAllergyIntolerance
+      summary: Search AllergyIntolerances
       tags:
-      - MedicationRequest
+      - Allergy Intolerance
       parameters:
       - $ref: '#/components/parameters/patient'
       - $ref: '#/components/parameters/status'
-      - name: intent
-        in: query
-        schema:
-          type: string
       - $ref: '#/components/parameters/count'
       - $ref: '#/components/parameters/pageToken'
       responses:
         '200':
-          description: Bundle of matching medication requests
+          description: Bundle of matching allergy intolerances
           content:
             application/fhir+json:
               schema:
@@ -53,51 +46,51 @@ paths:
         '401':
           $ref: '#/components/responses/Unauthorized'
     post:
-      operationId: createMedicationRequest
-      summary: Create MedicationRequest
+      operationId: createAllergyIntolerance
+      summary: Create AllergyIntolerance
       tags:
-      - MedicationRequest
+      - Allergy Intolerance
       requestBody:
         required: true
         content:
           application/fhir+json:
             schema:
-              $ref: '#/components/schemas/MedicationRequest'
+              $ref: '#/components/schemas/AllergyIntolerance'
       responses:
         '201':
-          description: MedicationRequest created
+          description: AllergyIntolerance created
           content:
             application/fhir+json:
               schema:
-                $ref: '#/components/schemas/MedicationRequest'
+                $ref: '#/components/schemas/AllergyIntolerance'
         '401':
           $ref: '#/components/responses/Unauthorized'
         '422':
           $ref: '#/components/responses/UnprocessableEntity'
-  /MedicationRequest/{id}:
+  /AllergyIntolerance/{id}:
     get:
-      operationId: readMedicationRequest
-      summary: Read MedicationRequest
+      operationId: readAllergyIntolerance
+      summary: Read AllergyIntolerance
       tags:
-      - MedicationRequest
+      - Allergy Intolerance
       parameters:
       - $ref: '#/components/parameters/resourceId'
       responses:
         '200':
-          description: MedicationRequest resource
+          description: AllergyIntolerance resource
           content:
             application/fhir+json:
               schema:
-                $ref: '#/components/schemas/MedicationRequest'
+                $ref: '#/components/schemas/AllergyIntolerance'
         '401':
           $ref: '#/components/responses/Unauthorized'
         '404':
           $ref: '#/components/responses/ResourceNotFound'
     put:
-      operationId: updateMedicationRequest
-      summary: Update MedicationRequest
+      operationId: updateAllergyIntolerance
+      summary: Update AllergyIntolerance
       tags:
-      - MedicationRequest
+      - Allergy Intolerance
       parameters:
       - $ref: '#/components/parameters/resourceId'
       requestBody:
@@ -105,90 +98,107 @@ paths:
         content:
           application/fhir+json:
             schema:
-              $ref: '#/components/schemas/MedicationRequest'
+              $ref: '#/components/schemas/AllergyIntolerance'
       responses:
         '200':
-          description: MedicationRequest updated
+          description: AllergyIntolerance updated
           content:
             application/fhir+json:
               schema:
-                $ref: '#/components/schemas/MedicationRequest'
+                $ref: '#/components/schemas/AllergyIntolerance'
         '401':
           $ref: '#/components/responses/Unauthorized'
         '404':
           $ref: '#/components/responses/ResourceNotFound'
 components:
   schemas:
-    MedicationRequest:
+    AllergyIntolerance:
       allOf:
       - $ref: '#/components/schemas/FHIRResource'
       - type: object
         required:
         - resourceType
-        - status
-        - intent
-        - subject
+        - patient
         properties:
           resourceType:
             type: string
-            default: MedicationRequest
-          status:
-            type: string
-            enum:
-            - active
-            - on-hold
-            - cancelled
-            - completed
-            - entered-in-error
-            - stopped
-            - draft
-            - unknown
-          intent:
-            type: string
-            enum:
-            - proposal
-            - plan
-            - order
-            - original-order
-            - reflex-order
-            - filler-order
-            - instance-order
-            - option
-          medicationCodeableConcept:
+            default: AllergyIntolerance
+          clinicalStatus:
             $ref: '#/components/schemas/CodeableConcept'
-          medicationReference:
-            $ref: '#/components/schemas/Reference'
-          subject:
-            $ref: '#/components/schemas/Reference'
-          encounter:
-            $ref: '#/components/schemas/Reference'
-          authoredOn:
+          verificationStatus:
+            $ref: '#/components/schemas/CodeableConcept'
+          type:
             type: string
-            format: date-time
-          requester:
+            enum:
+            - allergy
+            - intolerance
+          category:
+            type: array
+            items:
+              type: string
+              enum:
+              - food
+              - medication
+              - environment
+              - biologic
+          code:
+            $ref: '#/components/schemas/CodeableConcept'
+          patient:
             $ref: '#/components/schemas/Reference'
-    FHIRResource:
+          reaction:
+            type: array
+            items:
+              type: object
+              properties:
+                manifestation:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/CodeableConcept'
+                severity:
+                  type: string
+                  enum:
+                  - mild
+                  - moderate
+                  - severe
+    OperationOutcome:
       type: object
-      description: Base FHIR R4 resource properties
       properties:
         resourceType:
           type: string
-          description: FHIR resource type name
-        id:
-          type: string
-          description: Logical id of this artifact
-        meta:
-          $ref: '#/components/schemas/Meta'
-        text:
-          $ref: '#/components/schemas/Narrative'
-    CodeableConcept:
-      type: object
-      properties:
-        coding:
+          default: OperationOutcome
+        issue:
           type: array
           items:
-            $ref: '#/components/schemas/Coding'
-        text:
+            type: object
+            properties:
+              severity:
+                type: string
+                enum:
+                - fatal
+                - error
+                - warning
+                - information
+              code:
+                type: string
+              details:
+                $ref: '#/components/schemas/CodeableConcept'
+              diagnostics:
+                type: string
+              location:
+                type: array
+                items:
+                  type: string
+    Narrative:
+      type: object
+      properties:
+        status:
+          type: string
+          enum:
+          - generated
+          - extensions
+          - additional
+          - empty
+        div:
           type: string
     Bundle:
       type: object
@@ -240,46 +250,51 @@ components:
                     - match
                     - include
                     - outcome
-    Narrative:
+    FHIRResource:
       type: object
-      properties:
-        status:
-          type: string
-          enum:
-          - generated
-          - extensions
-          - additional
-          - empty
-        div:
-          type: string
-    OperationOutcome:
-      type: object
+      description: Base FHIR R4 resource properties
       properties:
         resourceType:
           type: string
-          default: OperationOutcome
-        issue:
+          description: FHIR resource type name
+        id:
+          type: string
+          description: Logical id of this artifact
+        meta:
+          $ref: '#/components/schemas/Meta'
+        text:
+          $ref: '#/components/schemas/Narrative'
+    Reference:
+      type: object
+      properties:
+        reference:
+          type: string
+        type:
+          type: string
+        display:
+          type: string
+    CodeableConcept:
+      type: object
+      properties:
+        coding:
           type: array
           items:
-            type: object
-            properties:
-              severity:
-                type: string
-                enum:
-                - fatal
-                - error
-                - warning
-                - information
-              code:
-                type: string
-              details:
-                $ref: '#/components/schemas/CodeableConcept'
-              diagnostics:
-                type: string
-              location:
-                type: array
-                items:
-                  type: string
+            $ref: '#/components/schemas/Coding'
+        text:
+          type: string
+    Coding:
+      type: object
+      properties:
+        system:
+          type: string
+        version:
+          type: string
+        code:
+          type: string
+        display:
+          type: string
+        userSelected:
+          type: boolean
     Meta:
       type: object
       properties:
@@ -298,35 +313,7 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Coding'
-    Coding:
-      type: object
-      properties:
-        system:
-          type: string
-        version:
-          type: string
-        code:
-          type: string
-        display:
-          type: string
-        userSelected:
-          type: boolean
-    Reference:
-      type: object
-      properties:
-        reference:
-          type: string
-        type:
-          type: string
-        display:
-          type: string
   responses:
-    Unauthorized:
-      description: Authentication required
-      content:
-        application/fhir+json:
-          schema:
-            $ref: '#/components/schemas/OperationOutcome'
     ResourceNotFound:
       description: Resource not found
       content:
@@ -339,20 +326,13 @@ components:
         application/fhir+json:
           schema:
             $ref: '#/components/schemas/OperationOutcome'
+    Unauthorized:
+      description: Authentication required
+      content:
+        application/fhir+json:
+          schema:
+            $ref: '#/components/schemas/OperationOutcome'
   parameters:
-    status:
-      name: status
-      in: query
-      schema:
-        type: string
-      description: Filter by resource status
-    count:
-      name: _count
-      in: query
-      schema:
-        type: integer
-        default: 20
-      description: Maximum number of results per page
     resourceId:
       name: id
       in: path
@@ -366,6 +346,19 @@ components:
       schema:
         type: string
       description: Pagination token for next page
+    status:
+      name: status
+      in: query
+      schema:
+        type: string
+      description: Filter by resource status
+    count:
+      name: _count
+      in: query
+      schema:
+        type: integer
+        default: 20
+      description: Maximum number of results per page
     patient:
       name: patient
       in: query
