@@ -69,8 +69,6 @@ apis:
     url: https://docs.canvasmedical.com/api/customer-authentication/
   - type: ReleaseNotes
     url: https://docs.canvasmedical.com/product-updates/release-notes/
-  - url: graphql/canvas-medical-graphql.md
-    type: GraphQL
 - aid: canvas-medical:canvas-medical-sdk
   name: Canvas Medical SDK
   description: >-
@@ -85,7 +83,7 @@ apis:
   - SDK
   - Python
   - Plugins
-  - Workflow-Automation
+  - Workflow Automation
   - EMR
   tags_raw:
   - SDK
@@ -93,6 +91,7 @@ apis:
   - Plugins
   - Workflow Automation
   - EMR
+  - Workflow-Automation
   properties:
   - type: Documentation
     url: https://docs.canvasmedical.com/sdk/
