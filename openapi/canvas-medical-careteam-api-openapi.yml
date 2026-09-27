@@ -65,20 +65,38 @@ paths:
         '404':
           $ref: '#/components/responses/ResourceNotFound'
 components:
-  responses:
-    ResourceNotFound:
-      description: Resource not found
-      content:
-        application/fhir+json:
-          schema:
-            $ref: '#/components/schemas/OperationOutcome'
-    Unauthorized:
-      description: Authentication required
-      content:
-        application/fhir+json:
-          schema:
-            $ref: '#/components/schemas/OperationOutcome'
   schemas:
+    Coding:
+      type: object
+      properties:
+        system:
+          type: string
+        version:
+          type: string
+        code:
+          type: string
+        display:
+          type: string
+        userSelected:
+          type: boolean
+    Meta:
+      type: object
+      properties:
+        versionId:
+          type: string
+        lastUpdated:
+          type: string
+          format: date-time
+        source:
+          type: string
+        profile:
+          type: array
+          items:
+            type: string
+        tag:
+          type: array
+          items:
+            $ref: '#/components/schemas/Coding'
     OperationOutcome:
       type: object
       properties:
@@ -107,6 +125,37 @@ components:
                 type: array
                 items:
                   type: string
+    CareTeam:
+      allOf:
+      - $ref: '#/components/schemas/FHIRResource'
+      - type: object
+        properties:
+          resourceType:
+            type: string
+            default: CareTeam
+          status:
+            type: string
+            enum:
+            - proposed
+            - active
+            - suspended
+            - inactive
+            - entered-in-error
+          name:
+            type: string
+          subject:
+            $ref: '#/components/schemas/Reference'
+          participant:
+            type: array
+            items:
+              type: object
+              properties:
+                role:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/CodeableConcept'
+                member:
+                  $ref: '#/components/schemas/Reference'
     Narrative:
       type: object
       properties:
@@ -119,6 +168,38 @@ components:
           - empty
         div:
           type: string
+    CodeableConcept:
+      type: object
+      properties:
+        coding:
+          type: array
+          items:
+            $ref: '#/components/schemas/Coding'
+        text:
+          type: string
+    Reference:
+      type: object
+      properties:
+        reference:
+          type: string
+        type:
+          type: string
+        display:
+          type: string
+    FHIRResource:
+      type: object
+      description: Base FHIR R4 resource properties
+      properties:
+        resourceType:
+          type: string
+          description: FHIR resource type name
+        id:
+          type: string
+          description: Logical id of this artifact
+        meta:
+          $ref: '#/components/schemas/Meta'
+        text:
+          $ref: '#/components/schemas/Narrative'
     Bundle:
       type: object
       properties:
@@ -169,101 +250,20 @@ components:
                     - match
                     - include
                     - outcome
-    FHIRResource:
-      type: object
-      description: Base FHIR R4 resource properties
-      properties:
-        resourceType:
-          type: string
-          description: FHIR resource type name
-        id:
-          type: string
-          description: Logical id of this artifact
-        meta:
-          $ref: '#/components/schemas/Meta'
-        text:
-          $ref: '#/components/schemas/Narrative'
-    Reference:
-      type: object
-      properties:
-        reference:
-          type: string
-        type:
-          type: string
-        display:
-          type: string
-    CodeableConcept:
-      type: object
-      properties:
-        coding:
-          type: array
-          items:
-            $ref: '#/components/schemas/Coding'
-        text:
-          type: string
-    Coding:
-      type: object
-      properties:
-        system:
-          type: string
-        version:
-          type: string
-        code:
-          type: string
-        display:
-          type: string
-        userSelected:
-          type: boolean
-    CareTeam:
-      allOf:
-      - $ref: '#/components/schemas/FHIRResource'
-      - type: object
-        properties:
-          resourceType:
-            type: string
-            default: CareTeam
-          status:
-            type: string
-            enum:
-            - proposed
-            - active
-            - suspended
-            - inactive
-            - entered-in-error
-          name:
-            type: string
-          subject:
-            $ref: '#/components/schemas/Reference'
-          participant:
-            type: array
-            items:
-              type: object
-              properties:
-                role:
-                  type: array
-                  items:
-                    $ref: '#/components/schemas/CodeableConcept'
-                member:
-                  $ref: '#/components/schemas/Reference'
-    Meta:
-      type: object
-      properties:
-        versionId:
-          type: string
-        lastUpdated:
-          type: string
-          format: date-time
-        source:
-          type: string
-        profile:
-          type: array
-          items:
-            type: string
-        tag:
-          type: array
-          items:
-            $ref: '#/components/schemas/Coding'
   parameters:
+    count:
+      name: _count
+      in: query
+      schema:
+        type: integer
+        default: 20
+      description: Maximum number of results per page
+    status:
+      name: status
+      in: query
+      schema:
+        type: string
+      description: Filter by resource status
     resourceId:
       name: id
       in: path
@@ -277,25 +277,25 @@ components:
       schema:
         type: string
       description: Pagination token for next page
-    status:
-      name: status
-      in: query
-      schema:
-        type: string
-      description: Filter by resource status
-    count:
-      name: _count
-      in: query
-      schema:
-        type: integer
-        default: 20
-      description: Maximum number of results per page
     patient:
       name: patient
       in: query
       schema:
         type: string
       description: Filter by patient ID or reference
+  responses:
+    ResourceNotFound:
+      description: Resource not found
+      content:
+        application/fhir+json:
+          schema:
+            $ref: '#/components/schemas/OperationOutcome'
+    Unauthorized:
+      description: Authentication required
+      content:
+        application/fhir+json:
+          schema:
+            $ref: '#/components/schemas/OperationOutcome'
   securitySchemes:
     OAuth2ClientCredentials:
       type: oauth2

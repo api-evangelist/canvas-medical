@@ -152,6 +152,179 @@ paths:
           $ref: '#/components/responses/UnprocessableEntity'
 components:
   schemas:
+    Patient:
+      allOf:
+      - $ref: '#/components/schemas/FHIRResource'
+      - type: object
+        required:
+        - resourceType
+        properties:
+          resourceType:
+            type: string
+            default: Patient
+          identifier:
+            type: array
+            items:
+              $ref: '#/components/schemas/Identifier'
+          active:
+            type: boolean
+          name:
+            type: array
+            items:
+              $ref: '#/components/schemas/HumanName'
+          telecom:
+            type: array
+            items:
+              $ref: '#/components/schemas/ContactPoint'
+          gender:
+            type: string
+            enum:
+            - male
+            - female
+            - other
+            - unknown
+          birthDate:
+            type: string
+            format: date
+          deceasedBoolean:
+            type: boolean
+          deceasedDateTime:
+            type: string
+            format: date-time
+          address:
+            type: array
+            items:
+              $ref: '#/components/schemas/Address'
+          extension:
+            type: array
+            items:
+              type: object
+            description: Canvas-specific extensions including us-core-race, us-core-ethnicity, us-core-birthsex, preferred-pharmacy
+    Coding:
+      type: object
+      properties:
+        system:
+          type: string
+        version:
+          type: string
+        code:
+          type: string
+        display:
+          type: string
+        userSelected:
+          type: boolean
+    Meta:
+      type: object
+      properties:
+        versionId:
+          type: string
+        lastUpdated:
+          type: string
+          format: date-time
+        source:
+          type: string
+        profile:
+          type: array
+          items:
+            type: string
+        tag:
+          type: array
+          items:
+            $ref: '#/components/schemas/Coding'
+    FHIRResource:
+      type: object
+      description: Base FHIR R4 resource properties
+      properties:
+        resourceType:
+          type: string
+          description: FHIR resource type name
+        id:
+          type: string
+          description: Logical id of this artifact
+        meta:
+          $ref: '#/components/schemas/Meta'
+        text:
+          $ref: '#/components/schemas/Narrative'
+    Identifier:
+      type: object
+      properties:
+        use:
+          type: string
+          enum:
+          - usual
+          - official
+          - temp
+          - secondary
+          - old
+        type:
+          $ref: '#/components/schemas/CodeableConcept'
+        system:
+          type: string
+        value:
+          type: string
+        period:
+          $ref: '#/components/schemas/Period'
+    ContactPoint:
+      type: object
+      properties:
+        system:
+          type: string
+          enum:
+          - phone
+          - fax
+          - email
+          - pager
+          - url
+          - sms
+          - other
+        value:
+          type: string
+        use:
+          type: string
+          enum:
+          - home
+          - work
+          - temp
+          - old
+          - mobile
+    Period:
+      type: object
+      properties:
+        start:
+          type: string
+          format: date-time
+        end:
+          type: string
+          format: date-time
+    HumanName:
+      type: object
+      properties:
+        use:
+          type: string
+          enum:
+          - usual
+          - official
+          - temp
+          - nickname
+          - anonymous
+          - old
+          - maiden
+        text:
+          type: string
+        family:
+          type: string
+        given:
+          type: array
+          items:
+            type: string
+        prefix:
+          type: array
+          items:
+            type: string
+        suffix:
+          type: array
+          items:
+            type: string
     Bundle:
       type: object
       properties:
@@ -202,25 +375,6 @@ components:
                     - match
                     - include
                     - outcome
-    Identifier:
-      type: object
-      properties:
-        use:
-          type: string
-          enum:
-          - usual
-          - official
-          - temp
-          - secondary
-          - old
-        type:
-          $ref: '#/components/schemas/CodeableConcept'
-        system:
-          type: string
-        value:
-          type: string
-        period:
-          $ref: '#/components/schemas/Period'
     OperationOutcome:
       type: object
       properties:
@@ -261,83 +415,6 @@ components:
           - empty
         div:
           type: string
-    Period:
-      type: object
-      properties:
-        start:
-          type: string
-          format: date-time
-        end:
-          type: string
-          format: date-time
-    Coding:
-      type: object
-      properties:
-        system:
-          type: string
-        version:
-          type: string
-        code:
-          type: string
-        display:
-          type: string
-        userSelected:
-          type: boolean
-    ContactPoint:
-      type: object
-      properties:
-        system:
-          type: string
-          enum:
-          - phone
-          - fax
-          - email
-          - pager
-          - url
-          - sms
-          - other
-        value:
-          type: string
-        use:
-          type: string
-          enum:
-          - home
-          - work
-          - temp
-          - old
-          - mobile
-    Meta:
-      type: object
-      properties:
-        versionId:
-          type: string
-        lastUpdated:
-          type: string
-          format: date-time
-        source:
-          type: string
-        profile:
-          type: array
-          items:
-            type: string
-        tag:
-          type: array
-          items:
-            $ref: '#/components/schemas/Coding'
-    FHIRResource:
-      type: object
-      description: Base FHIR R4 resource properties
-      properties:
-        resourceType:
-          type: string
-          description: FHIR resource type name
-        id:
-          type: string
-          description: Logical id of this artifact
-        meta:
-          $ref: '#/components/schemas/Meta'
-        text:
-          $ref: '#/components/schemas/Narrative'
     Address:
       type: object
       properties:
@@ -371,35 +448,6 @@ components:
           type: string
         country:
           type: string
-    HumanName:
-      type: object
-      properties:
-        use:
-          type: string
-          enum:
-          - usual
-          - official
-          - temp
-          - nickname
-          - anonymous
-          - old
-          - maiden
-        text:
-          type: string
-        family:
-          type: string
-        given:
-          type: array
-          items:
-            type: string
-        prefix:
-          type: array
-          items:
-            type: string
-        suffix:
-          type: array
-          items:
-            type: string
     CodeableConcept:
       type: object
       properties:
@@ -409,54 +457,6 @@ components:
             $ref: '#/components/schemas/Coding'
         text:
           type: string
-    Patient:
-      allOf:
-      - $ref: '#/components/schemas/FHIRResource'
-      - type: object
-        required:
-        - resourceType
-        properties:
-          resourceType:
-            type: string
-            default: Patient
-          identifier:
-            type: array
-            items:
-              $ref: '#/components/schemas/Identifier'
-          active:
-            type: boolean
-          name:
-            type: array
-            items:
-              $ref: '#/components/schemas/HumanName'
-          telecom:
-            type: array
-            items:
-              $ref: '#/components/schemas/ContactPoint'
-          gender:
-            type: string
-            enum:
-            - male
-            - female
-            - other
-            - unknown
-          birthDate:
-            type: string
-            format: date
-          deceasedBoolean:
-            type: boolean
-          deceasedDateTime:
-            type: string
-            format: date-time
-          address:
-            type: array
-            items:
-              $ref: '#/components/schemas/Address'
-          extension:
-            type: array
-            items:
-              type: object
-            description: Canvas-specific extensions including us-core-race, us-core-ethnicity, us-core-birthsex, preferred-pharmacy
   parameters:
     pageToken:
       name: _page_token
@@ -479,14 +479,14 @@ components:
         type: string
       description: Logical ID of the FHIR resource
   responses:
-    ResourceNotFound:
-      description: Resource not found
+    UnprocessableEntity:
+      description: Validation error
       content:
         application/fhir+json:
           schema:
             $ref: '#/components/schemas/OperationOutcome'
-    UnprocessableEntity:
-      description: Validation error
+    ResourceNotFound:
+      description: Resource not found
       content:
         application/fhir+json:
           schema:

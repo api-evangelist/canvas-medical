@@ -87,26 +87,38 @@ paths:
         '404':
           $ref: '#/components/responses/ResourceNotFound'
 components:
-  responses:
-    ResourceNotFound:
-      description: Resource not found
-      content:
-        application/fhir+json:
-          schema:
-            $ref: '#/components/schemas/OperationOutcome'
-    UnprocessableEntity:
-      description: Validation error
-      content:
-        application/fhir+json:
-          schema:
-            $ref: '#/components/schemas/OperationOutcome'
-    Unauthorized:
-      description: Authentication required
-      content:
-        application/fhir+json:
-          schema:
-            $ref: '#/components/schemas/OperationOutcome'
   schemas:
+    Coding:
+      type: object
+      properties:
+        system:
+          type: string
+        version:
+          type: string
+        code:
+          type: string
+        display:
+          type: string
+        userSelected:
+          type: boolean
+    Meta:
+      type: object
+      properties:
+        versionId:
+          type: string
+        lastUpdated:
+          type: string
+          format: date-time
+        source:
+          type: string
+        profile:
+          type: array
+          items:
+            type: string
+        tag:
+          type: array
+          items:
+            $ref: '#/components/schemas/Coding'
     OperationOutcome:
       type: object
       properties:
@@ -135,6 +147,50 @@ components:
                 type: array
                 items:
                   type: string
+    Narrative:
+      type: object
+      properties:
+        status:
+          type: string
+          enum:
+          - generated
+          - extensions
+          - additional
+          - empty
+        div:
+          type: string
+    Reference:
+      type: object
+      properties:
+        reference:
+          type: string
+        type:
+          type: string
+        display:
+          type: string
+    CodeableConcept:
+      type: object
+      properties:
+        coding:
+          type: array
+          items:
+            $ref: '#/components/schemas/Coding'
+        text:
+          type: string
+    FHIRResource:
+      type: object
+      description: Base FHIR R4 resource properties
+      properties:
+        resourceType:
+          type: string
+          description: FHIR resource type name
+        id:
+          type: string
+          description: Logical id of this artifact
+        meta:
+          $ref: '#/components/schemas/Meta'
+        text:
+          $ref: '#/components/schemas/Narrative'
     Claim:
       allOf:
       - $ref: '#/components/schemas/FHIRResource'
@@ -181,18 +237,6 @@ components:
             type: array
             items:
               type: object
-    Narrative:
-      type: object
-      properties:
-        status:
-          type: string
-          enum:
-          - generated
-          - extensions
-          - additional
-          - empty
-        div:
-          type: string
     Bundle:
       type: object
       properties:
@@ -243,89 +287,7 @@ components:
                     - match
                     - include
                     - outcome
-    FHIRResource:
-      type: object
-      description: Base FHIR R4 resource properties
-      properties:
-        resourceType:
-          type: string
-          description: FHIR resource type name
-        id:
-          type: string
-          description: Logical id of this artifact
-        meta:
-          $ref: '#/components/schemas/Meta'
-        text:
-          $ref: '#/components/schemas/Narrative'
-    Reference:
-      type: object
-      properties:
-        reference:
-          type: string
-        type:
-          type: string
-        display:
-          type: string
-    CodeableConcept:
-      type: object
-      properties:
-        coding:
-          type: array
-          items:
-            $ref: '#/components/schemas/Coding'
-        text:
-          type: string
-    Coding:
-      type: object
-      properties:
-        system:
-          type: string
-        version:
-          type: string
-        code:
-          type: string
-        display:
-          type: string
-        userSelected:
-          type: boolean
-    Meta:
-      type: object
-      properties:
-        versionId:
-          type: string
-        lastUpdated:
-          type: string
-          format: date-time
-        source:
-          type: string
-        profile:
-          type: array
-          items:
-            type: string
-        tag:
-          type: array
-          items:
-            $ref: '#/components/schemas/Coding'
   parameters:
-    resourceId:
-      name: id
-      in: path
-      required: true
-      schema:
-        type: string
-      description: Logical ID of the FHIR resource
-    pageToken:
-      name: _page_token
-      in: query
-      schema:
-        type: string
-      description: Pagination token for next page
-    status:
-      name: status
-      in: query
-      schema:
-        type: string
-      description: Filter by resource status
     count:
       name: _count
       in: query
@@ -333,12 +295,50 @@ components:
         type: integer
         default: 20
       description: Maximum number of results per page
+    status:
+      name: status
+      in: query
+      schema:
+        type: string
+      description: Filter by resource status
+    resourceId:
+      name: id
+      in: path
+      required: true
+      schema:
+        type: string
+      description: Logical ID of the FHIR resource
     patient:
       name: patient
       in: query
       schema:
         type: string
       description: Filter by patient ID or reference
+    pageToken:
+      name: _page_token
+      in: query
+      schema:
+        type: string
+      description: Pagination token for next page
+  responses:
+    UnprocessableEntity:
+      description: Validation error
+      content:
+        application/fhir+json:
+          schema:
+            $ref: '#/components/schemas/OperationOutcome'
+    ResourceNotFound:
+      description: Resource not found
+      content:
+        application/fhir+json:
+          schema:
+            $ref: '#/components/schemas/OperationOutcome'
+    Unauthorized:
+      description: Authentication required
+      content:
+        application/fhir+json:
+          schema:
+            $ref: '#/components/schemas/OperationOutcome'
   securitySchemes:
     OAuth2ClientCredentials:
       type: oauth2
