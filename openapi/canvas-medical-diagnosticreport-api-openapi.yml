@@ -66,77 +66,19 @@ paths:
         '404':
           $ref: '#/components/responses/ResourceNotFound'
 components:
-  parameters:
-    date:
-      name: date
-      in: query
-      schema:
-        type: string
-      description: Filter by date (FHIR date search parameter)
-    count:
-      name: _count
-      in: query
-      schema:
-        type: integer
-        default: 20
-      description: Maximum number of results per page
-    status:
-      name: status
-      in: query
-      schema:
-        type: string
-      description: Filter by resource status
-    resourceId:
-      name: id
-      in: path
-      required: true
-      schema:
-        type: string
-      description: Logical ID of the FHIR resource
-    patient:
-      name: patient
-      in: query
-      schema:
-        type: string
-      description: Filter by patient ID or reference
-    pageToken:
-      name: _page_token
-      in: query
-      schema:
-        type: string
-      description: Pagination token for next page
   schemas:
-    Coding:
+    Narrative:
       type: object
       properties:
-        system:
+        status:
           type: string
-        version:
+          enum:
+          - generated
+          - extensions
+          - additional
+          - empty
+        div:
           type: string
-        code:
-          type: string
-        display:
-          type: string
-        userSelected:
-          type: boolean
-    Meta:
-      type: object
-      properties:
-        versionId:
-          type: string
-        lastUpdated:
-          type: string
-          format: date-time
-        source:
-          type: string
-        profile:
-          type: array
-          items:
-            type: string
-        tag:
-          type: array
-          items:
-            $ref: '#/components/schemas/Coding'
     OperationOutcome:
       type: object
       properties:
@@ -165,18 +107,6 @@ components:
                 type: array
                 items:
                   type: string
-    Narrative:
-      type: object
-      properties:
-        status:
-          type: string
-          enum:
-          - generated
-          - extensions
-          - additional
-          - empty
-        div:
-          type: string
     Reference:
       type: object
       properties:
@@ -195,20 +125,6 @@ components:
             $ref: '#/components/schemas/Coding'
         text:
           type: string
-    FHIRResource:
-      type: object
-      description: Base FHIR R4 resource properties
-      properties:
-        resourceType:
-          type: string
-          description: FHIR resource type name
-        id:
-          type: string
-          description: Logical id of this artifact
-        meta:
-          $ref: '#/components/schemas/Meta'
-        text:
-          $ref: '#/components/schemas/Narrative'
     DiagnosticReport:
       allOf:
       - $ref: '#/components/schemas/FHIRResource'
@@ -249,6 +165,33 @@ components:
             type: array
             items:
               $ref: '#/components/schemas/Reference'
+    FHIRResource:
+      type: object
+      description: Base FHIR R4 resource properties
+      properties:
+        resourceType:
+          type: string
+          description: FHIR resource type name
+        id:
+          type: string
+          description: Logical id of this artifact
+        meta:
+          $ref: '#/components/schemas/Meta'
+        text:
+          $ref: '#/components/schemas/Narrative'
+    Coding:
+      type: object
+      properties:
+        system:
+          type: string
+        version:
+          type: string
+        code:
+          type: string
+        display:
+          type: string
+        userSelected:
+          type: boolean
     Bundle:
       type: object
       properties:
@@ -299,15 +242,72 @@ components:
                     - match
                     - include
                     - outcome
+    Meta:
+      type: object
+      properties:
+        versionId:
+          type: string
+        lastUpdated:
+          type: string
+          format: date-time
+        source:
+          type: string
+        profile:
+          type: array
+          items:
+            type: string
+        tag:
+          type: array
+          items:
+            $ref: '#/components/schemas/Coding'
+  parameters:
+    resourceId:
+      name: id
+      in: path
+      required: true
+      schema:
+        type: string
+      description: Logical ID of the FHIR resource
+    patient:
+      name: patient
+      in: query
+      schema:
+        type: string
+      description: Filter by patient ID or reference
+    date:
+      name: date
+      in: query
+      schema:
+        type: string
+      description: Filter by date (FHIR date search parameter)
+    pageToken:
+      name: _page_token
+      in: query
+      schema:
+        type: string
+      description: Pagination token for next page
+    status:
+      name: status
+      in: query
+      schema:
+        type: string
+      description: Filter by resource status
+    count:
+      name: _count
+      in: query
+      schema:
+        type: integer
+        default: 20
+      description: Maximum number of results per page
   responses:
-    ResourceNotFound:
-      description: Resource not found
+    Unauthorized:
+      description: Authentication required
       content:
         application/fhir+json:
           schema:
             $ref: '#/components/schemas/OperationOutcome'
-    Unauthorized:
-      description: Authentication required
+    ResourceNotFound:
+      description: Resource not found
       content:
         application/fhir+json:
           schema:

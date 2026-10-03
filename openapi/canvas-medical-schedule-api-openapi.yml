@@ -68,60 +68,18 @@ paths:
           $ref: '#/components/responses/ResourceNotFound'
 components:
   schemas:
-    Coding:
+    Narrative:
       type: object
       properties:
-        system:
+        status:
           type: string
-        version:
+          enum:
+          - generated
+          - extensions
+          - additional
+          - empty
+        div:
           type: string
-        code:
-          type: string
-        display:
-          type: string
-        userSelected:
-          type: boolean
-    Meta:
-      type: object
-      properties:
-        versionId:
-          type: string
-        lastUpdated:
-          type: string
-          format: date-time
-        source:
-          type: string
-        profile:
-          type: array
-          items:
-            type: string
-        tag:
-          type: array
-          items:
-            $ref: '#/components/schemas/Coding'
-    Schedule:
-      allOf:
-      - $ref: '#/components/schemas/FHIRResource'
-      - type: object
-        required:
-        - resourceType
-        - actor
-        properties:
-          resourceType:
-            type: string
-            default: Schedule
-          active:
-            type: boolean
-          serviceType:
-            type: array
-            items:
-              $ref: '#/components/schemas/CodeableConcept'
-          actor:
-            type: array
-            items:
-              $ref: '#/components/schemas/Reference'
-          planningHorizon:
-            $ref: '#/components/schemas/Period'
     OperationOutcome:
       type: object
       properties:
@@ -150,17 +108,14 @@ components:
                 type: array
                 items:
                   type: string
-    Narrative:
+    Reference:
       type: object
       properties:
-        status:
+        reference:
           type: string
-          enum:
-          - generated
-          - extensions
-          - additional
-          - empty
-        div:
+        type:
+          type: string
+        display:
           type: string
     CodeableConcept:
       type: object
@@ -171,24 +126,6 @@ components:
             $ref: '#/components/schemas/Coding'
         text:
           type: string
-    Reference:
-      type: object
-      properties:
-        reference:
-          type: string
-        type:
-          type: string
-        display:
-          type: string
-    Period:
-      type: object
-      properties:
-        start:
-          type: string
-          format: date-time
-        end:
-          type: string
-          format: date-time
     FHIRResource:
       type: object
       description: Base FHIR R4 resource properties
@@ -203,6 +140,28 @@ components:
           $ref: '#/components/schemas/Meta'
         text:
           $ref: '#/components/schemas/Narrative'
+    Period:
+      type: object
+      properties:
+        start:
+          type: string
+          format: date-time
+        end:
+          type: string
+          format: date-time
+    Coding:
+      type: object
+      properties:
+        system:
+          type: string
+        version:
+          type: string
+        code:
+          type: string
+        display:
+          type: string
+        userSelected:
+          type: boolean
     Bundle:
       type: object
       properties:
@@ -253,14 +212,48 @@ components:
                     - match
                     - include
                     - outcome
+    Meta:
+      type: object
+      properties:
+        versionId:
+          type: string
+        lastUpdated:
+          type: string
+          format: date-time
+        source:
+          type: string
+        profile:
+          type: array
+          items:
+            type: string
+        tag:
+          type: array
+          items:
+            $ref: '#/components/schemas/Coding'
+    Schedule:
+      allOf:
+      - $ref: '#/components/schemas/FHIRResource'
+      - type: object
+        required:
+        - resourceType
+        - actor
+        properties:
+          resourceType:
+            type: string
+            default: Schedule
+          active:
+            type: boolean
+          serviceType:
+            type: array
+            items:
+              $ref: '#/components/schemas/CodeableConcept'
+          actor:
+            type: array
+            items:
+              $ref: '#/components/schemas/Reference'
+          planningHorizon:
+            $ref: '#/components/schemas/Period'
   parameters:
-    count:
-      name: _count
-      in: query
-      schema:
-        type: integer
-        default: 20
-      description: Maximum number of results per page
     resourceId:
       name: id
       in: path
@@ -268,6 +261,13 @@ components:
       schema:
         type: string
       description: Logical ID of the FHIR resource
+    count:
+      name: _count
+      in: query
+      schema:
+        type: integer
+        default: 20
+      description: Maximum number of results per page
     pageToken:
       name: _page_token
       in: query
@@ -275,14 +275,14 @@ components:
         type: string
       description: Pagination token for next page
   responses:
-    ResourceNotFound:
-      description: Resource not found
+    Unauthorized:
+      description: Authentication required
       content:
         application/fhir+json:
           schema:
             $ref: '#/components/schemas/OperationOutcome'
-    Unauthorized:
-      description: Authentication required
+    ResourceNotFound:
+      description: Resource not found
       content:
         application/fhir+json:
           schema:

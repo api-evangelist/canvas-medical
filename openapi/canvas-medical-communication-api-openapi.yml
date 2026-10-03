@@ -88,37 +88,18 @@ paths:
           $ref: '#/components/responses/ResourceNotFound'
 components:
   schemas:
-    Coding:
+    Narrative:
       type: object
       properties:
-        system:
+        status:
           type: string
-        version:
+          enum:
+          - generated
+          - extensions
+          - additional
+          - empty
+        div:
           type: string
-        code:
-          type: string
-        display:
-          type: string
-        userSelected:
-          type: boolean
-    Meta:
-      type: object
-      properties:
-        versionId:
-          type: string
-        lastUpdated:
-          type: string
-          format: date-time
-        source:
-          type: string
-        profile:
-          type: array
-          items:
-            type: string
-        tag:
-          type: array
-          items:
-            $ref: '#/components/schemas/Coding'
     OperationOutcome:
       type: object
       properties:
@@ -147,18 +128,6 @@ components:
                 type: array
                 items:
                   type: string
-    Narrative:
-      type: object
-      properties:
-        status:
-          type: string
-          enum:
-          - generated
-          - extensions
-          - additional
-          - empty
-        div:
-          type: string
     Reference:
       type: object
       properties:
@@ -167,15 +136,6 @@ components:
         type:
           type: string
         display:
-          type: string
-    CodeableConcept:
-      type: object
-      properties:
-        coding:
-          type: array
-          items:
-            $ref: '#/components/schemas/Coding'
-        text:
           type: string
     Communication:
       allOf:
@@ -214,6 +174,15 @@ components:
               properties:
                 contentString:
                   type: string
+    CodeableConcept:
+      type: object
+      properties:
+        coding:
+          type: array
+          items:
+            $ref: '#/components/schemas/Coding'
+        text:
+          type: string
     FHIRResource:
       type: object
       description: Base FHIR R4 resource properties
@@ -228,6 +197,19 @@ components:
           $ref: '#/components/schemas/Meta'
         text:
           $ref: '#/components/schemas/Narrative'
+    Coding:
+      type: object
+      properties:
+        system:
+          type: string
+        version:
+          type: string
+        code:
+          type: string
+        display:
+          type: string
+        userSelected:
+          type: boolean
     Bundle:
       type: object
       properties:
@@ -278,42 +260,27 @@ components:
                     - match
                     - include
                     - outcome
-  parameters:
-    count:
-      name: _count
-      in: query
-      schema:
-        type: integer
-        default: 20
-      description: Maximum number of results per page
-    status:
-      name: status
-      in: query
-      schema:
-        type: string
-      description: Filter by resource status
-    resourceId:
-      name: id
-      in: path
-      required: true
-      schema:
-        type: string
-      description: Logical ID of the FHIR resource
-    patient:
-      name: patient
-      in: query
-      schema:
-        type: string
-      description: Filter by patient ID or reference
-    pageToken:
-      name: _page_token
-      in: query
-      schema:
-        type: string
-      description: Pagination token for next page
+    Meta:
+      type: object
+      properties:
+        versionId:
+          type: string
+        lastUpdated:
+          type: string
+          format: date-time
+        source:
+          type: string
+        profile:
+          type: array
+          items:
+            type: string
+        tag:
+          type: array
+          items:
+            $ref: '#/components/schemas/Coding'
   responses:
-    UnprocessableEntity:
-      description: Validation error
+    Unauthorized:
+      description: Authentication required
       content:
         application/fhir+json:
           schema:
@@ -324,12 +291,45 @@ components:
         application/fhir+json:
           schema:
             $ref: '#/components/schemas/OperationOutcome'
-    Unauthorized:
-      description: Authentication required
+    UnprocessableEntity:
+      description: Validation error
       content:
         application/fhir+json:
           schema:
             $ref: '#/components/schemas/OperationOutcome'
+  parameters:
+    patient:
+      name: patient
+      in: query
+      schema:
+        type: string
+      description: Filter by patient ID or reference
+    resourceId:
+      name: id
+      in: path
+      required: true
+      schema:
+        type: string
+      description: Logical ID of the FHIR resource
+    pageToken:
+      name: _page_token
+      in: query
+      schema:
+        type: string
+      description: Pagination token for next page
+    status:
+      name: status
+      in: query
+      schema:
+        type: string
+      description: Filter by resource status
+    count:
+      name: _count
+      in: query
+      schema:
+        type: integer
+        default: 20
+      description: Maximum number of results per page
   securitySchemes:
     OAuth2ClientCredentials:
       type: oauth2
