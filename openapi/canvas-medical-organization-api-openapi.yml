@@ -67,149 +67,28 @@ paths:
         '404':
           $ref: '#/components/responses/ResourceNotFound'
 components:
+  parameters:
+    count:
+      name: _count
+      in: query
+      schema:
+        type: integer
+        default: 20
+      description: Maximum number of results per page
+    resourceId:
+      name: id
+      in: path
+      required: true
+      schema:
+        type: string
+      description: Logical ID of the FHIR resource
+    pageToken:
+      name: _page_token
+      in: query
+      schema:
+        type: string
+      description: Pagination token for next page
   schemas:
-    Narrative:
-      type: object
-      properties:
-        status:
-          type: string
-          enum:
-          - generated
-          - extensions
-          - additional
-          - empty
-        div:
-          type: string
-    OperationOutcome:
-      type: object
-      properties:
-        resourceType:
-          type: string
-          default: OperationOutcome
-        issue:
-          type: array
-          items:
-            type: object
-            properties:
-              severity:
-                type: string
-                enum:
-                - fatal
-                - error
-                - warning
-                - information
-              code:
-                type: string
-              details:
-                $ref: '#/components/schemas/CodeableConcept'
-              diagnostics:
-                type: string
-              location:
-                type: array
-                items:
-                  type: string
-    Identifier:
-      type: object
-      properties:
-        use:
-          type: string
-          enum:
-          - usual
-          - official
-          - temp
-          - secondary
-          - old
-        type:
-          $ref: '#/components/schemas/CodeableConcept'
-        system:
-          type: string
-        value:
-          type: string
-        period:
-          $ref: '#/components/schemas/Period'
-    CodeableConcept:
-      type: object
-      properties:
-        coding:
-          type: array
-          items:
-            $ref: '#/components/schemas/Coding'
-        text:
-          type: string
-    FHIRResource:
-      type: object
-      description: Base FHIR R4 resource properties
-      properties:
-        resourceType:
-          type: string
-          description: FHIR resource type name
-        id:
-          type: string
-          description: Logical id of this artifact
-        meta:
-          $ref: '#/components/schemas/Meta'
-        text:
-          $ref: '#/components/schemas/Narrative'
-    Period:
-      type: object
-      properties:
-        start:
-          type: string
-          format: date-time
-        end:
-          type: string
-          format: date-time
-    Organization:
-      allOf:
-      - $ref: '#/components/schemas/FHIRResource'
-      - type: object
-        properties:
-          resourceType:
-            type: string
-            default: Organization
-          identifier:
-            type: array
-            items:
-              $ref: '#/components/schemas/Identifier'
-          active:
-            type: boolean
-          type:
-            type: array
-            items:
-              $ref: '#/components/schemas/CodeableConcept'
-          name:
-            type: string
-          telecom:
-            type: array
-            items:
-              $ref: '#/components/schemas/ContactPoint'
-          address:
-            type: array
-            items:
-              $ref: '#/components/schemas/Address'
-    ContactPoint:
-      type: object
-      properties:
-        system:
-          type: string
-          enum:
-          - phone
-          - fax
-          - email
-          - pager
-          - url
-          - sms
-          - other
-        value:
-          type: string
-        use:
-          type: string
-          enum:
-          - home
-          - work
-          - temp
-          - old
-          - mobile
     Address:
       type: object
       properties:
@@ -243,19 +122,61 @@ components:
           type: string
         country:
           type: string
-    Coding:
+    CodeableConcept:
       type: object
       properties:
+        coding:
+          type: array
+          items:
+            $ref: '#/components/schemas/Coding'
+        text:
+          type: string
+    Identifier:
+      type: object
+      properties:
+        use:
+          type: string
+          enum:
+          - usual
+          - official
+          - temp
+          - secondary
+          - old
+        type:
+          $ref: '#/components/schemas/CodeableConcept'
         system:
           type: string
-        version:
+        value:
           type: string
-        code:
+        period:
+          $ref: '#/components/schemas/Period'
+    Period:
+      type: object
+      properties:
+        start:
           type: string
-        display:
+          format: date-time
+        end:
           type: string
-        userSelected:
-          type: boolean
+          format: date-time
+    Meta:
+      type: object
+      properties:
+        versionId:
+          type: string
+        lastUpdated:
+          type: string
+          format: date-time
+        source:
+          type: string
+        profile:
+          type: array
+          items:
+            type: string
+        tag:
+          type: array
+          items:
+            $ref: '#/components/schemas/Coding'
     Bundle:
       type: object
       properties:
@@ -306,45 +227,124 @@ components:
                     - match
                     - include
                     - outcome
-    Meta:
+    Coding:
       type: object
       properties:
-        versionId:
+        system:
           type: string
-        lastUpdated:
+        version:
           type: string
-          format: date-time
-        source:
+        code:
           type: string
-        profile:
-          type: array
-          items:
+        display:
+          type: string
+        userSelected:
+          type: boolean
+    Organization:
+      allOf:
+      - $ref: '#/components/schemas/FHIRResource'
+      - type: object
+        properties:
+          resourceType:
             type: string
-        tag:
+            default: Organization
+          identifier:
+            type: array
+            items:
+              $ref: '#/components/schemas/Identifier'
+          active:
+            type: boolean
+          type:
+            type: array
+            items:
+              $ref: '#/components/schemas/CodeableConcept'
+          name:
+            type: string
+          telecom:
+            type: array
+            items:
+              $ref: '#/components/schemas/ContactPoint'
+          address:
+            type: array
+            items:
+              $ref: '#/components/schemas/Address'
+    Narrative:
+      type: object
+      properties:
+        status:
+          type: string
+          enum:
+          - generated
+          - extensions
+          - additional
+          - empty
+        div:
+          type: string
+    ContactPoint:
+      type: object
+      properties:
+        system:
+          type: string
+          enum:
+          - phone
+          - fax
+          - email
+          - pager
+          - url
+          - sms
+          - other
+        value:
+          type: string
+        use:
+          type: string
+          enum:
+          - home
+          - work
+          - temp
+          - old
+          - mobile
+    FHIRResource:
+      type: object
+      description: Base FHIR R4 resource properties
+      properties:
+        resourceType:
+          type: string
+          description: FHIR resource type name
+        id:
+          type: string
+          description: Logical id of this artifact
+        meta:
+          $ref: '#/components/schemas/Meta'
+        text:
+          $ref: '#/components/schemas/Narrative'
+    OperationOutcome:
+      type: object
+      properties:
+        resourceType:
+          type: string
+          default: OperationOutcome
+        issue:
           type: array
           items:
-            $ref: '#/components/schemas/Coding'
-  parameters:
-    resourceId:
-      name: id
-      in: path
-      required: true
-      schema:
-        type: string
-      description: Logical ID of the FHIR resource
-    count:
-      name: _count
-      in: query
-      schema:
-        type: integer
-        default: 20
-      description: Maximum number of results per page
-    pageToken:
-      name: _page_token
-      in: query
-      schema:
-        type: string
-      description: Pagination token for next page
+            type: object
+            properties:
+              severity:
+                type: string
+                enum:
+                - fatal
+                - error
+                - warning
+                - information
+              code:
+                type: string
+              details:
+                $ref: '#/components/schemas/CodeableConcept'
+              diagnostics:
+                type: string
+              location:
+                type: array
+                items:
+                  type: string
   responses:
     ResourceNotFound:
       description: Resource not found

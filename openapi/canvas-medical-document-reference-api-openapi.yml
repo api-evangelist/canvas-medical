@@ -91,18 +91,48 @@ paths:
         '404':
           $ref: '#/components/responses/ResourceNotFound'
 components:
+  parameters:
+    resourceId:
+      name: id
+      in: path
+      required: true
+      schema:
+        type: string
+      description: Logical ID of the FHIR resource
+    patient:
+      name: patient
+      in: query
+      schema:
+        type: string
+      description: Filter by patient ID or reference
+    status:
+      name: status
+      in: query
+      schema:
+        type: string
+      description: Filter by resource status
+    pageToken:
+      name: _page_token
+      in: query
+      schema:
+        type: string
+      description: Pagination token for next page
+    count:
+      name: _count
+      in: query
+      schema:
+        type: integer
+        default: 20
+      description: Maximum number of results per page
   schemas:
-    Narrative:
+    CodeableConcept:
       type: object
       properties:
-        status:
-          type: string
-          enum:
-          - generated
-          - extensions
-          - additional
-          - empty
-        div:
+        coding:
+          type: array
+          items:
+            $ref: '#/components/schemas/Coding'
+        text:
           type: string
     OperationOutcome:
       type: object
@@ -132,97 +162,24 @@ components:
                 type: array
                 items:
                   type: string
-    Reference:
+    Meta:
       type: object
       properties:
-        reference:
+        versionId:
           type: string
-        type:
+        lastUpdated:
           type: string
-        display:
+          format: date-time
+        source:
           type: string
-    CodeableConcept:
-      type: object
-      properties:
-        coding:
+        profile:
+          type: array
+          items:
+            type: string
+        tag:
           type: array
           items:
             $ref: '#/components/schemas/Coding'
-        text:
-          type: string
-    FHIRResource:
-      type: object
-      description: Base FHIR R4 resource properties
-      properties:
-        resourceType:
-          type: string
-          description: FHIR resource type name
-        id:
-          type: string
-          description: Logical id of this artifact
-        meta:
-          $ref: '#/components/schemas/Meta'
-        text:
-          $ref: '#/components/schemas/Narrative'
-    Coding:
-      type: object
-      properties:
-        system:
-          type: string
-        version:
-          type: string
-        code:
-          type: string
-        display:
-          type: string
-        userSelected:
-          type: boolean
-    DocumentReference:
-      allOf:
-      - $ref: '#/components/schemas/FHIRResource'
-      - type: object
-        required:
-        - resourceType
-        - status
-        - content
-        properties:
-          resourceType:
-            type: string
-            default: DocumentReference
-          status:
-            type: string
-            enum:
-            - current
-            - superseded
-            - entered-in-error
-          type:
-            $ref: '#/components/schemas/CodeableConcept'
-          category:
-            type: array
-            items:
-              $ref: '#/components/schemas/CodeableConcept'
-          subject:
-            $ref: '#/components/schemas/Reference'
-          date:
-            type: string
-            format: date-time
-          content:
-            type: array
-            items:
-              type: object
-              properties:
-                attachment:
-                  type: object
-                  properties:
-                    contentType:
-                      type: string
-                    data:
-                      type: string
-                      format: byte
-                    url:
-                      type: string
-                    title:
-                      type: string
     Bundle:
       type: object
       properties:
@@ -273,64 +230,101 @@ components:
                     - match
                     - include
                     - outcome
-    Meta:
+    Coding:
       type: object
       properties:
-        versionId:
+        system:
           type: string
-        lastUpdated:
+        version:
           type: string
-          format: date-time
-        source:
+        code:
           type: string
-        profile:
-          type: array
-          items:
+        display:
+          type: string
+        userSelected:
+          type: boolean
+    Reference:
+      type: object
+      properties:
+        reference:
+          type: string
+        type:
+          type: string
+        display:
+          type: string
+    Narrative:
+      type: object
+      properties:
+        status:
+          type: string
+          enum:
+          - generated
+          - extensions
+          - additional
+          - empty
+        div:
+          type: string
+    FHIRResource:
+      type: object
+      description: Base FHIR R4 resource properties
+      properties:
+        resourceType:
+          type: string
+          description: FHIR resource type name
+        id:
+          type: string
+          description: Logical id of this artifact
+        meta:
+          $ref: '#/components/schemas/Meta'
+        text:
+          $ref: '#/components/schemas/Narrative'
+    DocumentReference:
+      allOf:
+      - $ref: '#/components/schemas/FHIRResource'
+      - type: object
+        required:
+        - resourceType
+        - status
+        - content
+        properties:
+          resourceType:
             type: string
-        tag:
-          type: array
-          items:
-            $ref: '#/components/schemas/Coding'
-  parameters:
-    patient:
-      name: patient
-      in: query
-      schema:
-        type: string
-      description: Filter by patient ID or reference
-    resourceId:
-      name: id
-      in: path
-      required: true
-      schema:
-        type: string
-      description: Logical ID of the FHIR resource
-    pageToken:
-      name: _page_token
-      in: query
-      schema:
-        type: string
-      description: Pagination token for next page
-    status:
-      name: status
-      in: query
-      schema:
-        type: string
-      description: Filter by resource status
-    count:
-      name: _count
-      in: query
-      schema:
-        type: integer
-        default: 20
-      description: Maximum number of results per page
+            default: DocumentReference
+          status:
+            type: string
+            enum:
+            - current
+            - superseded
+            - entered-in-error
+          type:
+            $ref: '#/components/schemas/CodeableConcept'
+          category:
+            type: array
+            items:
+              $ref: '#/components/schemas/CodeableConcept'
+          subject:
+            $ref: '#/components/schemas/Reference'
+          date:
+            type: string
+            format: date-time
+          content:
+            type: array
+            items:
+              type: object
+              properties:
+                attachment:
+                  type: object
+                  properties:
+                    contentType:
+                      type: string
+                    data:
+                      type: string
+                      format: byte
+                    url:
+                      type: string
+                    title:
+                      type: string
   responses:
-    Unauthorized:
-      description: Authentication required
-      content:
-        application/fhir+json:
-          schema:
-            $ref: '#/components/schemas/OperationOutcome'
     ResourceNotFound:
       description: Resource not found
       content:
@@ -339,6 +333,12 @@ components:
             $ref: '#/components/schemas/OperationOutcome'
     UnprocessableEntity:
       description: Validation error
+      content:
+        application/fhir+json:
+          schema:
+            $ref: '#/components/schemas/OperationOutcome'
+    Unauthorized:
+      description: Authentication required
       content:
         application/fhir+json:
           schema:

@@ -66,17 +66,23 @@ paths:
           $ref: '#/components/responses/ResourceNotFound'
 components:
   schemas:
-    Narrative:
+    Period:
       type: object
       properties:
-        status:
+        start:
           type: string
-          enum:
-          - generated
-          - extensions
-          - additional
-          - empty
-        div:
+          format: date-time
+        end:
+          type: string
+          format: date-time
+    CodeableConcept:
+      type: object
+      properties:
+        coding:
+          type: array
+          items:
+            $ref: '#/components/schemas/Coding'
+        text:
           type: string
     OperationOutcome:
       type: object
@@ -106,102 +112,24 @@ components:
                 type: array
                 items:
                   type: string
-    Reference:
+    Meta:
       type: object
       properties:
-        reference:
+        versionId:
           type: string
-        type:
+        lastUpdated:
           type: string
-        display:
+          format: date-time
+        source:
           type: string
-    CodeableConcept:
-      type: object
-      properties:
-        coding:
+        profile:
+          type: array
+          items:
+            type: string
+        tag:
           type: array
           items:
             $ref: '#/components/schemas/Coding'
-        text:
-          type: string
-    FHIRResource:
-      type: object
-      description: Base FHIR R4 resource properties
-      properties:
-        resourceType:
-          type: string
-          description: FHIR resource type name
-        id:
-          type: string
-          description: Logical id of this artifact
-        meta:
-          $ref: '#/components/schemas/Meta'
-        text:
-          $ref: '#/components/schemas/Narrative'
-    Period:
-      type: object
-      properties:
-        start:
-          type: string
-          format: date-time
-        end:
-          type: string
-          format: date-time
-    CarePlan:
-      allOf:
-      - $ref: '#/components/schemas/FHIRResource'
-      - type: object
-        required:
-        - resourceType
-        - status
-        - intent
-        - subject
-        properties:
-          resourceType:
-            type: string
-            default: CarePlan
-          status:
-            type: string
-            enum:
-            - draft
-            - active
-            - on-hold
-            - revoked
-            - completed
-            - entered-in-error
-            - unknown
-          intent:
-            type: string
-            enum:
-            - proposal
-            - plan
-            - order
-            - option
-          title:
-            type: string
-          description:
-            type: string
-          subject:
-            $ref: '#/components/schemas/Reference'
-          period:
-            $ref: '#/components/schemas/Period'
-          activity:
-            type: array
-            items:
-              type: object
-    Coding:
-      type: object
-      properties:
-        system:
-          type: string
-        version:
-          type: string
-        code:
-          type: string
-        display:
-          type: string
-        userSelected:
-          type: boolean
     Bundle:
       type: object
       properties:
@@ -252,31 +180,97 @@ components:
                     - match
                     - include
                     - outcome
-    Meta:
+    Coding:
       type: object
       properties:
-        versionId:
+        system:
           type: string
-        lastUpdated:
+        version:
           type: string
-          format: date-time
-        source:
+        code:
           type: string
-        profile:
-          type: array
-          items:
+        display:
+          type: string
+        userSelected:
+          type: boolean
+    Reference:
+      type: object
+      properties:
+        reference:
+          type: string
+        type:
+          type: string
+        display:
+          type: string
+    Narrative:
+      type: object
+      properties:
+        status:
+          type: string
+          enum:
+          - generated
+          - extensions
+          - additional
+          - empty
+        div:
+          type: string
+    CarePlan:
+      allOf:
+      - $ref: '#/components/schemas/FHIRResource'
+      - type: object
+        required:
+        - resourceType
+        - status
+        - intent
+        - subject
+        properties:
+          resourceType:
             type: string
-        tag:
-          type: array
-          items:
-            $ref: '#/components/schemas/Coding'
+            default: CarePlan
+          status:
+            type: string
+            enum:
+            - draft
+            - active
+            - on-hold
+            - revoked
+            - completed
+            - entered-in-error
+            - unknown
+          intent:
+            type: string
+            enum:
+            - proposal
+            - plan
+            - order
+            - option
+          title:
+            type: string
+          description:
+            type: string
+          subject:
+            $ref: '#/components/schemas/Reference'
+          period:
+            $ref: '#/components/schemas/Period'
+          activity:
+            type: array
+            items:
+              type: object
+    FHIRResource:
+      type: object
+      description: Base FHIR R4 resource properties
+      properties:
+        resourceType:
+          type: string
+          description: FHIR resource type name
+        id:
+          type: string
+          description: Logical id of this artifact
+        meta:
+          $ref: '#/components/schemas/Meta'
+        text:
+          $ref: '#/components/schemas/Narrative'
   parameters:
-    patient:
-      name: patient
-      in: query
-      schema:
-        type: string
-      description: Filter by patient ID or reference
     resourceId:
       name: id
       in: path
@@ -284,18 +278,24 @@ components:
       schema:
         type: string
       description: Logical ID of the FHIR resource
-    pageToken:
-      name: _page_token
+    patient:
+      name: patient
       in: query
       schema:
         type: string
-      description: Pagination token for next page
+      description: Filter by patient ID or reference
     status:
       name: status
       in: query
       schema:
         type: string
       description: Filter by resource status
+    pageToken:
+      name: _page_token
+      in: query
+      schema:
+        type: string
+      description: Pagination token for next page
     count:
       name: _count
       in: query
@@ -304,14 +304,14 @@ components:
         default: 20
       description: Maximum number of results per page
   responses:
-    Unauthorized:
-      description: Authentication required
+    ResourceNotFound:
+      description: Resource not found
       content:
         application/fhir+json:
           schema:
             $ref: '#/components/schemas/OperationOutcome'
-    ResourceNotFound:
-      description: Resource not found
+    Unauthorized:
+      description: Authentication required
       content:
         application/fhir+json:
           schema:
