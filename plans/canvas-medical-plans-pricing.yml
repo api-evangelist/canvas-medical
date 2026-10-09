@@ -52,3 +52,25 @@ notes:
   - Canvas provides self-serve tools and documentation rather than paid customization
   - Some selective customers may incur pass-through add-on service costs with invoice transparency
   - Both plans include unlimited API calls with no additional per-call charges
+x-canonical:
+  generated: '2026-10-08'
+  vocabulary: all/0-working/economics/plans-canonical.yml
+  models:
+  - subscription
+  units:
+  - period
+  plans:
+  - name: Builder
+    access: other
+    model: subscription
+    model_how: derived
+    units:
+    - period
+    periods: []
+  - name: Enterprise
+    access: other
+    model: unstated
+    model_how: derived
+    units:
+    - period
+    periods: []
