@@ -1,0 +1,192 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/canvas-medical/main/json-schema/canvas-medical-document-reference-schema.json",
+  "title": "DocumentReference",
+  "x-generated": "2026-10-12",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/canvas-medical-document-reference-api-openapi.yml#/components/schemas/DocumentReference",
+  "allOf": [
+    {
+      "$ref": "#/$defs/FHIRResource"
+    },
+    {
+      "type": "object",
+      "required": [
+        "resourceType",
+        "status",
+        "content"
+      ],
+      "properties": {
+        "resourceType": {
+          "type": "string",
+          "default": "DocumentReference"
+        },
+        "status": {
+          "type": "string",
+          "enum": [
+            "current",
+            "superseded",
+            "entered-in-error"
+          ]
+        },
+        "type": {
+          "$ref": "#/$defs/CodeableConcept"
+        },
+        "category": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/CodeableConcept"
+          }
+        },
+        "subject": {
+          "$ref": "#/$defs/Reference"
+        },
+        "date": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "content": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "attachment": {
+                "type": "object",
+                "properties": {
+                  "contentType": {
+                    "type": "string"
+                  },
+                  "data": {
+                    "type": "string",
+                    "format": "byte"
+                  },
+                  "url": {
+                    "type": "string"
+                  },
+                  "title": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  ],
+  "$defs": {
+    "CodeableConcept": {
+      "type": "object",
+      "properties": {
+        "coding": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/Coding"
+          }
+        },
+        "text": {
+          "type": "string"
+        }
+      }
+    },
+    "Coding": {
+      "type": "object",
+      "properties": {
+        "system": {
+          "type": "string"
+        },
+        "version": {
+          "type": "string"
+        },
+        "code": {
+          "type": "string"
+        },
+        "display": {
+          "type": "string"
+        },
+        "userSelected": {
+          "type": "boolean"
+        }
+      }
+    },
+    "FHIRResource": {
+      "type": "object",
+      "description": "Base FHIR R4 resource properties",
+      "properties": {
+        "resourceType": {
+          "type": "string",
+          "description": "FHIR resource type name"
+        },
+        "id": {
+          "type": "string",
+          "description": "Logical id of this artifact"
+        },
+        "meta": {
+          "$ref": "#/$defs/Meta"
+        },
+        "text": {
+          "$ref": "#/$defs/Narrative"
+        }
+      }
+    },
+    "Meta": {
+      "type": "object",
+      "properties": {
+        "versionId": {
+          "type": "string"
+        },
+        "lastUpdated": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "source": {
+          "type": "string"
+        },
+        "profile": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "tag": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/Coding"
+          }
+        }
+      }
+    },
+    "Narrative": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "string",
+          "enum": [
+            "generated",
+            "extensions",
+            "additional",
+            "empty"
+          ]
+        },
+        "div": {
+          "type": "string"
+        }
+      }
+    },
+    "Reference": {
+      "type": "object",
+      "properties": {
+        "reference": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string"
+        },
+        "display": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}

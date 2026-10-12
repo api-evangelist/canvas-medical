@@ -1,0 +1,194 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/canvas-medical/main/json-schema/canvas-medical-allergy-intolerance-schema.json",
+  "title": "AllergyIntolerance",
+  "x-generated": "2026-10-12",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/canvas-medical-allergy-intolerance-api-openapi.yml#/components/schemas/AllergyIntolerance",
+  "allOf": [
+    {
+      "$ref": "#/$defs/FHIRResource"
+    },
+    {
+      "type": "object",
+      "required": [
+        "resourceType",
+        "patient"
+      ],
+      "properties": {
+        "resourceType": {
+          "type": "string",
+          "default": "AllergyIntolerance"
+        },
+        "clinicalStatus": {
+          "$ref": "#/$defs/CodeableConcept"
+        },
+        "verificationStatus": {
+          "$ref": "#/$defs/CodeableConcept"
+        },
+        "type": {
+          "type": "string",
+          "enum": [
+            "allergy",
+            "intolerance"
+          ]
+        },
+        "category": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": [
+              "food",
+              "medication",
+              "environment",
+              "biologic"
+            ]
+          }
+        },
+        "code": {
+          "$ref": "#/$defs/CodeableConcept"
+        },
+        "patient": {
+          "$ref": "#/$defs/Reference"
+        },
+        "reaction": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "manifestation": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/$defs/CodeableConcept"
+                }
+              },
+              "severity": {
+                "type": "string",
+                "enum": [
+                  "mild",
+                  "moderate",
+                  "severe"
+                ]
+              }
+            }
+          }
+        }
+      }
+    }
+  ],
+  "$defs": {
+    "CodeableConcept": {
+      "type": "object",
+      "properties": {
+        "coding": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/Coding"
+          }
+        },
+        "text": {
+          "type": "string"
+        }
+      }
+    },
+    "Coding": {
+      "type": "object",
+      "properties": {
+        "system": {
+          "type": "string"
+        },
+        "version": {
+          "type": "string"
+        },
+        "code": {
+          "type": "string"
+        },
+        "display": {
+          "type": "string"
+        },
+        "userSelected": {
+          "type": "boolean"
+        }
+      }
+    },
+    "FHIRResource": {
+      "type": "object",
+      "description": "Base FHIR R4 resource properties",
+      "properties": {
+        "resourceType": {
+          "type": "string",
+          "description": "FHIR resource type name"
+        },
+        "id": {
+          "type": "string",
+          "description": "Logical id of this artifact"
+        },
+        "meta": {
+          "$ref": "#/$defs/Meta"
+        },
+        "text": {
+          "$ref": "#/$defs/Narrative"
+        }
+      }
+    },
+    "Meta": {
+      "type": "object",
+      "properties": {
+        "versionId": {
+          "type": "string"
+        },
+        "lastUpdated": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "source": {
+          "type": "string"
+        },
+        "profile": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "tag": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/Coding"
+          }
+        }
+      }
+    },
+    "Narrative": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "string",
+          "enum": [
+            "generated",
+            "extensions",
+            "additional",
+            "empty"
+          ]
+        },
+        "div": {
+          "type": "string"
+        }
+      }
+    },
+    "Reference": {
+      "type": "object",
+      "properties": {
+        "reference": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string"
+        },
+        "display": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}

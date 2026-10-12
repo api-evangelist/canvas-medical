@@ -1,0 +1,54 @@
+generated: '2026-10-12'
+method: searched
+source:
+- https://zapier.com/apps/canvas-medical/integrations
+- https://n8n.io/integrations/canvas-medical/
+- https://composio.dev/toolkits/canvas-medical
+- https://monid.ai/tools/canvas-medical
+checked:
+- https://composio.dev/toolkits/canvas-medical
+- https://monid.ai/tools/canvas-medical
+- https://n8n.io/integrations/canvas-medical/
+- https://www.canvasmedical.com/partners
+- https://zapier.com/apps/canvas-medical/integrations
+summary: Six certified plugin development partners named on canvasmedical.com/partners; no Zapier/n8n/Make marketplace
+  listing.
+marketplace_apps: []
+edges:
+- partner_name: Glazed
+  partner: null
+  type: claimed
+  evidence: https://www.canvasmedical.com/partners
+  direction: partner-built
+  note: Listed as a certified Canvas plugin development partner (services firm), not a product integration.
+- partner_name: Kicksaw
+  partner: null
+  type: claimed
+  evidence: https://www.canvasmedical.com/partners
+  direction: partner-built
+  note: Listed as a certified Canvas plugin development partner (services firm), not a product integration.
+- partner_name: Light-it
+  partner: null
+  type: claimed
+  evidence: https://www.canvasmedical.com/partners
+  direction: partner-built
+  note: Listed as a certified Canvas plugin development partner (services firm), not a product integration.
+- partner_name: Rockview Partners
+  partner: null
+  type: claimed
+  evidence: https://www.canvasmedical.com/partners
+  direction: partner-built
+  note: Listed as a certified Canvas plugin development partner (services firm), not a product integration.
+- partner_name: Vicert
+  partner: null
+  type: claimed
+  evidence: https://www.canvasmedical.com/partners
+  direction: partner-built
+  note: Listed as a certified Canvas plugin development partner (services firm), not a product integration.
+- partner_name: Yalantis
+  partner: null
+  type: claimed
+  evidence: https://www.canvasmedical.com/partners
+  direction: partner-built
+  note: Listed as a certified Canvas plugin development partner (services firm), not a product integration.
+templates: []

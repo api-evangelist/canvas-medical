@@ -1,0 +1,270 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/canvas-medical/main/json-schema/canvas-medical-organization-schema.json",
+  "title": "Organization",
+  "x-generated": "2026-10-12",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/canvas-medical-organization-api-openapi.yml#/components/schemas/Organization",
+  "allOf": [
+    {
+      "$ref": "#/$defs/FHIRResource"
+    },
+    {
+      "type": "object",
+      "properties": {
+        "resourceType": {
+          "type": "string",
+          "default": "Organization"
+        },
+        "identifier": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/Identifier"
+          }
+        },
+        "active": {
+          "type": "boolean"
+        },
+        "type": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/CodeableConcept"
+          }
+        },
+        "name": {
+          "type": "string"
+        },
+        "telecom": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/ContactPoint"
+          }
+        },
+        "address": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/Address"
+          }
+        }
+      }
+    }
+  ],
+  "$defs": {
+    "Address": {
+      "type": "object",
+      "properties": {
+        "use": {
+          "type": "string",
+          "enum": [
+            "home",
+            "work",
+            "temp",
+            "old",
+            "billing"
+          ]
+        },
+        "type": {
+          "type": "string",
+          "enum": [
+            "postal",
+            "physical",
+            "both"
+          ]
+        },
+        "text": {
+          "type": "string"
+        },
+        "line": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "city": {
+          "type": "string"
+        },
+        "district": {
+          "type": "string"
+        },
+        "state": {
+          "type": "string"
+        },
+        "postalCode": {
+          "type": "string"
+        },
+        "country": {
+          "type": "string"
+        }
+      }
+    },
+    "CodeableConcept": {
+      "type": "object",
+      "properties": {
+        "coding": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/Coding"
+          }
+        },
+        "text": {
+          "type": "string"
+        }
+      }
+    },
+    "Coding": {
+      "type": "object",
+      "properties": {
+        "system": {
+          "type": "string"
+        },
+        "version": {
+          "type": "string"
+        },
+        "code": {
+          "type": "string"
+        },
+        "display": {
+          "type": "string"
+        },
+        "userSelected": {
+          "type": "boolean"
+        }
+      }
+    },
+    "ContactPoint": {
+      "type": "object",
+      "properties": {
+        "system": {
+          "type": "string",
+          "enum": [
+            "phone",
+            "fax",
+            "email",
+            "pager",
+            "url",
+            "sms",
+            "other"
+          ]
+        },
+        "value": {
+          "type": "string"
+        },
+        "use": {
+          "type": "string",
+          "enum": [
+            "home",
+            "work",
+            "temp",
+            "old",
+            "mobile"
+          ]
+        }
+      }
+    },
+    "FHIRResource": {
+      "type": "object",
+      "description": "Base FHIR R4 resource properties",
+      "properties": {
+        "resourceType": {
+          "type": "string",
+          "description": "FHIR resource type name"
+        },
+        "id": {
+          "type": "string",
+          "description": "Logical id of this artifact"
+        },
+        "meta": {
+          "$ref": "#/$defs/Meta"
+        },
+        "text": {
+          "$ref": "#/$defs/Narrative"
+        }
+      }
+    },
+    "Identifier": {
+      "type": "object",
+      "properties": {
+        "use": {
+          "type": "string",
+          "enum": [
+            "usual",
+            "official",
+            "temp",
+            "secondary",
+            "old"
+          ]
+        },
+        "type": {
+          "$ref": "#/$defs/CodeableConcept"
+        },
+        "system": {
+          "type": "string"
+        },
+        "value": {
+          "type": "string"
+        },
+        "period": {
+          "$ref": "#/$defs/Period"
+        }
+      }
+    },
+    "Meta": {
+      "type": "object",
+      "properties": {
+        "versionId": {
+          "type": "string"
+        },
+        "lastUpdated": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "source": {
+          "type": "string"
+        },
+        "profile": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "tag": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/Coding"
+          }
+        }
+      }
+    },
+    "Narrative": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "string",
+          "enum": [
+            "generated",
+            "extensions",
+            "additional",
+            "empty"
+          ]
+        },
+        "div": {
+          "type": "string"
+        }
+      }
+    },
+    "Period": {
+      "type": "object",
+      "properties": {
+        "start": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "end": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    }
+  }
+}

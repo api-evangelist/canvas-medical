@@ -1,0 +1,123 @@
+generated: '2026-10-12'
+method: derived
+source: the pre-flight dossier, apis.yml pointers, spec servers, well-known, vendors -- nothing fetched here
+generator: derive-hosts.py
+summary:
+  hosts: 9
+  own: 5
+  other_domain: 0
+  platform: 4
+  roles:
+  - other
+  - portal
+  - status
+  - support
+  - website
+hosts:
+- host: docs.canvasmedical.com
+  found_by:
+  - pointer
+  - apis[]
+  - vendor-detect
+  types:
+  - Documentation
+  - GettingStarted
+  - ReleaseNotes
+  - Compliance
+  - Deprecation
+  - Roadmap
+  - DeveloperPortal
+  - APIReference
+  serves:
+  - docs
+  - cdn
+  vendor: cloudfront
+  registrable_domain: canvasmedical.com
+  role: portal
+  relation: own
+- host: fumage-{canvas-instance}.canvasmedical.com
+  found_by:
+  - apis[]
+  types: []
+  serves:
+  - api
+  registrable_domain: canvasmedical.com
+  role: other
+  relation: own
+- host: github.com
+  found_by:
+  - pointer
+  types:
+  - GitHubOrg
+  serves: []
+  registrable_domain: github.com
+  role: other
+  relation: platform
+- host: help.canvasmedical.com
+  found_by:
+  - pointer
+  types:
+  - Support
+  serves: []
+  registrable_domain: canvasmedical.com
+  role: support
+  relation: own
+- host: pypi.org
+  found_by:
+  - apis[]
+  - vendor-detect
+  types: []
+  serves:
+  - api
+  - cdn
+  vendor: fastly
+  registrable_domain: pypi.org
+  role: other
+  relation: platform
+- host: status.canvasmedical.com
+  found_by:
+  - pointer
+  - vendor-detect
+  types:
+  - StatusPage
+  serves:
+  - status-page
+  vendor: instatus
+  registrable_domain: canvasmedical.com
+  role: status
+  relation: own
+- host: www.canvasmedical.com
+  found_by:
+  - pointer
+  - vendor-detect
+  types:
+  - Website
+  - Blog
+  - Pricing
+  - Sandbox
+  - PrivacyPolicy
+  - TermsOfService
+  serves:
+  - hosting
+  vendor: vercel
+  registrable_domain: canvasmedical.com
+  role: website
+  relation: own
+- host: www.linkedin.com
+  found_by:
+  - pointer
+  types:
+  - LinkedIn
+  serves: []
+  registrable_domain: linkedin.com
+  role: other
+  relation: platform
+- host: x.com
+  found_by:
+  - pointer
+  types:
+  - X
+  serves: []
+  registrable_domain: x.com
+  role: other
+  relation: platform

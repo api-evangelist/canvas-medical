@@ -1,0 +1,192 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/canvas-medical/main/json-schema/canvas-medical-task-schema.json",
+  "title": "Task",
+  "x-generated": "2026-10-12",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/canvas-medical-task-api-openapi.yml#/components/schemas/Task",
+  "allOf": [
+    {
+      "$ref": "#/$defs/FHIRResource"
+    },
+    {
+      "type": "object",
+      "required": [
+        "resourceType",
+        "status",
+        "intent"
+      ],
+      "properties": {
+        "resourceType": {
+          "type": "string",
+          "default": "Task"
+        },
+        "status": {
+          "type": "string",
+          "enum": [
+            "draft",
+            "requested",
+            "received",
+            "accepted",
+            "rejected",
+            "ready",
+            "cancelled",
+            "in-progress",
+            "on-hold",
+            "failed",
+            "completed",
+            "entered-in-error"
+          ]
+        },
+        "intent": {
+          "type": "string",
+          "enum": [
+            "unknown",
+            "proposal",
+            "plan",
+            "order",
+            "original-order",
+            "reflex-order",
+            "filler-order",
+            "instance-order",
+            "option"
+          ]
+        },
+        "code": {
+          "$ref": "#/$defs/CodeableConcept"
+        },
+        "description": {
+          "type": "string"
+        },
+        "focus": {
+          "$ref": "#/$defs/Reference"
+        },
+        "for": {
+          "$ref": "#/$defs/Reference"
+        },
+        "authoredOn": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "owner": {
+          "$ref": "#/$defs/Reference"
+        }
+      }
+    }
+  ],
+  "$defs": {
+    "CodeableConcept": {
+      "type": "object",
+      "properties": {
+        "coding": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/Coding"
+          }
+        },
+        "text": {
+          "type": "string"
+        }
+      }
+    },
+    "Coding": {
+      "type": "object",
+      "properties": {
+        "system": {
+          "type": "string"
+        },
+        "version": {
+          "type": "string"
+        },
+        "code": {
+          "type": "string"
+        },
+        "display": {
+          "type": "string"
+        },
+        "userSelected": {
+          "type": "boolean"
+        }
+      }
+    },
+    "FHIRResource": {
+      "type": "object",
+      "description": "Base FHIR R4 resource properties",
+      "properties": {
+        "resourceType": {
+          "type": "string",
+          "description": "FHIR resource type name"
+        },
+        "id": {
+          "type": "string",
+          "description": "Logical id of this artifact"
+        },
+        "meta": {
+          "$ref": "#/$defs/Meta"
+        },
+        "text": {
+          "$ref": "#/$defs/Narrative"
+        }
+      }
+    },
+    "Meta": {
+      "type": "object",
+      "properties": {
+        "versionId": {
+          "type": "string"
+        },
+        "lastUpdated": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "source": {
+          "type": "string"
+        },
+        "profile": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "tag": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/Coding"
+          }
+        }
+      }
+    },
+    "Narrative": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "string",
+          "enum": [
+            "generated",
+            "extensions",
+            "additional",
+            "empty"
+          ]
+        },
+        "div": {
+          "type": "string"
+        }
+      }
+    },
+    "Reference": {
+      "type": "object",
+      "properties": {
+        "reference": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string"
+        },
+        "display": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}

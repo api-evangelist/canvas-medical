@@ -1,0 +1,168 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/canvas-medical/main/json-schema/canvas-medical-procedure-schema.json",
+  "title": "Procedure",
+  "x-generated": "2026-10-12",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/canvas-medical-procedure-api-openapi.yml#/components/schemas/Procedure",
+  "allOf": [
+    {
+      "$ref": "#/$defs/FHIRResource"
+    },
+    {
+      "type": "object",
+      "required": [
+        "resourceType",
+        "status",
+        "subject"
+      ],
+      "properties": {
+        "resourceType": {
+          "type": "string",
+          "default": "Procedure"
+        },
+        "status": {
+          "type": "string",
+          "enum": [
+            "preparation",
+            "in-progress",
+            "not-done",
+            "on-hold",
+            "stopped",
+            "completed",
+            "entered-in-error",
+            "unknown"
+          ]
+        },
+        "code": {
+          "$ref": "#/$defs/CodeableConcept"
+        },
+        "subject": {
+          "$ref": "#/$defs/Reference"
+        },
+        "encounter": {
+          "$ref": "#/$defs/Reference"
+        },
+        "performedDateTime": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    }
+  ],
+  "$defs": {
+    "CodeableConcept": {
+      "type": "object",
+      "properties": {
+        "coding": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/Coding"
+          }
+        },
+        "text": {
+          "type": "string"
+        }
+      }
+    },
+    "Coding": {
+      "type": "object",
+      "properties": {
+        "system": {
+          "type": "string"
+        },
+        "version": {
+          "type": "string"
+        },
+        "code": {
+          "type": "string"
+        },
+        "display": {
+          "type": "string"
+        },
+        "userSelected": {
+          "type": "boolean"
+        }
+      }
+    },
+    "FHIRResource": {
+      "type": "object",
+      "description": "Base FHIR R4 resource properties",
+      "properties": {
+        "resourceType": {
+          "type": "string",
+          "description": "FHIR resource type name"
+        },
+        "id": {
+          "type": "string",
+          "description": "Logical id of this artifact"
+        },
+        "meta": {
+          "$ref": "#/$defs/Meta"
+        },
+        "text": {
+          "$ref": "#/$defs/Narrative"
+        }
+      }
+    },
+    "Meta": {
+      "type": "object",
+      "properties": {
+        "versionId": {
+          "type": "string"
+        },
+        "lastUpdated": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "source": {
+          "type": "string"
+        },
+        "profile": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "tag": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/Coding"
+          }
+        }
+      }
+    },
+    "Narrative": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "string",
+          "enum": [
+            "generated",
+            "extensions",
+            "additional",
+            "empty"
+          ]
+        },
+        "div": {
+          "type": "string"
+        }
+      }
+    },
+    "Reference": {
+      "type": "object",
+      "properties": {
+        "reference": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string"
+        },
+        "display": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}

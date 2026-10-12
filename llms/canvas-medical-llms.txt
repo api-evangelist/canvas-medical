@@ -10,6 +10,7 @@ This site documents how to extend and integrate with Canvas Medical, an EHR plat
 - [Calendar Create](https://docs.canvasmedical.com/sdk/calendar-create-effect.md): Effect for creating a calendar for a provider
 - [Calendar Event Management](https://docs.canvasmedical.com/sdk/calendar-event-management-effects.md): Effects for creating, updating, and deleting calendar events
 - [Canvas CLI](https://docs.canvasmedical.com/sdk/canvas_cli.md)
+- [Canvas Manifest](https://docs.canvasmedical.com/sdk/canvas_manifest.md): Reference for every field in a plugin's CANVAS_MANIFEST.json
 - [AWS S3](https://docs.canvasmedical.com/sdk/clients-aws-s3.md)
 - [Canvas FHIR](https://docs.canvasmedical.com/sdk/clients-canvas-fhir.md)
 - [Extend AI](https://docs.canvasmedical.com/sdk/clients-extend-ai.md)
@@ -39,27 +40,39 @@ This site documents how to extend and integrate with Canvas Medical, an EHR plat
 - [BillingLineItem](https://docs.canvasmedical.com/sdk/data-billing-line-item.md): Canvas SDK BillingLineItem
 - [BusinessLine](https://docs.canvasmedical.com/sdk/data-business-line.md): Canvas SDK BusinessLine
 - [Calendar](https://docs.canvasmedical.com/sdk/data-calendar.md): Canvas SDK Calendar
+- [CancelPrescriptionResponse](https://docs.canvasmedical.com/sdk/data-cancel-prescription-response.md): Canvas SDK CancelPrescriptionResponse
+- [CancelPrescription](https://docs.canvasmedical.com/sdk/data-cancel-prescription.md): Canvas SDK CancelPrescription
 - [CanvasUser](https://docs.canvasmedical.com/sdk/data-canvasuser.md): Canvas SDK User
 - [CareTeam](https://docs.canvasmedical.com/sdk/data-care-team.md): Canvas SDK CareTeam
 - [Change Medication](https://docs.canvasmedical.com/sdk/data-change-medication.md): Canvas SDK Change Medication
 - [ChargeDescriptionMaster](https://docs.canvasmedical.com/sdk/data-charge-description-master.md): Canvas SDK ChargeDescriptionMaster
 - [ChartSectionReview](https://docs.canvasmedical.com/sdk/data-chart-section-review.md): Canvas SDK ChartSectionReview
 - [Claim](https://docs.canvasmedical.com/sdk/data-claim.md): Canvas SDK Claim and related models
+- [Clipboard](https://docs.canvasmedical.com/sdk/data-clipboard.md): Canvas SDK Clipboard
+- [Coding Gap Events](https://docs.canvasmedical.com/sdk/data-coding-gap-event.md): Canvas SDK Coding Gap Events
 - [Command](https://docs.canvasmedical.com/sdk/data-command.md): Canvas SDK Command
 - [CompoundMedication](https://docs.canvasmedical.com/sdk/data-compound-medication.md): Canvas SDK CompoundMedication
 - [Condition](https://docs.canvasmedical.com/sdk/data-condition.md): Canvas SDK Condition
 - [ContentType](https://docs.canvasmedical.com/sdk/data-content-type.md): Canvas SDK ContentType
 - [Coverage](https://docs.canvasmedical.com/sdk/data-coverage.md): Canvas SDK Coverage
+- [CustomCommand](https://docs.canvasmedical.com/sdk/data-custom-command.md): Canvas SDK CustomCommand
 - [DetectedIssue](https://docs.canvasmedical.com/sdk/data-detected-issue.md): Canvas SDK DetectedIssue
 - [Device](https://docs.canvasmedical.com/sdk/data-device.md): Canvas SDK Device
+- [DiagnosticView](https://docs.canvasmedical.com/sdk/data-diagnostic-view.md): Canvas SDK DiagnosticView
 - [DocumentReference](https://docs.canvasmedical.com/sdk/data-document-reference.md): References to documents stored in Canvas, with presigned URL support for secure access.
 - [Document Review Delegation](https://docs.canvasmedical.com/sdk/data-document-review-delegation.md): Canvas SDK Document Review Delegation
 - [EducationalMaterial](https://docs.canvasmedical.com/sdk/data-educational-material.md): Patient educational material shared from a note via the Educational Material command.
+- [EligibilityResponse](https://docs.canvasmedical.com/sdk/data-eligibility-response.md): Canvas SDK EligibilityResponse
 - [Encounter](https://docs.canvasmedical.com/sdk/data-encounter.md): Canvas SDK Encounter
 - [Common Enumeration Type](https://docs.canvasmedical.com/sdk/data-enumeration-types.md): Canvas SDK Enumeration Types
 - [ExternalEvent](https://docs.canvasmedical.com/sdk/data-external-event.md): Canvas SDK ExternalEvent
 - [Facility](https://docs.canvasmedical.com/sdk/data-facility.md): Canvas SDK Facility
+- [FamilyHistory](https://docs.canvasmedical.com/sdk/data-family-history.md): Canvas SDK FamilyHistory
+- [Fax](https://docs.canvasmedical.com/sdk/data-fax.md): Canvas SDK Fax and fax action events
+- [FollowUp](https://docs.canvasmedical.com/sdk/data-follow-up.md): Canvas SDK FollowUp
 - [Goal](https://docs.canvasmedical.com/sdk/data-goal.md): Canvas SDK Goal
+- [Group](https://docs.canvasmedical.com/sdk/data-group.md): Canvas SDK Group
+- [HistoryOfPresentIllness](https://docs.canvasmedical.com/sdk/data-history-present-illness.md): Canvas SDK HistoryOfPresentIllness
 - [Imaging Report Template](https://docs.canvasmedical.com/sdk/data-imaging-report-template.md): Canvas SDK Imaging Report Template
 - [Imaging](https://docs.canvasmedical.com/sdk/data-imaging.md): Canvas SDK Imaging
 - [Immunization](https://docs.canvasmedical.com/sdk/data-immunization.md): Canvas SDK Immunization
@@ -83,17 +96,27 @@ This site documents how to extend and integrate with Canvas Medical, an EHR plat
 - [PatientConsent](https://docs.canvasmedical.com/sdk/data-patient-consent.md): Canvas SDK PatientConsent
 - [Patient Group](https://docs.canvasmedical.com/sdk/data-patient-group.md): Canvas SDK Patient Group
 - [Patient](https://docs.canvasmedical.com/sdk/data-patient.md): Canvas SDK Patient
+- [PaymentCard](https://docs.canvasmedical.com/sdk/data-payment-card.md): Canvas SDK PaymentCard
 - [PayorSpecificCharge](https://docs.canvasmedical.com/sdk/data-payor-specific-charge.md): Canvas SDK PayorSpecificCharge
+- [Plan](https://docs.canvasmedical.com/sdk/data-plan.md): Canvas SDK Plan
 - [PluginCommand](https://docs.canvasmedical.com/sdk/data-plugin-command.md): Canvas SDK PluginCommand
 - [Posting](https://docs.canvasmedical.com/sdk/data-posting.md): Canvas SDK Posting and related models
 - [Practice Location](https://docs.canvasmedical.com/sdk/data-practicelocation.md): Canvas SDK Practice Location
+- [PrescriptionChangeRequest](https://docs.canvasmedical.com/sdk/data-prescription-change-request.md): Canvas SDK PrescriptionChangeRequest
+- [PrescriptionChangeResponse](https://docs.canvasmedical.com/sdk/data-prescription-change-response.md): Canvas SDK PrescriptionChangeResponse
 - [Prescription](https://docs.canvasmedical.com/sdk/data-prescription.md): Canvas SDK Prescription
+- [Procedure](https://docs.canvasmedical.com/sdk/data-procedure.md): Canvas SDK Procedure
 - [Protocol Current](https://docs.canvasmedical.com/sdk/data-protocol-current.md): Canvas SDK Protocol Current
 - [ProtocolOverride](https://docs.canvasmedical.com/sdk/data-protocol-override.md): Canvas SDK ProtocolOverride
 - [Questionnaire](https://docs.canvasmedical.com/sdk/data-questionnaire.md): Canvas SDK Questionnaire
 - [ReasonForVisit](https://docs.canvasmedical.com/sdk/data-reason-for-visit.md): Canvas SDK ReasonForVisit and its codings
+- [Receipt](https://docs.canvasmedical.com/sdk/data-receipt.md): A Canvas-generated payment receipt, one per payment collection, with a presigned URL to its PDF.
+- [Reference](https://docs.canvasmedical.com/sdk/data-reference.md): Canvas SDK Reference data model
 - [Referral](https://docs.canvasmedical.com/sdk/data-referral.md): Canvas SDK Referral
 - [RefillRequest](https://docs.canvasmedical.com/sdk/data-refill-request.md): Canvas SDK RefillRequest
+- [Remove Allergy Event](https://docs.canvasmedical.com/sdk/data-remove-allergy-event.md): Canvas SDK Remove Allergy Event
+- [Remove Past Medical History Event](https://docs.canvasmedical.com/sdk/data-remove-past-medical-history-event.md): Canvas SDK Remove Past Medical History Event
+- [Resolve Condition Event](https://docs.canvasmedical.com/sdk/data-resolve-condition-event.md): Canvas SDK Resolve Condition Event
 - [ServiceProvider](https://docs.canvasmedical.com/sdk/data-serviceprovider.md): Data model for a ServiceProvider in Canvas SDK
 - [Snapshot](https://docs.canvasmedical.com/sdk/data-snapshot.md): Images captured via the Canvas iOS application.
 - [Specialty Report Template](https://docs.canvasmedical.com/sdk/data-specialty-report-template.md): Canvas SDK Specialty Report Template
@@ -102,8 +125,10 @@ This site documents how to extend and integrate with Canvas Medical, an EHR plat
 - [Task](https://docs.canvasmedical.com/sdk/data-task.md): Canvas SDK Task
 - [Team](https://docs.canvasmedical.com/sdk/data-team.md): Canvas SDK Team
 - [Uncategorized Clinical Document](https://docs.canvasmedical.com/sdk/data-uncategorized-clinical-document.md): Canvas SDK Uncategorized Clinical Document
+- [Vaccine](https://docs.canvasmedical.com/sdk/data-vaccine.md): Canvas SDK Vaccine
 - [ValueSets](https://docs.canvasmedical.com/sdk/data-value-sets.md): Canvas SDK ValueSets
 - [VisualExamFinding](https://docs.canvasmedical.com/sdk/data-visual-exam-finding.md): Canvas SDK VisualExamFinding
+- [VitalSignReading](https://docs.canvasmedical.com/sdk/data-vital-sign-reading.md): Canvas SDK VitalSignReading
 - [Data](https://docs.canvasmedical.com/sdk/data.md)
 - [Default Homepage](https://docs.canvasmedical.com/sdk/default-homepage-effect.md): Effect for setting a provider's default homepage in Canvas
 - [Application Notification Badge](https://docs.canvasmedical.com/sdk/effect-application-notification-badge.md): Display and update a notification badge count on an application icon.
@@ -112,6 +137,7 @@ This site documents how to extend and integrate with Canvas Medical, an EHR plat
 - [Banner Alerts](https://docs.canvasmedical.com/sdk/effect-banner-alerts.md): Contextual information in a patient's chart.
 - [Batch Originate Commands](https://docs.canvasmedical.com/sdk/effect-batch-originate.md): Efficiently insert multiple commands in a single batch operation.
 - [Billing Line Items](https://docs.canvasmedical.com/sdk/effect-billing-line-items.md): Billing codes in the note footer.
+- [Charge Stored Card](https://docs.canvasmedical.com/sdk/effect-charge-stored-card.md): Charge a patient's stored payment card on file.
 - [Claim Effects](https://docs.canvasmedical.com/sdk/effect-claims.md): Effects for managing claims.
 - [CommandMetadata Effect](https://docs.canvasmedical.com/sdk/effect-command-metadata.md): Effects for command metadata management
 - [Command Validation](https://docs.canvasmedical.com/sdk/effect-command-validation.md): Validate commands and return structured error messages to users.
@@ -136,8 +162,9 @@ This site documents how to extend and integrate with Canvas Medical, an EHR plat
 - [PatientMetadata Effect](https://docs.canvasmedical.com/sdk/effect-patient-metadata.md): Effects for patient metadata management
 - [Patient Timeline](https://docs.canvasmedical.com/sdk/effect-patient-timeline.md): Configure which note types a patient's chart shows and offers.
 - [Patient Effect](https://docs.canvasmedical.com/sdk/effect-patient.md): Effects for patients
+- [Phone Dial Configuration Effect](https://docs.canvasmedical.com/sdk/effect-phone-dial-configuration.md): Make the phone numbers in a patient chart clickable so a plugin can dial them through the device or handle the click itself.
 - [Protocol Card](https://docs.canvasmedical.com/sdk/effect-protocol-cards.md): Calls to action in a patient's chart, commonly used for decision support intervention.
-- [Questionnaires](https://docs.canvasmedical.com/sdk/effect-questionnaires.md): Effects for questionnaires
+- [Questionnaires](https://docs.canvasmedical.com/sdk/effect-questionnaires.md): Author, create and score questionnaires from a plugin
 - [Redirect](https://docs.canvasmedical.com/sdk/effect-redirect.md): Navigate the Canvas frontend to an allowlisted URL, page, or application.
 - [Reload Action Buttons Effect](https://docs.canvasmedical.com/sdk/effect-reload-action-buttons.md): Force a note's or patient's action buttons to be re-evaluated in real time.
 - [Send Contact Verification](https://docs.canvasmedical.com/sdk/effect-send-contact-verification.md): Send an email or SMS verification to a patient contact point
@@ -172,8 +199,9 @@ This site documents how to extend and integrate with Canvas Medical, an EHR plat
 - [Applications](https://docs.canvasmedical.com/sdk/handlers-applications.md): Launch external content within the EHR from the app drawer.
 - [Base Handler](https://docs.canvasmedical.com/sdk/handlers-basehandler.md): Respond to system events with a list of effects.
 - [CronTask](https://docs.canvasmedical.com/sdk/handlers-crontask.md): Canvas SDK CronTasks offer scheduled code execution.
-- [Embedded Applications](https://docs.canvasmedical.com/sdk/handlers-embedded-applications.md): Handler-based applications that render inside a note or replace the scheduling modal.
+- [Embedded Applications](https://docs.canvasmedical.com/sdk/handlers-embedded-applications.md): Handler-based applications that render inside a note, replace the scheduling modal, dock a persistent pane to a window edge, or launch from the provider menu or panel bar.
 - [Payment Processors](https://docs.canvasmedical.com/sdk/handlers-payment-processors.md): Framework for defining custom payment processors using the Canvas SDK.
+- [SimpleAPI Commands](https://docs.canvasmedical.com/sdk/handlers-simple-api-commands.md): Expose Canvas commands as HTTP endpoints with the Canvas SDK.
 - [SimpleAPI HTTP](https://docs.canvasmedical.com/sdk/handlers-simple-api-http.md): Framework for defining HTTP APIs with the Canvas SDK.
 - [SimpleAPI WebSocket](https://docs.canvasmedical.com/sdk/handlers-simple-api-websocket.md): Framework for defining HTTP APIs with the Canvas SDK.
 - [SimpleAPI](https://docs.canvasmedical.com/sdk/handlers-simple-api.md): Framework for defining HTTP & WebSocket APIs with the Canvas SDK.
@@ -187,7 +215,6 @@ This site documents how to extend and integrate with Canvas Medical, an EHR plat
 - [Payment Processor](https://docs.canvasmedical.com/sdk/payment-processor-effect.md): Effects returned by custom payment processors.
 - [Plugin Logs](https://docs.canvasmedical.com/sdk/plugin-logs.md)
 - [Handlers & Protocols](https://docs.canvasmedical.com/sdk/protocols.md)
-- [Questionnaires](https://docs.canvasmedical.com/sdk/questionnaires.md): Build and install a Questionnaire.
 - [Sandboxing and Allowed Imports](https://docs.canvasmedical.com/sdk/sandboxing-and-allowed-imports.md)
 - [Managing Variables](https://docs.canvasmedical.com/sdk/secrets.md)
 - [SSO Capabilities](https://docs.canvasmedical.com/sdk/sso.md)
@@ -258,17 +285,23 @@ This site documents how to extend and integrate with Canvas Medical, an EHR plat
 ## Guides
 - [How to add additional fields to the scheduling appointment fields](https://docs.canvasmedical.com/guides/appointments-additional_fields.md)
 - [Audit Logging and Telemetry](https://docs.canvasmedical.com/guides/audit-logging-and-telemetry.md)
+- [Automating Note and Billing Workflows](https://docs.canvasmedical.com/guides/automating-note-and-billing-workflows.md)
+- [Building Custom Plugin UI with Action Buttons and SimpleAPI](https://docs.canvasmedical.com/guides/build-custom-ui-with-action-buttons.md)
 - [Choosing Your Patient Experience](https://docs.canvasmedical.com/guides/choosing-your-patient-experience.md)
 - [Creating Webhooks With the Canvas SDK](https://docs.canvasmedical.com/guides/creating-webhooks-with-the-canvas-sdk.md)
 - [Building a Custom Portal Landing Page](https://docs.canvasmedical.com/guides/custom-landing-page.md)
 - [Customize your panel buttons](https://docs.canvasmedical.com/guides/customize-panel-buttons.md)
 - [Customize Search Results](https://docs.canvasmedical.com/guides/customize-search-results.md)
+- [Customizing Commands Beyond the Built-ins](https://docs.canvasmedical.com/guides/customizing-commands.md)
 - [Embedding a SMART app into Canvas](https://docs.canvasmedical.com/guides/embedding-a-smart-on-fhir-application.md)
 - [Visualizing Data Within the Canvas Chart](https://docs.canvasmedical.com/guides/growth-charts.md)
 - [Improve HCC Coding Accuracy](https://docs.canvasmedical.com/guides/improve-hcc-coding-accuracy.md)
+- [Drive Navigator from your coding agent (MCP)](https://docs.canvasmedical.com/guides/navigator-mcp.md)
 - [Note Management External Application Integration Guide](https://docs.canvasmedical.com/guides/note-management-oauth.md)
 - [How to group items on a patient chart section](https://docs.canvasmedical.com/guides/patient-chart-group-items.md)
+- [Testing Pharmacy Workflows in a Staging Environment](https://docs.canvasmedical.com/guides/pharmacy-staging-testing.md)
 - [Platform Security Overview](https://docs.canvasmedical.com/guides/platform-security-overview.md)
+- [Plugin Development Tips and Sandbox Limits](https://docs.canvasmedical.com/guides/plugin-development-tips-and-sandbox-limits.md)
 - [Plugin Security Model](https://docs.canvasmedical.com/guides/plugin-security-model.md)
 - [Populating Command Fields](https://docs.canvasmedical.com/guides/populating-command-fields.md)
 - [How to add additional profile fields](https://docs.canvasmedical.com/guides/profile-additional-fields.md)
@@ -279,6 +312,7 @@ This site documents how to extend and integrate with Canvas Medical, an EHR plat
 - [Submit a Full Vital Panel through Canvas FHIR API](https://docs.canvasmedical.com/guides/submit-vitals-via-fhir.md)
 - [Tailoring the Chart to the Patient](https://docs.canvasmedical.com/guides/tailoring-the-chart-to-the-patient.md)
 - [Using AttributeHubs for Plugin State](https://docs.canvasmedical.com/guides/using-attribute-hubs-for-plugin-state.md)
+- [Writing Commands Over HTTP](https://docs.canvasmedical.com/guides/writing-commands-over-http.md)
 - [Your First Application](https://docs.canvasmedical.com/guides/your-first-application.md)
 - [Your First Plugin (with Claude Code)](https://docs.canvasmedical.com/guides/your-first-plugin-with-claude-code.md)
 - [Your First Plugin (Manual)](https://docs.canvasmedical.com/guides/your-first-plugin.md)
