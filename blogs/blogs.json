@@ -2,6 +2,13 @@
   "repo": "canvas-medical",
   "feeds": [
     {
+      "source": "https://www.canvasmedical.com/articles",
+      "feed_url": "https://www.canvasmedical.com/articles",
+      "title": "",
+      "saved": 0,
+      "method": "none"
+    },
+    {
       "source": "https://www.linkedin.com/company/canvas-medical",
       "feed_url": "https://www.linkedin.com/company/canvas-medical",
       "title": "",
@@ -9,7 +16,7 @@
       "method": "none"
     }
   ],
-  "fetched": "2026-10-03T12:30:02Z",
+  "fetched": "2026-10-10T13:15:00Z",
   "post_count": 13,
   "agent_pulled": "2026-06-27",
   "feed_nature": "undetermined",
