@@ -71,70 +71,83 @@ paths:
         '404':
           $ref: '#/components/responses/ResourceNotFound'
 components:
-  parameters:
-    count:
-      name: _count
-      in: query
-      schema:
-        type: integer
-        default: 20
-      description: Maximum number of results per page
-    resourceId:
-      name: id
-      in: path
-      required: true
-      schema:
-        type: string
-      description: Logical ID of the FHIR resource
-    pageToken:
-      name: _page_token
-      in: query
-      schema:
-        type: string
-      description: Pagination token for next page
   schemas:
-    Practitioner:
-      allOf:
-      - $ref: '#/components/schemas/FHIRResource'
-      - type: object
-        properties:
-          resourceType:
-            type: string
-            default: Practitioner
-          identifier:
-            type: array
-            items:
-              $ref: '#/components/schemas/Identifier'
-          active:
-            type: boolean
-          name:
-            type: array
-            items:
-              $ref: '#/components/schemas/HumanName'
-          telecom:
-            type: array
-            items:
-              $ref: '#/components/schemas/ContactPoint'
-          address:
-            type: array
-            items:
-              $ref: '#/components/schemas/Address'
-          qualification:
-            type: array
-            items:
-              type: object
-              properties:
-                code:
-                  $ref: '#/components/schemas/CodeableConcept'
-    CodeableConcept:
+    ContactPoint:
       type: object
       properties:
-        coding:
-          type: array
-          items:
-            $ref: '#/components/schemas/Coding'
-        text:
+        system:
           type: string
+          enum:
+          - phone
+          - fax
+          - email
+          - pager
+          - url
+          - sms
+          - other
+        value:
+          type: string
+        use:
+          type: string
+          enum:
+          - home
+          - work
+          - temp
+          - old
+          - mobile
+    Identifier:
+      type: object
+      properties:
+        use:
+          type: string
+          enum:
+          - usual
+          - official
+          - temp
+          - secondary
+          - old
+        type:
+          $ref: '#/components/schemas/CodeableConcept'
+        system:
+          type: string
+        value:
+          type: string
+        period:
+          $ref: '#/components/schemas/Period'
+    Period:
+      type: object
+      properties:
+        start:
+          type: string
+          format: date-time
+        end:
+          type: string
+          format: date-time
+    Narrative:
+      type: object
+      properties:
+        status:
+          type: string
+          enum:
+          - generated
+          - extensions
+          - additional
+          - empty
+        div:
+          type: string
+    Coding:
+      type: object
+      properties:
+        system:
+          type: string
+        version:
+          type: string
+        code:
+          type: string
+        display:
+          type: string
+        userSelected:
+          type: boolean
     Address:
       type: object
       properties:
@@ -168,43 +181,6 @@ components:
           type: string
         country:
           type: string
-    Identifier:
-      type: object
-      properties:
-        use:
-          type: string
-          enum:
-          - usual
-          - official
-          - temp
-          - secondary
-          - old
-        type:
-          $ref: '#/components/schemas/CodeableConcept'
-        system:
-          type: string
-        value:
-          type: string
-        period:
-          $ref: '#/components/schemas/Period'
-    Meta:
-      type: object
-      properties:
-        versionId:
-          type: string
-        lastUpdated:
-          type: string
-          format: date-time
-        source:
-          type: string
-        profile:
-          type: array
-          items:
-            type: string
-        tag:
-          type: array
-          items:
-            $ref: '#/components/schemas/Coding'
     Bundle:
       type: object
       properties:
@@ -255,15 +231,99 @@ components:
                     - match
                     - include
                     - outcome
-    Period:
+    OperationOutcome:
       type: object
       properties:
-        start:
+        resourceType:
+          type: string
+          default: OperationOutcome
+        issue:
+          type: array
+          items:
+            type: object
+            properties:
+              severity:
+                type: string
+                enum:
+                - fatal
+                - error
+                - warning
+                - information
+              code:
+                type: string
+              details:
+                $ref: '#/components/schemas/CodeableConcept'
+              diagnostics:
+                type: string
+              location:
+                type: array
+                items:
+                  type: string
+    Practitioner:
+      allOf:
+      - $ref: '#/components/schemas/FHIRResource'
+      - type: object
+        properties:
+          resourceType:
+            type: string
+            default: Practitioner
+          identifier:
+            type: array
+            items:
+              $ref: '#/components/schemas/Identifier'
+          active:
+            type: boolean
+          name:
+            type: array
+            items:
+              $ref: '#/components/schemas/HumanName'
+          telecom:
+            type: array
+            items:
+              $ref: '#/components/schemas/ContactPoint'
+          address:
+            type: array
+            items:
+              $ref: '#/components/schemas/Address'
+          qualification:
+            type: array
+            items:
+              type: object
+              properties:
+                code:
+                  $ref: '#/components/schemas/CodeableConcept'
+    FHIRResource:
+      type: object
+      description: Base FHIR R4 resource properties
+      properties:
+        resourceType:
+          type: string
+          description: FHIR resource type name
+        id:
+          type: string
+          description: Logical id of this artifact
+        meta:
+          $ref: '#/components/schemas/Meta'
+        text:
+          $ref: '#/components/schemas/Narrative'
+    Meta:
+      type: object
+      properties:
+        versionId:
+          type: string
+        lastUpdated:
           type: string
           format: date-time
-        end:
+        source:
           type: string
-          format: date-time
+        profile:
+          type: array
+          items:
+            type: string
+        tag:
+          type: array
+          items:
+            $ref: '#/components/schemas/Coding'
     HumanName:
       type: object
       properties:
@@ -293,105 +353,45 @@ components:
           type: array
           items:
             type: string
-    Coding:
+    CodeableConcept:
       type: object
       properties:
-        system:
-          type: string
-        version:
-          type: string
-        code:
-          type: string
-        display:
-          type: string
-        userSelected:
-          type: boolean
-    Narrative:
-      type: object
-      properties:
-        status:
-          type: string
-          enum:
-          - generated
-          - extensions
-          - additional
-          - empty
-        div:
-          type: string
-    ContactPoint:
-      type: object
-      properties:
-        system:
-          type: string
-          enum:
-          - phone
-          - fax
-          - email
-          - pager
-          - url
-          - sms
-          - other
-        value:
-          type: string
-        use:
-          type: string
-          enum:
-          - home
-          - work
-          - temp
-          - old
-          - mobile
-    FHIRResource:
-      type: object
-      description: Base FHIR R4 resource properties
-      properties:
-        resourceType:
-          type: string
-          description: FHIR resource type name
-        id:
-          type: string
-          description: Logical id of this artifact
-        meta:
-          $ref: '#/components/schemas/Meta'
-        text:
-          $ref: '#/components/schemas/Narrative'
-    OperationOutcome:
-      type: object
-      properties:
-        resourceType:
-          type: string
-          default: OperationOutcome
-        issue:
+        coding:
           type: array
           items:
-            type: object
-            properties:
-              severity:
-                type: string
-                enum:
-                - fatal
-                - error
-                - warning
-                - information
-              code:
-                type: string
-              details:
-                $ref: '#/components/schemas/CodeableConcept'
-              diagnostics:
-                type: string
-              location:
-                type: array
-                items:
-                  type: string
+            $ref: '#/components/schemas/Coding'
+        text:
+          type: string
+  parameters:
+    pageToken:
+      name: _page_token
+      in: query
+      schema:
+        type: string
+      description: Pagination token for next page
+    resourceId:
+      name: id
+      in: path
+      required: true
+      schema:
+        type: string
+      description: Logical ID of the FHIR resource
+    count:
+      name: _count
+      in: query
+      schema:
+        type: integer
+        default: 20
+      description: Maximum number of results per page
   responses:
-    ResourceNotFound:
-      description: Resource not found
+    Unauthorized:
+      description: Authentication required
       content:
         application/fhir+json:
           schema:
             $ref: '#/components/schemas/OperationOutcome'
-    Unauthorized:
-      description: Authentication required
+    ResourceNotFound:
+      description: Resource not found
       content:
         application/fhir+json:
           schema:

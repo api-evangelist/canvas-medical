@@ -112,13 +112,12 @@ paths:
           $ref: '#/components/responses/ResourceNotFound'
 components:
   parameters:
-    resourceId:
-      name: id
-      in: path
-      required: true
+    pageToken:
+      name: _page_token
+      in: query
       schema:
         type: string
-      description: Logical ID of the FHIR resource
+      description: Pagination token for next page
     patient:
       name: patient
       in: query
@@ -131,12 +130,13 @@ components:
       schema:
         type: string
       description: Filter by resource status
-    pageToken:
-      name: _page_token
-      in: query
+    resourceId:
+      name: id
+      in: path
+      required: true
       schema:
         type: string
-      description: Pagination token for next page
+      description: Logical ID of the FHIR resource
     count:
       name: _count
       in: query
@@ -145,61 +145,31 @@ components:
         default: 20
       description: Maximum number of results per page
   schemas:
-    CodeableConcept:
+    Narrative:
       type: object
       properties:
-        coding:
-          type: array
-          items:
-            $ref: '#/components/schemas/Coding'
-        text:
+        status:
           type: string
-    OperationOutcome:
+          enum:
+          - generated
+          - extensions
+          - additional
+          - empty
+        div:
+          type: string
+    Coding:
       type: object
       properties:
-        resourceType:
+        system:
           type: string
-          default: OperationOutcome
-        issue:
-          type: array
-          items:
-            type: object
-            properties:
-              severity:
-                type: string
-                enum:
-                - fatal
-                - error
-                - warning
-                - information
-              code:
-                type: string
-              details:
-                $ref: '#/components/schemas/CodeableConcept'
-              diagnostics:
-                type: string
-              location:
-                type: array
-                items:
-                  type: string
-    Meta:
-      type: object
-      properties:
-        versionId:
+        version:
           type: string
-        lastUpdated:
+        code:
           type: string
-          format: date-time
-        source:
+        display:
           type: string
-        profile:
-          type: array
-          items:
-            type: string
-        tag:
-          type: array
-          items:
-            $ref: '#/components/schemas/Coding'
+        userSelected:
+          type: boolean
     Bundle:
       type: object
       properties:
@@ -250,19 +220,43 @@ components:
                     - match
                     - include
                     - outcome
-    Coding:
+    Reference:
       type: object
       properties:
-        system:
+        reference:
           type: string
-        version:
-          type: string
-        code:
+        type:
           type: string
         display:
           type: string
-        userSelected:
-          type: boolean
+    OperationOutcome:
+      type: object
+      properties:
+        resourceType:
+          type: string
+          default: OperationOutcome
+        issue:
+          type: array
+          items:
+            type: object
+            properties:
+              severity:
+                type: string
+                enum:
+                - fatal
+                - error
+                - warning
+                - information
+              code:
+                type: string
+              details:
+                $ref: '#/components/schemas/CodeableConcept'
+              diagnostics:
+                type: string
+              location:
+                type: array
+                items:
+                  type: string
     AllergyIntolerance:
       allOf:
       - $ref: '#/components/schemas/FHIRResource'
@@ -311,27 +305,6 @@ components:
                   - mild
                   - moderate
                   - severe
-    Reference:
-      type: object
-      properties:
-        reference:
-          type: string
-        type:
-          type: string
-        display:
-          type: string
-    Narrative:
-      type: object
-      properties:
-        status:
-          type: string
-          enum:
-          - generated
-          - extensions
-          - additional
-          - empty
-        div:
-          type: string
     FHIRResource:
       type: object
       description: Base FHIR R4 resource properties
@@ -346,13 +319,34 @@ components:
           $ref: '#/components/schemas/Meta'
         text:
           $ref: '#/components/schemas/Narrative'
+    Meta:
+      type: object
+      properties:
+        versionId:
+          type: string
+        lastUpdated:
+          type: string
+          format: date-time
+        source:
+          type: string
+        profile:
+          type: array
+          items:
+            type: string
+        tag:
+          type: array
+          items:
+            $ref: '#/components/schemas/Coding'
+    CodeableConcept:
+      type: object
+      properties:
+        coding:
+          type: array
+          items:
+            $ref: '#/components/schemas/Coding'
+        text:
+          type: string
   responses:
-    ResourceNotFound:
-      description: Resource not found
-      content:
-        application/fhir+json:
-          schema:
-            $ref: '#/components/schemas/OperationOutcome'
     UnprocessableEntity:
       description: Validation error
       content:
@@ -361,6 +355,12 @@ components:
             $ref: '#/components/schemas/OperationOutcome'
     Unauthorized:
       description: Authentication required
+      content:
+        application/fhir+json:
+          schema:
+            $ref: '#/components/schemas/OperationOutcome'
+    ResourceNotFound:
+      description: Resource not found
       content:
         application/fhir+json:
           schema:

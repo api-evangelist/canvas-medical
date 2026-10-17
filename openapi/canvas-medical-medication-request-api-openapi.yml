@@ -117,13 +117,12 @@ paths:
           $ref: '#/components/responses/ResourceNotFound'
 components:
   parameters:
-    resourceId:
-      name: id
-      in: path
-      required: true
+    pageToken:
+      name: _page_token
+      in: query
       schema:
         type: string
-      description: Logical ID of the FHIR resource
+      description: Pagination token for next page
     patient:
       name: patient
       in: query
@@ -136,12 +135,13 @@ components:
       schema:
         type: string
       description: Filter by resource status
-    pageToken:
-      name: _page_token
-      in: query
+    resourceId:
+      name: id
+      in: path
+      required: true
       schema:
         type: string
-      description: Pagination token for next page
+      description: Logical ID of the FHIR resource
     count:
       name: _count
       in: query
@@ -150,14 +150,87 @@ components:
         default: 20
       description: Maximum number of results per page
   schemas:
-    CodeableConcept:
+    Narrative:
       type: object
       properties:
-        coding:
-          type: array
-          items:
-            $ref: '#/components/schemas/Coding'
-        text:
+        status:
+          type: string
+          enum:
+          - generated
+          - extensions
+          - additional
+          - empty
+        div:
+          type: string
+    Coding:
+      type: object
+      properties:
+        system:
+          type: string
+        version:
+          type: string
+        code:
+          type: string
+        display:
+          type: string
+        userSelected:
+          type: boolean
+    MedicationRequest:
+      allOf:
+      - $ref: '#/components/schemas/FHIRResource'
+      - type: object
+        required:
+        - resourceType
+        - status
+        - intent
+        - subject
+        properties:
+          resourceType:
+            type: string
+            default: MedicationRequest
+          status:
+            type: string
+            enum:
+            - active
+            - on-hold
+            - cancelled
+            - completed
+            - entered-in-error
+            - stopped
+            - draft
+            - unknown
+          intent:
+            type: string
+            enum:
+            - proposal
+            - plan
+            - order
+            - original-order
+            - reflex-order
+            - filler-order
+            - instance-order
+            - option
+          medicationCodeableConcept:
+            $ref: '#/components/schemas/CodeableConcept'
+          medicationReference:
+            $ref: '#/components/schemas/Reference'
+          subject:
+            $ref: '#/components/schemas/Reference'
+          encounter:
+            $ref: '#/components/schemas/Reference'
+          authoredOn:
+            type: string
+            format: date-time
+          requester:
+            $ref: '#/components/schemas/Reference'
+    Reference:
+      type: object
+      properties:
+        reference:
+          type: string
+        type:
+          type: string
+        display:
           type: string
     OperationOutcome:
       type: object
@@ -187,6 +260,20 @@ components:
                 type: array
                 items:
                   type: string
+    FHIRResource:
+      type: object
+      description: Base FHIR R4 resource properties
+      properties:
+        resourceType:
+          type: string
+          description: FHIR resource type name
+        id:
+          type: string
+          description: Logical id of this artifact
+        meta:
+          $ref: '#/components/schemas/Meta'
+        text:
+          $ref: '#/components/schemas/Narrative'
     Meta:
       type: object
       properties:
@@ -255,109 +342,16 @@ components:
                     - match
                     - include
                     - outcome
-    Coding:
+    CodeableConcept:
       type: object
       properties:
-        system:
-          type: string
-        version:
-          type: string
-        code:
-          type: string
-        display:
-          type: string
-        userSelected:
-          type: boolean
-    Reference:
-      type: object
-      properties:
-        reference:
-          type: string
-        type:
-          type: string
-        display:
-          type: string
-    Narrative:
-      type: object
-      properties:
-        status:
-          type: string
-          enum:
-          - generated
-          - extensions
-          - additional
-          - empty
-        div:
-          type: string
-    MedicationRequest:
-      allOf:
-      - $ref: '#/components/schemas/FHIRResource'
-      - type: object
-        required:
-        - resourceType
-        - status
-        - intent
-        - subject
-        properties:
-          resourceType:
-            type: string
-            default: MedicationRequest
-          status:
-            type: string
-            enum:
-            - active
-            - on-hold
-            - cancelled
-            - completed
-            - entered-in-error
-            - stopped
-            - draft
-            - unknown
-          intent:
-            type: string
-            enum:
-            - proposal
-            - plan
-            - order
-            - original-order
-            - reflex-order
-            - filler-order
-            - instance-order
-            - option
-          medicationCodeableConcept:
-            $ref: '#/components/schemas/CodeableConcept'
-          medicationReference:
-            $ref: '#/components/schemas/Reference'
-          subject:
-            $ref: '#/components/schemas/Reference'
-          encounter:
-            $ref: '#/components/schemas/Reference'
-          authoredOn:
-            type: string
-            format: date-time
-          requester:
-            $ref: '#/components/schemas/Reference'
-    FHIRResource:
-      type: object
-      description: Base FHIR R4 resource properties
-      properties:
-        resourceType:
-          type: string
-          description: FHIR resource type name
-        id:
-          type: string
-          description: Logical id of this artifact
-        meta:
-          $ref: '#/components/schemas/Meta'
+        coding:
+          type: array
+          items:
+            $ref: '#/components/schemas/Coding'
         text:
-          $ref: '#/components/schemas/Narrative'
+          type: string
   responses:
-    ResourceNotFound:
-      description: Resource not found
-      content:
-        application/fhir+json:
-          schema:
-            $ref: '#/components/schemas/OperationOutcome'
     UnprocessableEntity:
       description: Validation error
       content:
@@ -366,6 +360,12 @@ components:
             $ref: '#/components/schemas/OperationOutcome'
     Unauthorized:
       description: Authentication required
+      content:
+        application/fhir+json:
+          schema:
+            $ref: '#/components/schemas/OperationOutcome'
+    ResourceNotFound:
+      description: Resource not found
       content:
         application/fhir+json:
           schema:

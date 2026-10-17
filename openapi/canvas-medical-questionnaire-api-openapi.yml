@@ -91,13 +91,18 @@ paths:
           $ref: '#/components/responses/ResourceNotFound'
 components:
   parameters:
-    count:
-      name: _count
+    pageToken:
+      name: _page_token
       in: query
       schema:
-        type: integer
-        default: 20
-      description: Maximum number of results per page
+        type: string
+      description: Pagination token for next page
+    status:
+      name: status
+      in: query
+      schema:
+        type: string
+      description: Filter by resource status
     resourceId:
       name: id
       in: path
@@ -105,96 +110,39 @@ components:
       schema:
         type: string
       description: Logical ID of the FHIR resource
-    status:
-      name: status
+    count:
+      name: _count
       in: query
       schema:
-        type: string
-      description: Filter by resource status
-    pageToken:
-      name: _page_token
-      in: query
-      schema:
-        type: string
-      description: Pagination token for next page
+        type: integer
+        default: 20
+      description: Maximum number of results per page
   schemas:
-    CodeableConcept:
+    Narrative:
       type: object
       properties:
-        coding:
-          type: array
-          items:
-            $ref: '#/components/schemas/Coding'
-        text:
+        status:
           type: string
-    Questionnaire:
-      allOf:
-      - $ref: '#/components/schemas/FHIRResource'
-      - type: object
-        required:
-        - resourceType
-        - status
-        properties:
-          resourceType:
-            type: string
-            default: Questionnaire
-          url:
-            type: string
-          title:
-            type: string
-          status:
-            type: string
-            enum:
-            - draft
-            - active
-            - retired
-            - unknown
-          item:
-            type: array
-            items:
-              type: object
-              properties:
-                linkId:
-                  type: string
-                text:
-                  type: string
-                type:
-                  type: string
-                  enum:
-                  - group
-                  - display
-                  - boolean
-                  - decimal
-                  - integer
-                  - date
-                  - dateTime
-                  - time
-                  - string
-                  - text
-                  - url
-                  - choice
-                  - open-choice
-                  - attachment
-                  - reference
-                  - quantity
-    Meta:
+          enum:
+          - generated
+          - extensions
+          - additional
+          - empty
+        div:
+          type: string
+    Coding:
       type: object
       properties:
-        versionId:
+        system:
           type: string
-        lastUpdated:
+        version:
           type: string
-          format: date-time
-        source:
+        code:
           type: string
-        profile:
-          type: array
-          items:
-            type: string
-        tag:
-          type: array
-          items:
-            $ref: '#/components/schemas/Coding'
+        display:
+          type: string
+        userSelected:
+          type: boolean
     Bundle:
       type: object
       properties:
@@ -245,45 +193,6 @@ components:
                     - match
                     - include
                     - outcome
-    Coding:
-      type: object
-      properties:
-        system:
-          type: string
-        version:
-          type: string
-        code:
-          type: string
-        display:
-          type: string
-        userSelected:
-          type: boolean
-    Narrative:
-      type: object
-      properties:
-        status:
-          type: string
-          enum:
-          - generated
-          - extensions
-          - additional
-          - empty
-        div:
-          type: string
-    FHIRResource:
-      type: object
-      description: Base FHIR R4 resource properties
-      properties:
-        resourceType:
-          type: string
-          description: FHIR resource type name
-        id:
-          type: string
-          description: Logical id of this artifact
-        meta:
-          $ref: '#/components/schemas/Meta'
-        text:
-          $ref: '#/components/schemas/Narrative'
     OperationOutcome:
       type: object
       properties:
@@ -312,13 +221,98 @@ components:
                 type: array
                 items:
                   type: string
+    FHIRResource:
+      type: object
+      description: Base FHIR R4 resource properties
+      properties:
+        resourceType:
+          type: string
+          description: FHIR resource type name
+        id:
+          type: string
+          description: Logical id of this artifact
+        meta:
+          $ref: '#/components/schemas/Meta'
+        text:
+          $ref: '#/components/schemas/Narrative'
+    Meta:
+      type: object
+      properties:
+        versionId:
+          type: string
+        lastUpdated:
+          type: string
+          format: date-time
+        source:
+          type: string
+        profile:
+          type: array
+          items:
+            type: string
+        tag:
+          type: array
+          items:
+            $ref: '#/components/schemas/Coding'
+    Questionnaire:
+      allOf:
+      - $ref: '#/components/schemas/FHIRResource'
+      - type: object
+        required:
+        - resourceType
+        - status
+        properties:
+          resourceType:
+            type: string
+            default: Questionnaire
+          url:
+            type: string
+          title:
+            type: string
+          status:
+            type: string
+            enum:
+            - draft
+            - active
+            - retired
+            - unknown
+          item:
+            type: array
+            items:
+              type: object
+              properties:
+                linkId:
+                  type: string
+                text:
+                  type: string
+                type:
+                  type: string
+                  enum:
+                  - group
+                  - display
+                  - boolean
+                  - decimal
+                  - integer
+                  - date
+                  - dateTime
+                  - time
+                  - string
+                  - text
+                  - url
+                  - choice
+                  - open-choice
+                  - attachment
+                  - reference
+                  - quantity
+    CodeableConcept:
+      type: object
+      properties:
+        coding:
+          type: array
+          items:
+            $ref: '#/components/schemas/Coding'
+        text:
+          type: string
   responses:
-    ResourceNotFound:
-      description: Resource not found
-      content:
-        application/fhir+json:
-          schema:
-            $ref: '#/components/schemas/OperationOutcome'
     UnprocessableEntity:
       description: Validation error
       content:
@@ -327,6 +321,12 @@ components:
             $ref: '#/components/schemas/OperationOutcome'
     Unauthorized:
       description: Authentication required
+      content:
+        application/fhir+json:
+          schema:
+            $ref: '#/components/schemas/OperationOutcome'
+    ResourceNotFound:
+      description: Resource not found
       content:
         application/fhir+json:
           schema:

@@ -67,6 +67,24 @@ paths:
           $ref: '#/components/responses/ResourceNotFound'
 components:
   parameters:
+    pageToken:
+      name: _page_token
+      in: query
+      schema:
+        type: string
+      description: Pagination token for next page
+    patient:
+      name: patient
+      in: query
+      schema:
+        type: string
+      description: Filter by patient ID or reference
+    date:
+      name: date
+      in: query
+      schema:
+        type: string
+      description: Filter by date (FHIR date search parameter)
     resourceId:
       name: id
       in: path
@@ -74,30 +92,12 @@ components:
       schema:
         type: string
       description: Logical ID of the FHIR resource
-    patient:
-      name: patient
-      in: query
-      schema:
-        type: string
-      description: Filter by patient ID or reference
     status:
       name: status
       in: query
       schema:
         type: string
       description: Filter by resource status
-    pageToken:
-      name: _page_token
-      in: query
-      schema:
-        type: string
-      description: Pagination token for next page
-    date:
-      name: date
-      in: query
-      schema:
-        type: string
-      description: Filter by date (FHIR date search parameter)
     count:
       name: _count
       in: query
@@ -106,61 +106,31 @@ components:
         default: 20
       description: Maximum number of results per page
   schemas:
-    CodeableConcept:
+    Narrative:
       type: object
       properties:
-        coding:
-          type: array
-          items:
-            $ref: '#/components/schemas/Coding'
-        text:
+        status:
           type: string
-    OperationOutcome:
+          enum:
+          - generated
+          - extensions
+          - additional
+          - empty
+        div:
+          type: string
+    Coding:
       type: object
       properties:
-        resourceType:
+        system:
           type: string
-          default: OperationOutcome
-        issue:
-          type: array
-          items:
-            type: object
-            properties:
-              severity:
-                type: string
-                enum:
-                - fatal
-                - error
-                - warning
-                - information
-              code:
-                type: string
-              details:
-                $ref: '#/components/schemas/CodeableConcept'
-              diagnostics:
-                type: string
-              location:
-                type: array
-                items:
-                  type: string
-    Meta:
-      type: object
-      properties:
-        versionId:
+        version:
           type: string
-        lastUpdated:
+        code:
           type: string
-          format: date-time
-        source:
+        display:
           type: string
-        profile:
-          type: array
-          items:
-            type: string
-        tag:
-          type: array
-          items:
-            $ref: '#/components/schemas/Coding'
+        userSelected:
+          type: boolean
     Bundle:
       type: object
       properties:
@@ -211,19 +181,6 @@ components:
                     - match
                     - include
                     - outcome
-    Coding:
-      type: object
-      properties:
-        system:
-          type: string
-        version:
-          type: string
-        code:
-          type: string
-        display:
-          type: string
-        userSelected:
-          type: boolean
     Reference:
       type: object
       properties:
@@ -233,18 +190,24 @@ components:
           type: string
         display:
           type: string
-    Narrative:
+    Meta:
       type: object
       properties:
-        status:
+        versionId:
           type: string
-          enum:
-          - generated
-          - extensions
-          - additional
-          - empty
-        div:
+        lastUpdated:
           type: string
+          format: date-time
+        source:
+          type: string
+        profile:
+          type: array
+          items:
+            type: string
+        tag:
+          type: array
+          items:
+            $ref: '#/components/schemas/Coding'
     FHIRResource:
       type: object
       description: Base FHIR R4 resource properties
@@ -259,6 +222,43 @@ components:
           $ref: '#/components/schemas/Meta'
         text:
           $ref: '#/components/schemas/Narrative'
+    OperationOutcome:
+      type: object
+      properties:
+        resourceType:
+          type: string
+          default: OperationOutcome
+        issue:
+          type: array
+          items:
+            type: object
+            properties:
+              severity:
+                type: string
+                enum:
+                - fatal
+                - error
+                - warning
+                - information
+              code:
+                type: string
+              details:
+                $ref: '#/components/schemas/CodeableConcept'
+              diagnostics:
+                type: string
+              location:
+                type: array
+                items:
+                  type: string
+    CodeableConcept:
+      type: object
+      properties:
+        coding:
+          type: array
+          items:
+            $ref: '#/components/schemas/Coding'
+        text:
+          type: string
     DiagnosticReport:
       allOf:
       - $ref: '#/components/schemas/FHIRResource'
@@ -300,14 +300,14 @@ components:
             items:
               $ref: '#/components/schemas/Reference'
   responses:
-    ResourceNotFound:
-      description: Resource not found
+    Unauthorized:
+      description: Authentication required
       content:
         application/fhir+json:
           schema:
             $ref: '#/components/schemas/OperationOutcome'
-    Unauthorized:
-      description: Authentication required
+    ResourceNotFound:
+      description: Resource not found
       content:
         application/fhir+json:
           schema:

@@ -198,9 +198,11 @@ common:
 apis:
 - aid: canvas-medical:canvas-medical-fhir-api
   name: Canvas Medical FHIR API
-  description: A FHIR R4-compliant REST API providing secure access to electronic health record data including 41 FHIR resources (21 with write
-    capabilities) covering clinical, administrative, financial, and care coordination domains. Supports OAuth 2.0 Client Credentials and Authorization
-    Code flows with SMART on FHIR scopes for machine-to-machine and user-delegated access.
+  description: >-
+    A FHIR R4-compliant REST API providing secure access to electronic health record data including 41
+    FHIR resources (21 with write capabilities) covering clinical, administrative, financial, and care
+    coordination domains. Supports OAuth 2.0 Client Credentials and Authorization Code flows with SMART
+    on FHIR scopes for machine-to-machine and user-delegated access.
   image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
   humanURL: https://docs.canvasmedical.com/api/
   baseURL: https://fumage-{canvas-instance}.canvasmedical.com
@@ -219,9 +221,11 @@ apis:
     url: https://docs.canvasmedical.com/product-updates/release-notes/
 - aid: canvas-medical:canvas-medical-sdk
   name: Canvas Medical SDK
-  description: A Python SDK that enables developers to build plugins that execute natively within the Canvas EMR infrastructure. Supports an event-driven
-    architecture with over 650 clinical and operational events, Django ORM database access, effects for modifying data and automating workflows,
-    and pre-built integrations with AWS S3, LLMs, SendGrid, Twilio, and Extend AI.
+  description: >-
+    A Python SDK that enables developers to build plugins that execute natively within the Canvas EMR
+    infrastructure. Supports an event-driven architecture with over 650 clinical and operational events,
+    Django ORM database access, effects for modifying data and automating workflows, and pre-built integrations
+    with AWS S3, LLMs, SendGrid, Twilio, and Extend AI.
   image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
   humanURL: https://docs.canvasmedical.com/sdk/
   baseURL: https://pypi.org/project/canvas/
@@ -597,6 +601,12 @@ apis:
     url: json-schema/canvas-medical-allergy-intolerance-schema.json
   - type: JSONSchema
     url: json-schema/canvas-medical-bundle-schema.json
+  - type: JSONSchema
+    url: json-schema/canvas-medical-care-plan-schema.json
+  - type: JSONSchema
+    url: json-schema/canvas-medical-document-reference-schema.json
+  - type: JSONSchema
+    url: json-schema/canvas-medical-medication-request-schema.json
 - aid: canvas-medical:canvas-medical-care-plan-api
   name: Canvas Medical Care plan API
   description: Care plan management
@@ -608,9 +618,15 @@ apis:
   - type: OpenAPI
     url: openapi/canvas-medical-care-plan-api-openapi.yml
   - type: JSONSchema
+    url: json-schema/canvas-medical-allergy-intolerance-schema.json
+  - type: JSONSchema
     url: json-schema/canvas-medical-bundle-schema.json
   - type: JSONSchema
     url: json-schema/canvas-medical-care-plan-schema.json
+  - type: JSONSchema
+    url: json-schema/canvas-medical-document-reference-schema.json
+  - type: JSONSchema
+    url: json-schema/canvas-medical-medication-request-schema.json
 - aid: canvas-medical:canvas-medical-document-reference-api
   name: Canvas Medical Document Reference API
   description: Clinical documents and attachments
@@ -622,9 +638,15 @@ apis:
   - type: OpenAPI
     url: openapi/canvas-medical-document-reference-api-openapi.yml
   - type: JSONSchema
-    url: json-schema/canvas-medical-document-reference-schema.json
+    url: json-schema/canvas-medical-allergy-intolerance-schema.json
   - type: JSONSchema
     url: json-schema/canvas-medical-bundle-schema.json
+  - type: JSONSchema
+    url: json-schema/canvas-medical-care-plan-schema.json
+  - type: JSONSchema
+    url: json-schema/canvas-medical-document-reference-schema.json
+  - type: JSONSchema
+    url: json-schema/canvas-medical-medication-request-schema.json
 - aid: canvas-medical:canvas-medical-medication-request-api
   name: Canvas Medical Medication Request API
   description: Medication prescriptions and orders
@@ -636,9 +658,15 @@ apis:
   - type: OpenAPI
     url: openapi/canvas-medical-medication-request-api-openapi.yml
   - type: JSONSchema
-    url: json-schema/canvas-medical-medication-request-schema.json
+    url: json-schema/canvas-medical-allergy-intolerance-schema.json
   - type: JSONSchema
     url: json-schema/canvas-medical-bundle-schema.json
+  - type: JSONSchema
+    url: json-schema/canvas-medical-care-plan-schema.json
+  - type: JSONSchema
+    url: json-schema/canvas-medical-document-reference-schema.json
+  - type: JSONSchema
+    url: json-schema/canvas-medical-medication-request-schema.json
 x-enrichment:
   date: '2026-10-12'
   status: enriched

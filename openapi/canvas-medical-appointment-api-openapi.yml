@@ -127,20 +127,12 @@ paths:
           $ref: '#/components/responses/ResourceNotFound'
 components:
   parameters:
-    count:
-      name: _count
+    pageToken:
+      name: _page_token
       in: query
       schema:
-        type: integer
-        default: 20
-      description: Maximum number of results per page
-    resourceId:
-      name: id
-      in: path
-      required: true
-      schema:
         type: string
-      description: Logical ID of the FHIR resource
+      description: Pagination token for next page
     patient:
       name: patient
       in: query
@@ -153,22 +145,46 @@ components:
       schema:
         type: string
       description: Filter by resource status
-    pageToken:
-      name: _page_token
-      in: query
+    resourceId:
+      name: id
+      in: path
+      required: true
       schema:
         type: string
-      description: Pagination token for next page
+      description: Logical ID of the FHIR resource
+    count:
+      name: _count
+      in: query
+      schema:
+        type: integer
+        default: 20
+      description: Maximum number of results per page
   schemas:
-    CodeableConcept:
+    Narrative:
       type: object
       properties:
-        coding:
-          type: array
-          items:
-            $ref: '#/components/schemas/Coding'
-        text:
+        status:
           type: string
+          enum:
+          - generated
+          - extensions
+          - additional
+          - empty
+        div:
+          type: string
+    Coding:
+      type: object
+      properties:
+        system:
+          type: string
+        version:
+          type: string
+        code:
+          type: string
+        display:
+          type: string
+        userSelected:
+          type: boolean
     Appointment:
       allOf:
       - $ref: '#/components/schemas/FHIRResource'
@@ -223,24 +239,6 @@ components:
                   - declined
                   - tentative
                   - needs-action
-    Meta:
-      type: object
-      properties:
-        versionId:
-          type: string
-        lastUpdated:
-          type: string
-          format: date-time
-        source:
-          type: string
-        profile:
-          type: array
-          items:
-            type: string
-        tag:
-          type: array
-          items:
-            $ref: '#/components/schemas/Coding'
     Bundle:
       type: object
       properties:
@@ -291,31 +289,6 @@ components:
                     - match
                     - include
                     - outcome
-    Coding:
-      type: object
-      properties:
-        system:
-          type: string
-        version:
-          type: string
-        code:
-          type: string
-        display:
-          type: string
-        userSelected:
-          type: boolean
-    Narrative:
-      type: object
-      properties:
-        status:
-          type: string
-          enum:
-          - generated
-          - extensions
-          - additional
-          - empty
-        div:
-          type: string
     Reference:
       type: object
       properties:
@@ -325,20 +298,6 @@ components:
           type: string
         display:
           type: string
-    FHIRResource:
-      type: object
-      description: Base FHIR R4 resource properties
-      properties:
-        resourceType:
-          type: string
-          description: FHIR resource type name
-        id:
-          type: string
-          description: Logical id of this artifact
-        meta:
-          $ref: '#/components/schemas/Meta'
-        text:
-          $ref: '#/components/schemas/Narrative'
     OperationOutcome:
       type: object
       properties:
@@ -367,13 +326,48 @@ components:
                 type: array
                 items:
                   type: string
+    FHIRResource:
+      type: object
+      description: Base FHIR R4 resource properties
+      properties:
+        resourceType:
+          type: string
+          description: FHIR resource type name
+        id:
+          type: string
+          description: Logical id of this artifact
+        meta:
+          $ref: '#/components/schemas/Meta'
+        text:
+          $ref: '#/components/schemas/Narrative'
+    Meta:
+      type: object
+      properties:
+        versionId:
+          type: string
+        lastUpdated:
+          type: string
+          format: date-time
+        source:
+          type: string
+        profile:
+          type: array
+          items:
+            type: string
+        tag:
+          type: array
+          items:
+            $ref: '#/components/schemas/Coding'
+    CodeableConcept:
+      type: object
+      properties:
+        coding:
+          type: array
+          items:
+            $ref: '#/components/schemas/Coding'
+        text:
+          type: string
   responses:
-    ResourceNotFound:
-      description: Resource not found
-      content:
-        application/fhir+json:
-          schema:
-            $ref: '#/components/schemas/OperationOutcome'
     UnprocessableEntity:
       description: Validation error
       content:
@@ -382,6 +376,12 @@ components:
             $ref: '#/components/schemas/OperationOutcome'
     Unauthorized:
       description: Authentication required
+      content:
+        application/fhir+json:
+          schema:
+            $ref: '#/components/schemas/OperationOutcome'
+    ResourceNotFound:
+      description: Resource not found
       content:
         application/fhir+json:
           schema:
